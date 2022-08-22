@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+  <bean id="a" class="com.sist.spring.AModel"/>
+  <bean id="b" class="com.sist.spring.BModel"/>
+  <bean id="c" class="com.sist.spring.CModel"/>
+</beans>
