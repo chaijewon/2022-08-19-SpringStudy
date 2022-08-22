@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- 
+        init-method : 객체 생성시 자동 호출 
+        destroy-method : 객체소멸시에 호출 
+               나머지 메소드 = 프로그래머가 호출
+     -->
+    <bean id="std" class="com.sist.spring1.Student"
+      p:hakbun="1"
+      p:name="홍길동"
+      p:kor="80"
+      p:eng="90"
+      p:math="87"
+      init-method="init"
+      destroy-method="destory"
+    />
+</beans>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- 
+        public Member(int mno,String name,String addr)
+                        0          1          2       == index
+                        
+                 멤버변수의 초기화 => 메모리 할당 
+         = 생성자 
+         = setter 사용 (O)
+         = 메소드 DI  
+     -->
+    <bean id="mem1" class="com.sist.spring.Member"> <!-- default 생성자 (매개변수가 없는 생성자 호출) -->
+      <constructor-arg index="0">
+        <value>1</value>
+      </constructor-arg>
+      <constructor-arg index="1">
+        <value>홍길동</value>
+      </constructor-arg>
+      <constructor-arg index="2">
+         <value>서울</value>
+      </constructor-arg>
+    </bean>
+    
+    <bean id="mem2" class="com.sist.spring.Member"
+      c:mno="2"
+      c:name="심청이"
+      c:addr="부산"
+    />
+    
+    <bean id="mem3" class="com.sist.spring.Member"
+      c:_00="3"
+      c:_01="박문수"
+      c:_02="경기"
+    />
+</beans>
+
+
+
+
+
+
+
+

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- 
+       DI = setter DI (setXxx())
+                       생성자 DI (생성자 매개변수)
+           Method DI 
+                             객체 생성시 : init-method (드라이버 등록, 자동 로그인)
+                             객체소멸시  : destory-method(데이터베이스 해제 , 네트워크 종료)
+                             
+                    컨테이너 동작 순서    
+           순서
+           1) XML,어노테이션 을 읽어서 클래스 메모리 할당 (등록된 클래스에 대해서만 메모리 할당)
+           2) DI수행 (생성자 DI , setter DI)
+           3) init-method에 등록된 메소드 호출 
+           ================================================================
+           4) 사용자 정의 (프로그래머)
+           ================================================================
+           5) 객체 메모리 해제  
+     -->
+    <bean id="sa1" class="com.sist.web.SawonVO"><!-- 메모리 할당 -->
+      <!-- 멤버변수의 값을 채운후에 메모리 할당 (초기화) : DAO -->
+      <property name="sabun"><value>1</value></property>
+      <!--  sa1.setSabun(1) -->
+      <property name="name"><value>홍길동</value></property>
+      <property name="dept"><value>개발부</value></property>
+      <property name="job"><value>사원</value></property>
+      <property name="loc"><value>서울</value></property>
+    </bean>
+    <bean id="sa2" class="com.sist.web.SawonVO">
+      <property name="sabun" value="2"/>
+      <property name="name" value="심청이"/>
+      <property name="dept" value="총무부"/>
+      <property name="job" value="대리"/>
+      <property name="loc" value="부산"/>
+    </bean>
+    <bean id="sa3" class="com.sist.web.SawonVO"
+      p:sabun="3"
+      p:name="박문수"
+      p:dept="개발부"
+      p:job="팀장"
+      p:loc="경기"
+    />
+</beans>
+
+
+
+
+
+
+
+
+
+
