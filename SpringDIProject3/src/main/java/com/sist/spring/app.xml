@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+  <bean id="sa" class="com.sist.spring.Sawon"
+    p:sabun="1"
+    p:name="홍길동"
+    p:dept="개발부"
+  />
+</beans>
