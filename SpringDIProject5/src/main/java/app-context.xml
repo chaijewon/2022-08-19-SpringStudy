@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+    <!--  사용자 정의  -->
+    <context:component-scan base-package="com.sist.*"/>
+    <!-- 
+                선택적 구분자 
+        @Component, 일반 클래스 (MainClass, ~Manager)
+        ======================================================
+        @Repository, 저장소 (~DAO)
+        @Service, BI (DAO여러개를 묶어서 한번에 관리)  => 댓글 ,게시판 
+        ====================================================== 100%
+        @Controller, : Model클래스 (페이지 제어, JSP)
+        @RestController, : Model클래스 (JavaScript) ==> JSON,XML,일반 문자열 
+        @ControllerAdvice, : 통합 예외처리 
+        @Configuration : XML없이 자바로 클래스 등록 (5버전,Spring-Boot) 6page
+     -->
+</beans>
