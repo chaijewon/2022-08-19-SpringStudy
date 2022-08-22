@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- MyBatis 셋팅 
+        1. 데이터베이스 정보 전송 (driver,url,username,password)
+        2. SqlSessionFactory 처리
+        3. Mapper구현 요청 
+        4. 구현된 Mapper를 DAO로 전송
+     --> 
+     
+     <!-- 
+         class A
+         {
+            private String s; = p:s=""
+            private B b;      = p:b-ref="id명칭"
+         }
+      -->
+       <!-- 데이터베이스 정보 : spring-mybatis -->
+     <bean id="ds" class="org.apache.commons.dbcp.BasicDataSource" 
+        p:driverClassName="oracle.jdbc.driver.OracleDriver"
+        p:url="jdbc:oracle:thin:@localhost:1521:XE"
+        p:username="hr"
+        p:password="happy"
+     />
+     <bean id="ssf" class="org.mybatis.spring.SqlSessionFactoryBean"
+        p:dataSource-ref="ds"
+     />
+     <!-- 인터페이스에 등록한 메소드 구현  -->
+    
+     
+     <bean id="dao" class="com.sist.dao.EmpDAO" init-method="init"
+       p:mapper-ref="mapper"
+     />
+      <bean id="mapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
+       p:sqlSessionFactory-ref="ssf"
+       p:mapperInterface="com.sist.dao.EmpMapper"
+     />
+     <!-- 
+         DI : 클래스와 클래스의 연결 , 주입 (일반변수값 , 클래스 주입)
+                                     p: 변수명 , p:객체명-ref="id명"
+      -->
+     
+</beans>
+
+
+
+
+
+
+
+
