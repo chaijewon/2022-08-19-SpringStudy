@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+    <!-- 
+                  사용자 정의 : 어노테이션 (개별)
+                  라이브러리  : XML (공통)
+     -->
+     <context:component-scan base-package="com.sist.xmlanno"></context:component-scan>
+     <!-- 
+          1. AOP 적용
+          ***2. 사용자 정의 클래스 등록 
+          ***3. DataSource 설정 
+          4. 트랜잭션 적용 
+          ***5. MyBatis , JPA 등록 
+          6. 보안 
+          7. WebSocket 
+      -->
+      <!-- MyBatis연결 
+        1. 정보 읽기
+     -->
+     <util:properties id="db" location="classpath:db.properties"/>
+     <!-- 2. 정보를 모아서 MyBaits로 전송 : BasicDataSource -->
+     <bean id="ds"
+           class="org.apache.commons.dbcp.BasicDataSource"
+           p:driverClassName="#{db['driver']}"
+           p:url="#{db['url']}"
+           p:username="#{db['username']}"
+           p:password="#{db['password']}"
+     />
+     <!-- 
+       3. MyBatis = SqlSessionFactoryBean 
+      -->
+     <bean id="ssf"
+         class="org.mybatis.spring.SqlSessionFactoryBean"
+         p:dataSource-ref="ds"
+         p:configLocation="classpath:Config.xml"
+     />
+     <!-- 
+         Reader reader=Resources.get~~("Config.xml")
+      -->
+</beans>

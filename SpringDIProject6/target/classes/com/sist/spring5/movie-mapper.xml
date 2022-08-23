@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.di.movie-mapper">
+  <select id="movieListData" resultType="MovieVO" parameterType="hashmap">
+   SELECT mno,cno,title,director,genre,actor,num
+   FROM (SELECT mno,cno,title,director,genre,actor,rownum as num 
+   FROM (SELECT mno,cno,title,director,genre,actor 
+   FROM project_movie ORDER BY mno ASC))
+   WHERE num BETWEEN #{start} AND #{end}
+  </select>
+</mapper>

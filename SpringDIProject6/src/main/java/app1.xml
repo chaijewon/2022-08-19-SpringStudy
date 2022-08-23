@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+    <context:component-scan base-package="com.sist.anno"/>
+    <!-- 
+                    메모리 할당 선택적 어노테이션 (클래스를 구분해서 저장)
+          @Component : 일반 클래스 , 라이브러리 클래스 
+          @Repository, : DAO
+          @Service, : BI (통합) DAO여러개 통합 
+          @Controller, : Model 
+          @RestController, Model 
+          @ControllerAdvice, 예외(통합)
+          @Configuration : XML대신 자바로 환경 설정 
+     -->
+</beans>
