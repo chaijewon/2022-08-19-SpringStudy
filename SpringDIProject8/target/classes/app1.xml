@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+    <context:component-scan base-package="com.sist.main2"/>
+    
+    <bean id="ds" class="org.apache.commons.dbcp.BasicDataSource"
+         p:driverClassName="oracle.jdbc.driver.OracleDriver"
+         p:url="jdbc:oracle:thin:@localhost:1521:XE"
+         p:username="hr"
+         p:password="happy"
+         p:maxActive="10"
+         p:maxIdle="10"
+         p:maxWait="-1"
+      />
+      <bean id="dataSource" 
+          class="net.sf.log4jdbc.Log4jdbcProxyDataSource"> 
+      <constructor-arg ref="ds" /> 
+      <property name="logFormatter"> 
+        <bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter"> 
+        <property name="loggingType" value="MULTI_LINE" /> 
+        <property name="sqlPrefix" value="SQL : "/> 
+        </bean> 
+      </property> 
+    </bean>
+      <!-- MyBatis  -->
+      <bean id="ssf" class="org.mybatis.spring.SqlSessionFactoryBean"
+         p:dataSource-ref="dataSource"
+         p:configLocation="classpath:Config.xml"
+      />
+</beans>

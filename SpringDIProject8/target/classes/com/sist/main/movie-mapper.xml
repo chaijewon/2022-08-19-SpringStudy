@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.main.movie-mapper">
+ <select id="movieListData" resultType="MovieVO">
+   SELECT mno,title,genre,grade,director,actor,rownum
+   FROM (SELECT mno,title,genre,grade,director,actor
+   FROM project_movie ORDER BY mno ASC)
+   WHERE rownum&lt;=50
+ </select>
+ <select id="movieFindData" resultType="MovieVO" parameterType="hashmap">
+   SELECT mno,title,genre,actor,director
+   FROM project_movie
+   WHERE 
+   <!-- 
+        trim => 추가 , 삭제 
+        prefix => ( 
+        suffix => )
+        
+        WHERE title LIKE '%'||#{ss}||'%'
+        WHERE genre LIKE '%'||#{ss}||'%'
+        WHERE actor LIKE '%'||#{ss}||'%'
+        
+        WHERE title LIKE '%'||#{ss}||'%' OR genre LIKE '%'||#{ss}||'%'
+        WHERE title LIKE '%'||#{ss}||'%' OR actor LIKE '%'||#{ss}||'%'
+        WHERE genre LIKE '%'||#{ss}||'%' OR actor LIKE '%'||#{ss}||'%'
+        
+        WHERE (title LIKE '%'||#{ss}||'%') OR (genre LIKE '%'||#{ss}||'%') OR (actor LIKE '%'||#{ss}||'%')
+        
+        if()
+          title LIKE '%'||#{ss}||'%'
+        if()
+          OR genre LIKE '%'||#{ss}||'%'
+        if()
+          OR actor LIKE '%'||#{ss}||'%'
+        String[] fsArr={"G","T","A"}
+        String[] fsArr={"T","G"}
+        String[] fsArr={"T","A"}
+        String[] fsArr={"T"}
+        
+        for(String s:fsArr)
+    -->
+   <trim prefix="(" suffix=")" prefixOverrides="OR">
+     <foreach collection="fsArr" item="fd">
+       <trim prefix="OR">
+         <choose>
+           <when test="fd=='T'.toString()">
+             title LIKE '%'||#{ss}||'%'
+           </when>
+           <when test="fd=='G'.toString()">
+             genre LIKE '%'||#{ss}||'%'
+           </when>
+           <when test="fd=='A'.toString()">
+             actor LIKE '%'||#{ss}||'%'
+           </when>
+         </choose>
+       </trim>
+     </foreach>
+   </trim>
+ </select>
+</mapper>

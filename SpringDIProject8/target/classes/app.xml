@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- 
+         사용자 정의 => 어노테이션 (패키지 단위)
+         라이브러리  => XML에서 설정 = 고정 
+     -->
+     <!-- 데이터베이스 정보를 저장 (DataSource(인터페이스 = 구현 (BasicDataSource) -->
+     <!-- SqlSessionFactory : 인터페이스 = SqlSessionFactoryBean -->
+     <!--
+        XML정의 언어 (태그 , 속성) 
+        DTD : MyBatis , Tiles =====> 문자열 
+               스키마 : 스프링 , web.xml,server.xml ===> 다른 데이터형이 가능 (DTD를 보완)
+               
+               스프링
+          1. 스프링 DI = 객체 생성시에 필요한 데이터를 전송   
+             = setter => p:
+             = 생성자    => c:
+             = 메소드 DI => 객체생성시 , 객체소멸시에 사용 
+                          init-method destory-method (사용빈도X)
+                          =========== 자동 로그인 , 쿠키 ...드라이버등록 
+          2. 컴포넌트 스캔 : 패키지 단위로 클래스 등록 
+          3. 생명주기 (생성 , 찾기 , 소멸) ==> 등록된 클래스 찾기 (DL=getBean())
+             1) 컨테이너 생성 (등록할 클래스 관리)
+                ======
+                  BeanFactory
+                     |
+                 ApplicationContext , AnnotationConfigApplicationContext
+                     |
+               WebApplicationContext
+             2) XML 파싱 (등록된 데이터 읽기) 
+             3) 등록된 클래스 메모리 할당 
+             4) DI (데이터값을 주입) ==> setter
+             5) init-method가 등록된 경우 메소드 호출 
+             ==================================
+                            사용자(프로그래머 사용)
+             ==================================
+             6) 메모리에 할당된 객체 = 소멸 
+          =============================================
+          4. AOP 
+          5. DB연동(ORM = Mybatis,JPA)
+             CURD(JOIN,SubQuery,View,동적쿼리)
+          6. 트랜잭션 
+          7. MVC => 웹 연동
+             = 흐름 파악 
+             = 기능 처리 (DB)
+             = 동작 순서 
+                         브라우저(요청... , ..do) ===> DispatcherServlet <===> Model <====> DAO
+                                             | request,session
+                                            JSP
+          ============================================= Basic
+          8. JSON(JavaScript:객체표현법 (~VO)) => RestFul  ===> Vue , React
+             {no:1,title:'',genre:''} , [{},{},{}]
+                   기타 : 보안 , 통합 , 배치  
+      -->
+      <!-- 
+                       데이터베이스 정보를 모아 준다 
+       -->
+      <bean id="ds" class="org.apache.commons.dbcp.BasicDataSource"
+         p:driverClassName="oracle.jdbc.driver.OracleDriver"
+         p:url="jdbc:oracle:thin:@localhost:1521:XE"
+         p:username="hr"
+         p:password="happy"
+         p:maxActive="10"
+         p:maxIdle="10"
+         p:maxWait="-1"
+      />
+      <bean id="dataSource" 
+          class="net.sf.log4jdbc.Log4jdbcProxyDataSource"> 
+      <constructor-arg ref="ds" /> 
+      <property name="logFormatter"> 
+        <bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter"> 
+        <property name="loggingType" value="MULTI_LINE" /> 
+        <property name="sqlPrefix" value="SQL : "/> 
+        </bean> 
+      </property> 
+    </bean>
+      <!-- MyBatis  -->
+      <bean id="ssf" class="org.mybatis.spring.SqlSessionFactoryBean"
+         p:dataSource-ref="dataSource"
+         p:configLocation="classpath:Config.xml"
+      />
+      <bean id="dao" class="com.sist.main.MovieDAO"
+         p:sqlSessionFactory-ref="ssf"
+      />
+</beans>
+
+
+
+
+
+
+
+
+
