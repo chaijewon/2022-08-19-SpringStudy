@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+    <!-- 사용자 클래스 등록 -->
+    <context:component-scan base-package="com.sist.main"/>
+    <!-- 라이브러리 
+         MyBatis , Spring
+     -->
+       <bean id="ds" class="org.apache.commons.dbcp.BasicDataSource"
+         p:driverClassName="oracle.jdbc.driver.OracleDriver"
+         p:url="jdbc:oracle:thin:@localhost:1521:XE"
+         p:username="hr"
+         p:password="happy"
+         p:maxActive="10"
+         p:maxIdle="10"
+         p:maxWait="-1"
+      />
+      <!-- MyBatis  -->
+      <bean id="ssf" class="org.mybatis.spring.SqlSessionFactoryBean"
+         p:dataSource-ref="ds"
+      />
+      <!-- Mapper 구현 (어노테이션인 경우)-->
+      <bean id="mapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
+        p:sqlSessionFactory-ref="ssf"
+        p:mapperInterface="com.sist.main.EmpMapper"
+      />
+</beans>
+
+
+
+
+
+
+
