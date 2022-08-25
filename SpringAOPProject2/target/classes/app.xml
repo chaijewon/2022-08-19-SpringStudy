@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+    <aop:aspectj-autoproxy/>
+    <bean id="aop" class="com.sist.aop.MovieAspect"/>
+    <bean id="ds" class="com.sist.dao.MyDataSource"
+       p:driver="oracle.jdbc.driver.OracleDriver"
+       p:url="jdbc:oracle:thin:@localhost:1521:XE"
+       p:username="hr"
+       p:password="happy"
+    />
+    <bean id="dao" class="com.sist.dao.MovieDAO"
+       c:ds-ref="ds"
+    />
+    <aop:config>
+      <aop:aspect ref="aop">
+        <aop:around method="around" pointcut="execution(* com.sist.dao.MovieDAO.movie*(..))"/>
+        <aop:after-returning method="afterReturning" 
+        pointcut="execution(* com.sist.dao.MovieDAO.movie*(..))" returning="obj"/>
+        <aop:after-throwing method="afterThrowing" pointcut="execution(* com.sist.dao.MovieDAO.movie*(..))"
+         throwing="ex"
+        />
+      </aop:aspect>
+    </aop:config>
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
