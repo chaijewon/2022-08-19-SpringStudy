@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+    <!-- 사용자 정의 메모리 할당(선택적 메모리 할당) -->
+    <context:component-scan base-package="com.sist.*"/>
+    <!-- 
+          Spring (Web) => 사용자 요청값 받기 , 결과값 전송 
+          1. 기능별 분리 
+          @Component, : 일반 클래스 , ~Manager (추천)
+          @Repository, : DAO (데이터베이스 연결)
+          @Service, : DAO여러개를 한개로 연결 (BI)
+          @Controller, : Model = 사용자 요청 처리 
+          ***@RestController, 다른 언어와 연결 (JavaScript,Kotlin,ASP...) = JSON
+          ***@ControllerAdvice, : 통합 예외처리 
+          @Configuration : 자바로 스프링 설정 (XML이 없어진다) 
+     -->
+     <!-- 
+           ViewResolver : JSP의 경로명 , 확장자 (Spring은 자바 전용이 아니다)
+           
+           DispatcherServlet : 사용자 요청,결과값 전송 
+           HandlerMapping : Model을 찾는 역할 
+           ViewResolver: JSP를 찾아서 결과값을 보내주는 역할 
+      -->
+      <bean id="viewResolver"
+         class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+         p:prefix="/"
+         p:suffix=".jsp"
+      />
+</beans>
+
+
+
+
+
+
+
+
