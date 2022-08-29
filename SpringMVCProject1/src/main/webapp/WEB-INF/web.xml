@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	<!-- 
+	          톰캣에 의해 읽어가는 파일 지정(jsp,servlet) 
+	     Controller : 반드시 web.xml에 등록 
+	     
+	         동작
+	         사용자 요청 (*.do) ====== DispatcherServlet
+	                                 = HandlerMapping === 1) Model클래스 찾기 (return ==> jsp)
+	                                 = ViewResolver   === 2) JSP찾기 
+	                           ===================== 동작을 할 수 있게 메뉴얼 제작 (XML,Annotation)
+	     Model : 요청에 대한 처리 
+	       = Spring : ~Controller 
+	       = Struts : ~Action
+	       
+	       ~DAO , ~VO , ~Entity , ~Manager
+	 -->
+	<servlet>
+		<servlet-name>appServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/config/application-context.xml</param-value>
+		</init-param>
+	</servlet>
+		
+	<servlet-mapping>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	<!-- 
+	     @WebServlet("*.do")
+	 -->
+	<!-- 
+	    request/response 미사용 = 한글 변환 
+	 -->
+	 <!-- 
+	    request.setCharacterEncoding("UTF-8")을 대신하는 코드  
+	  -->
+     <filter>
+		  <filter-name>encodingFilter</filter-name>
+		  <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		  <init-param>
+		    <param-name>encoding</param-name>
+		    <param-value>UTF-8</param-value>
+		  </init-param>
+     </filter>
+		
+     <filter-mapping>
+		  <filter-name>encodingFilter</filter-name>
+		  <url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!-- 
+	      Error 처리 
+	      /* => 모든 URL주소 
+	 -->
+</web-app>
