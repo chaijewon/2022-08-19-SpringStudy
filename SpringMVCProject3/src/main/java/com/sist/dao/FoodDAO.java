@@ -11,10 +11,19 @@ public class FoodDAO {
    
    public List<FoodVO> foodListData(Map map)
    {
-	   return mapper.foodListData(map);
+	   return mapper.foodListData(map);// 핵심 코딩 
    }
    public int foodTotalPage()
    {
 	   return mapper.foodTotalPage();
+   }
+   public FoodVO foodDetailData(int fno)
+   {
+	   return mapper.foodDetailData(fno);
+   }
+   
+   public List<FoodVO> foodFindData(Map map)
+   {
+	   return mapper.foodFindData(map);
    }
 }
