@@ -13,6 +13,7 @@ public class CommonException {
    {
 	   System.out.println("============= RuntimeException 발생 ================");
 	   System.out.println(ex.getMessage());
+	   ex.printStackTrace();
    }
    @ExceptionHandler(SQLException.class)
    public void sqlException(SQLException ex)

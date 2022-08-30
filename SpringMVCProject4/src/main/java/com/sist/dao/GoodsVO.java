@@ -17,5 +17,5 @@ import lombok.Setter;
 @Setter
 public class GoodsVO {
    private int no,discount;
-   private String name,sub,price,first_price,delibery,poster;
+   private String name,sub,price,first_price,delivery,poster;
 }

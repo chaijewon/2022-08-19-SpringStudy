@@ -32,10 +32,31 @@ public class GoodsController {
     	map.put("start", (curpage*12)-11);
     	map.put("end", curpage*12);
     	List<GoodsVO> list=service.goodsAllListData(map);
+    	for(GoodsVO vo:list)
+    	{
+    		String name=vo.getName();
+    		if(name.length()>16)
+    		{
+    			name=name.substring(0,16)+"...";
+    			vo.setName(name);
+    		}
+    		else
+    		{
+    			vo.setName(name);
+    		}
+    	}
     	int totalpage=service.goodsAllTotalPage();
     	
     	final int BLOCK=10;
     	int startPage=((curpage-1)/BLOCK*BLOCK)+1;
+    	/*
+    	 *   startPage  
+    	 *     1         11       21       31
+    	 *   curpage [1]~[10]
+    	 *    11
+    	 *   curpage [11]~[20]
+    	 *           
+    	 */
     	int endPage=((curpage-1)/BLOCK*BLOCK)+BLOCK;
     	
     	if(endPage>totalpage)
@@ -47,7 +68,28 @@ public class GoodsController {
     	model.addAttribute("startPage", startPage);
     	model.addAttribute("endPage", endPage);
     	model.addAttribute("list", list);
+    	// model => request
+    	/*
+    	 *    public void addAttribute(String key,Object obj)
+    	 *    {
+    	 *        request.setAttribute(key,obj);
+    	 *    }
+    	 *    request를 사용을 하지 말라 권장  
+    	 *    Model 전송 객체 
+    	 */
     	return "goods/goods_all";
+    }
+    // goods_all_detail.do?no=${vo.no }
+    @GetMapping("goods_all_detail.do")
+    public String aaa(int no,Model model)
+    {
+    	try
+    	{
+    	  System.out.println("no="+no);
+    	  GoodsVO vo=service.goodsAllDetailData(no);
+    	  model.addAttribute("vo", vo);
+    	}catch(Exception ex) {ex.printStackTrace();}
+    	return "goods/goods_all_detail";
     }
     
 }

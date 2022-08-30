@@ -33,7 +33,7 @@ public class GoodsAOP {
    public void afterReturning(Object obj) throws Throwable
    {
 	   System.out.println("============= 화면 이동 =============");
-	   System.out.println(obj.toString());
+	   System.out.println(obj);
 	   System.out.println("==================================");
    }
 }

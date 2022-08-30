@@ -23,11 +23,12 @@ public interface GoodsAllMapper {
 	GOODS_POSTER               VARCHAR2(260)
    */
   @Results({
+	  @Result(property = "no",column = "no"),
 	  @Result(property = "name",column = "goods_name"),
 	  @Result(property = "sub",column = "goods_sub"),
 	  @Result(property = "price",column = "goods_price"),
 	  @Result(property = "discount",column = "goods_discount"),
-	  @Result(property = "first_price",column = "goods_firest_price"),
+	  @Result(property = "first_price",column = "goods_first_price"),
 	  @Result(property = "delivery",column = "goods_delivery"),
 	  @Result(property = "poster",column = "goods_poster")
   })
