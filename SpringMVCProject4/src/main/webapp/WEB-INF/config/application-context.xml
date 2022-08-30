@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+    <!-- AOP등록 -->
+    <aop:aspectj-autoproxy/>
+    <!-- 사용자 정의 클래스 등록 -->
+    <context:component-scan base-package="com.sist.*"/>
+    <!-- 
+                    제외 : ~VO(사용자 정의 데이터형), 인터페이스 (Mapper) 
+                    선택적 메모리 할당 어노테이션 
+          ***@Component, => 일반 클래스 (데이터수집,분석) ~Manager
+          ***@Repository, => 저장소 (~DAO)
+          @Service, => DAO여러개를 묶어서 한번에 처리  ~Service
+             Front Controller  == Controller 
+             ================
+              DispatcherServlet   Model 
+              => 요청 받아서 ==> Model로 전송 => JSP로 request,session을 전송 
+          ***@Controller, => 사용 요청 처리 (~Controller) => Model (Controller로 부터 요청 처리 위임)
+                             => 요청 처리후에 반드시 파일을 지정 (JSP제어)
+                                forward(화면 출력을 위해 request전송) / redirect(재전송) = request가 전송이 안됨
+                                                                화면을 제어 
+                                => JSP / HTML(Thymeleaf) => 제어문  th:each , th:if , th:else...
+          ***@RestController, => 사용자 요청 처리 (JSP를 제어하지 않고 실제 출력에 필요한 데이터만 전송)
+                                 => JavaScript (JSON) , AJAX
+          @ControllerAdvice, => 공통 예외처리 (모든 예외처리)
+          @RestControllerAdvice
+          ***@Configuration => xml대신 자바로 스프링 설정 
+          ======================================================= 스프링에서 메모리 할당후 관리 
+          
+                    스프링 5(순수하게 자바로 코딩) == Spring-Boot(properties) : STS4 (Spring-Boot)
+                     => 현대 , 삼성 
+                     => 쌍용 / 롯데 / 교보 => vue,react
+     -->
+    <!-- ViewResolver -->
+    <bean id="viewResolver"
+       class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+       p:prefix="/"
+       p:suffix=".jsp" 
+    />
+</beans>
