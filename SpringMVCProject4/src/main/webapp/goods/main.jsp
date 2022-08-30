@@ -19,11 +19,16 @@
 <body>
   <div class="container">
     <div class="row">
-      <a href="" class="btn btn-lg btn-primary">전체상품</a>
-      <a href="" class="btn btn-lg btn-info">베스트상품</a>
-      <a href="" class="btn btn-lg btn-success">특가상품</a>
-      <a href="" class="btn btn-lg btn-danger">신상품</a>
+      <a href="goods_all.do" class="btn btn-lg btn-primary">전체상품</a>
+      <a href="goods_best.do" class="btn btn-lg btn-info">베스트상품</a>
+      <a href="goods_special.do" class="btn btn-lg btn-success">특가상품</a>
+      <a href="goods_new.do" class="btn btn-lg btn-danger">신상품</a>
     </div>
   </div>
 </body>
 </html>
+
+
+
+
+

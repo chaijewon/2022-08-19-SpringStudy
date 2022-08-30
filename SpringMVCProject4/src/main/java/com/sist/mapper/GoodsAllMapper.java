@@ -34,4 +34,7 @@ public interface GoodsAllMapper {
   @Select("SELECT * FROM goods_all "
 		 +"WHERE no=#{no}")
   public GoodsVO goodsAllDetailData(int no);
+  
+  @Select("SELECT CEIL(COUNT(*)/12.0) FROM goods_all")
+  public int goodsAllTotalPage();
 }

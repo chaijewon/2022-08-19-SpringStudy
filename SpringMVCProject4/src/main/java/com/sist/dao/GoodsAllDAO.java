@@ -21,4 +21,9 @@ public class GoodsAllDAO {
    {
 	   return mapper.goodsAllDetailData(no);
    }
+   
+   public int goodsAllTotalPage()
+   {
+	   return mapper.goodsAllTotalPage();
+   }
 }

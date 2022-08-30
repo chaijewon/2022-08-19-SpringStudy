@@ -60,6 +60,9 @@ public class GoodsService {
 	   return nDao.goodsNewDetailData(no);
    }
    
-   
+   public int goodsAllTotalPage()
+   {
+	   return aDao.goodsAllTotalPage();
+   }
    
 }
