@@ -73,6 +73,17 @@ public class BoardController {
     	return "board/update";
     }
     
+    @PostMapping("board/find.do")
+    public String board_find(String[] fd,String ss,Model model)
+    {
+    	Map map=new HashMap();
+    	map.put("fsArr", fd);
+    	map.put("ss", ss);
+    	List<BoardVO> list=dao.boardFindData(map);
+    	model.addAttribute("list", list);
+    	return "board/find";
+    }
+    
 }
 
 

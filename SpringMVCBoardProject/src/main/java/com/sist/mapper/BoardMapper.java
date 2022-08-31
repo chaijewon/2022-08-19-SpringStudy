@@ -11,6 +11,14 @@ import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.Update;
 
 import com.sist.dao.BoardVO;
+
+/*
+ *    1. XML 
+ *    2. Annotation 
+ *    3. XML+Annotation => 가장 많이 사용하는 형식 
+ *           간단한 SQL : Annotation
+ *           복잡한 SQL : XML 
+ */
 public interface BoardMapper {
   // 목록 출력 
   @Select("SELECT no,subject,name,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,hit,num "
@@ -48,6 +56,33 @@ public interface BoardMapper {
   @Select("SELECT pwd FROM spring_board "
 		 +"WHERE no=#{no}")
   public String boardGetPassword(int no);
+  
+  //<select id="boardFindData" resultType="BoardVO" parameterType="hashmap">
+  public List<BoardVO> boardFindData(Map map);
+  
+  /*@Select("<script>"
+		  +"SELECT no,subject,name,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,hit\r\n" + 
+		  "    FROM spring_board\r\n" + 
+		  "    WHERE \r\n" + 
+		  "    <trim prefix=\"(\" suffix=\")\" prefixOverrides=\"OR\">\r\n" + 
+		  "      <foreach collection=\"fsArr\" item=\"fd\">\r\n" + 
+		  "        <trim prefix=\"OR\">\r\n" + 
+		  "          <choose>\r\n" + 
+		  "            <when test=\"fd=='N'.toString()\">\r\n" + 
+		  "              name LIKE '%'||#{ss}||'%'\r\n" + 
+		  "            </when>\r\n" + 
+		  "            <when test=\"fd=='S'.toString()\">\r\n" + 
+		  "              subject LIKE '%'||#{ss}||'%'\r\n" + 
+		  "            </when>\r\n" + 
+		  "            <when test=\"fd=='C'.toString()\">\r\n" + 
+		  "              content LIKE '%'||#{ss}||'%'\r\n" + 
+		  "            </when>\r\n" + 
+		  "          </choose>\r\n" + 
+		  "        </trim>\r\n" + 
+		  "      </foreach>\r\n" + 
+		  "    </trim>"+
+		  "</script>"
+		 )*/
 
 }
 

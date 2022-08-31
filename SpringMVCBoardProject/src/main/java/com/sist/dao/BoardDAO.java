@@ -90,6 +90,11 @@ public class BoardDAO {
 		 }
 		 return bCheck;
 	 }
+	 
+	 public List<BoardVO> boardFindData(Map map)
+	 {
+		 return mapper.boardFindData(map);
+	 }
 }
 
 
