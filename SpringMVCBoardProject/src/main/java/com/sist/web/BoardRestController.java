@@ -37,6 +37,30 @@ public class BoardRestController {
     	}
     	return result;
     }
+    
+    @PostMapping(value="board/delete_ok.do",produces = "text/html;charset=UTF-8")
+    // 단점 => 크롬에서만 사용이 가능 
+    public String board_delete_ok(int no,String pwd)
+    {
+    	// 자바 스크립트 전송 
+    	String result="";
+    	boolean bCheck=dao.boardDelete(no,pwd);
+    	if(bCheck==true)
+    	{
+    		result="<script>"
+    			  +"location.href=\"list.do\";"
+    			  +"</script>";
+    	}
+    	else
+    	{
+    		result="<script>"
+    			  +"alert(\"비밀번호가 틀립니다!!\");"
+    			  +"history.back();"
+    			  +"</script>";
+    		//result="redirect:detail.do?no="+vo.getNo();
+    	}
+    	return result;
+    }
 }
 
 

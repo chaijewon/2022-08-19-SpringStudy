@@ -8,19 +8,19 @@
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		
 		<!-- XML 사용시 : WebApplicationContext-->
-		<!--<init-param>
+		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/config/application-*.xml</param-value>
-		</init-param>-->
+		</init-param>
 		<!-- 환경 설정 자바인 경우  AnnotationConfigWebApplcationContext-->
-		<init-param>
+		<!-- <init-param>
 		  <param-name>contextClass</param-name>
 		  <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
 		</init-param>
 		<init-param>
 		  <param-name>contextConfigLocation</param-name>
 		  <param-value>com.sist.config.BoardConfig</param-value>
-		</init-param>
+		</init-param> -->
 	</servlet>
 		
 	<servlet-mapping>

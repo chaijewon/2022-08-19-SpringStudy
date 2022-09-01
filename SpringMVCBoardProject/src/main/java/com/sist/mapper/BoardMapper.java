@@ -5,6 +5,7 @@ import java.util.*;
 //  응용 => Transaction , JOIN...
 //  파일 업로드 (자료) , 지니/멜론 => 조인 => 사용자 순위 결정 
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
@@ -42,6 +43,8 @@ public interface BoardMapper {
 		 +"#{no},#{name},#{subject},#{content},#{pwd},SYSDATE,0)")
   public void boardInsert(BoardVO vo);
   // 게시물 삭제
+  @Delete("DELETE FROM spring_board WHERE no=#{no}")
+  public void boardDelete(int no);
   // 게시물 수정 
   @Update("UPDATE spring_board SET "
 		 +"name=#{name},subject=#{subject},content=#{content} "

@@ -91,6 +91,22 @@ public class BoardDAO {
 		 return bCheck;
 	 }
 	 
+	 public boolean boardDelete(int no,String pwd)
+	 {
+		 boolean bCheck=false;
+		 String db_pwd=mapper.boardGetPassword(no);
+		 if(db_pwd.equals(pwd))
+		 {
+			 bCheck=true;
+			 mapper.boardDelete(no);
+		 }
+		 else
+		 {
+			 bCheck=false;
+		 }
+		 return bCheck;
+	 }
+	 
 	 public List<BoardVO> boardFindData(Map map)
 	 {
 		 return mapper.boardFindData(map);

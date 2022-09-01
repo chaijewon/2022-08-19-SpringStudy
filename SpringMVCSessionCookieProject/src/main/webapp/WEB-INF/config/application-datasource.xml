@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+    <!-- 데이터베이스 정보 수집 : BasicDataSource -->
+    <util:properties id="db" location="/WEB-INF/config/db.properties"/>
+    <bean id="ds"
+       class="org.apache.commons.dbcp.BasicDataSource"
+       p:driverClassName="#{db['driver']}"
+       p:url="#{db['url']}"
+       p:username="#{db['username']}"
+       p:password="#{db['password']}"
+    />
+    <!-- MyBatis연결 -->
+    <bean id="ssf"
+      class="org.mybatis.spring.SqlSessionFactoryBean"
+      p:dataSource-ref="ds"
+    />
+    <!-- Mapper구현 -->
+    <!-- <bean id="mapper1"
+       class="org.mybatis.spring.mapper.MapperFactoryBean"
+       p:sqlSessionFactory-ref="ssf"
+       p:mapperInterface="com.sist.mapper.GoodsAllMapper" 
+    />
+    <bean id="mapper2"
+       class="org.mybatis.spring.mapper.MapperFactoryBean"
+       p:sqlSessionFactory-ref="ssf"
+       p:mapperInterface="com.sist.mapper.GoodsBestMapper" 
+    />
+    <bean id="mapper3"
+       class="org.mybatis.spring.mapper.MapperFactoryBean"
+       p:sqlSessionFactory-ref="ssf"
+       p:mapperInterface="com.sist.mapper.GoodsSpecialMapper" 
+    />
+    <bean id="mapper4"
+       class="org.mybatis.spring.mapper.MapperFactoryBean"
+       p:sqlSessionFactory-ref="ssf"
+       p:mapperInterface="com.sist.mapper.GoodsNewMapper" 
+    />-->
+    <mybatis-spring:scan base-package="com.sist.mapper"/>
+</beans>
+
+
+
+
+
+
+
+
+
