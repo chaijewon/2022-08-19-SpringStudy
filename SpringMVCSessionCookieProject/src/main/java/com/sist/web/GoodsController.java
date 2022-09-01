@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.*;
@@ -11,6 +12,7 @@ import java.util.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.sist.dao.*;
 @Controller
@@ -99,8 +101,83 @@ public class GoodsController {
    public String goods_detail(int no,Model model)
    {
 	   GoodsVO vo=dao.goodsDetailData(no);
+	   vo.setPrice(Integer.parseInt(vo.getGoods_price().replaceAll("[^0-9]", "").trim()));
+	   // 20000
 	   model.addAttribute("vo", vo);
 	   return "goods/detail";
+   }
+   
+   @GetMapping("goods/cookie_delete.do")
+   public String goods_cookie_delete(int no,HttpServletRequest request,HttpServletResponse response)
+   {
+	   Cookie[] cookies=request.getCookies();
+	   for(int i=cookies.length-1;i>=0;i--)
+	   {
+		   if(cookies[i].getName().equals("goods"+no))
+		   {
+			   cookies[i].setPath("/");
+			   cookies[i].setMaxAge(0);
+			   response.addCookie(cookies[i]);
+			   break;
+		   }
+	   }
+	   return "redirect:list.do";
+   }
+   
+   @GetMapping("goods/cookie_all_delete.do")
+   public String goods_cookie_all_delete(HttpServletRequest request,HttpServletResponse response)
+   {
+	   Cookie[] cookies=request.getCookies();
+	   for(int i=cookies.length-1;i>=0;i--)
+	   {
+		   if(cookies[i].getName().startsWith("goods"))
+		   {
+			   cookies[i].setPath("/");
+			   cookies[i].setMaxAge(0);
+			   response.addCookie(cookies[i]);
+		   }
+	   }
+	   return "redirect:list.do";
+   }
+   // session 관련 
+   @PostMapping("goods/session_insert.do")
+   public String goods_session_insert(int no,int account,HttpSession session,Model model)
+   {
+	   List<CartVO> list=(List<CartVO>)session.getAttribute("cart");
+	   if(list==null)
+	   {
+		   list=new ArrayList<CartVO>();
+	   }
+	   // 세션에 저장된 데이터 
+	  
+	   GoodsVO vo=dao.goodsDetailData(no);
+	   CartVO cvo=new CartVO();
+	   cvo.setNo(no);
+	   cvo.setName(vo.getGoods_name());
+	   cvo.setPoster(vo.getGoods_poster());
+	   cvo.setPrice(vo.getGoods_price());
+	   cvo.setAccount(account);
+	   
+	   boolean bCheck=false;
+	   for(CartVO avo:list)
+	   {
+		   if(avo.getNo()==cvo.getNo())
+		   {
+			   int acc=avo.getAccount()+cvo.getAccount();
+			   avo.setAccount(acc);
+			   bCheck=true;
+			   break;
+		   }
+	   }
+	   if(bCheck==false)
+	   {
+		   list.add(cvo);
+		   session.setAttribute("cart", list);
+	   }
+	   
+	   model.addAttribute("list", list);
+	   model.addAttribute("no", no);
+	   return "goods/cart_list";
    }
 }
 

@@ -15,13 +15,26 @@
    width: 800px;
 }
 </style>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('#account').change(function(){
+		let count=$(this).val();
+		let price=$(this).attr("data-price");
+		let total=count*price;
+		$('#total').text(total)
+		
+		$('#goods_account').val(count);
+	})
+})
+</script>
 </head>
 <body>
   <div class="container">
     <div class="row">
       <table class="table">
         <tr>
-          <td width=30% class="text-center" rowspan="5">
+          <td width=30% class="text-center" rowspan="6">
             <img src="${vo.goods_poster }" style="width: 100%">
           </td>
           <td width=70%>
@@ -41,8 +54,19 @@
           <td width=30%>배송:${vo.goods_delivery }</td>
         </tr>
         <tr>
+          <td width=30%>
+                      수량:<input type=number id="account" max="10" min="1" data-price="${vo.price }">:<span style="color:blue;" id="total">${vo.price }</span>원
+          </td>
+        </tr>
+        <tr>
           <td colspan="2" class="text-right">
-            <a href="list.do" class="btn btn-sm btn-primary">목록</a>
+            <form method="post" action="session_insert.do">
+              <input type=hidden name="no" id="goods_no" value="${vo.no }">
+              <input type=hidden name="account" id="goods_account">
+              <button class="btn btn-sm btn-primary">장바구니</button>
+              <a href="list.do" class="btn btn-sm btn-primary">목록</a>
+            </form>
+            
           </td>
         </tr>
       </table>
