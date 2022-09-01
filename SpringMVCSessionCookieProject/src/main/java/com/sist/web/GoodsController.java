@@ -140,6 +140,14 @@ public class GoodsController {
 	   return "redirect:list.do";
    }
    // session 관련 
+   @GetMapping("goods/cart_list.do")
+   public String good_cart_list(int no,HttpSession session,Model model)
+   {
+	   List<CartVO> list=(List<CartVO>)session.getAttribute("cart");
+	   model.addAttribute("list", list);
+	   model.addAttribute("no",no);
+	   return "goods/cart_list";
+   }
    @PostMapping("goods/session_insert.do")
    public String goods_session_insert(int no,int account,HttpSession session,Model model)
    {
@@ -174,11 +182,37 @@ public class GoodsController {
 		   list.add(cvo);
 		   session.setAttribute("cart", list);
 	   }
-	   
-	   model.addAttribute("list", list);
-	   model.addAttribute("no", no);
-	   return "goods/cart_list";
+	    
+	   return "redirect:cart_list.do?no="+no;
    }
+   
+   @GetMapping("goods/cart_cancel.do")
+   public String goods_cart_cancel(int no,HttpSession session)
+   {
+	   /*
+	    *    rd.forward(request,esponse) ==> jsp파일 지정 
+	    *    sendRedirect("cart_list.do"); => request가 초기화 .do
+	    */
+	   List<CartVO> list=(List<CartVO>)session.getAttribute("cart");
+	   for(int i=0;i<list.size();i++)
+	   {
+		   CartVO vo=list.get(i);
+		   if(vo.getNo()==no)
+		   {
+			   list.remove(i);
+			   break;
+		   }
+	   }
+	   return "redirect:cart_list.do?no="+no;
+   }
+   
+   @GetMapping("goods/cart_total_delete.do")
+   public String cart_total_delete(int no,HttpSession session)
+   {
+	   session.removeAttribute("cart");
+	   return "redirect:cart_list.do?no="+no;
+   }
+   
 }
 
 

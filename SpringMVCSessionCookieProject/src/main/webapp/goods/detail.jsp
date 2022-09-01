@@ -64,6 +64,7 @@ $(function(){
               <input type=hidden name="no" id="goods_no" value="${vo.no }">
               <input type=hidden name="account" id="goods_account">
               <button class="btn btn-sm btn-primary">장바구니</button>
+              <a href="cart_list.do?no=${vo.no }" class="btn btn-sm btn-primary">장바구니보기</a>
               <a href="list.do" class="btn btn-sm btn-primary">목록</a>
             </form>
             

@@ -48,10 +48,16 @@
 	        <td>${vo.name }</td>
 	        <td class="text-center">${vo.price }</td>
 	        <td class="text-center">${vo.account }</td>
-	       </tr>
+	        <td class="text-center">
+	          <a href="#" class="btn btn-sm btn-danger">구매</a>
+	          <a href="cart_cancel.do?no=${vo.no }" class="btn btn-sm btn-danger">취소</a>
+	        </td>
+	    </tr>
+	       
        </c:forEach>
        <tr>
-         <td colspan="5" class="text-right">
+         <td colspan="6" class="text-right">
+           <a href="cart_total_delete.do?no=${no }" class="btn btn-sm btn-danger">전체삭제</a>
            <a href="detail.do?no=${no }" class="btn btn-sm btn-danger">상품</a>
          </td>
        </tr>
