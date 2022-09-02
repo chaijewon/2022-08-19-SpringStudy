@@ -24,6 +24,11 @@ public class BoardController {
 	   model.addAttribute("list", list);
 	   model.addAttribute("curpage", curpage);
 	   model.addAttribute("totalpage", totalpage);
+	   
+	   int count=dao.boardCount();
+	   count=count-((10*curpage)-10);
+	   
+	   model.addAttribute("count", count);
 	   return "board/list";
    }
    
@@ -54,6 +59,19 @@ public class BoardController {
    {
 	   model.addAttribute("no", no);
 	   return "board/reply";
+   }
+   
+   @PostMapping("board/reply_ok.do")
+   public String board_reply_ok(int pno,BoardVO vo)
+   {
+	   try
+	   {
+	      dao.boardReplyInsert(pno, vo);
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   return "redirect:list.do";
    }
 }
 
