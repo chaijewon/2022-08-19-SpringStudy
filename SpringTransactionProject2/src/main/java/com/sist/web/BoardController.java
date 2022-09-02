@@ -56,4 +56,54 @@ public class BoardController {
 	   model.addAttribute("vo", vo);
 	   return "board/detail";
   }
+  
+  @GetMapping("board/reply.do")
+  public String board_reply(int no,Model model)
+  {
+	   model.addAttribute("no", no);
+	   return "board/reply";
+  }
+  
+  @PostMapping("board/reply_ok.do")
+  public String board_reply_ok(int pno,BoardVO vo)
+  {
+	   try
+	   {
+	      dao.boardReplyInsert(pno, vo);
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   return "redirect:list.do";
+  }
+  
+  @GetMapping("board/update.do")
+  public String board_update(int no,Model model)
+  {
+	   BoardVO vo=dao.boardUpdateData(no);
+	   model.addAttribute("vo", vo);
+	   return "board/update";
+  }
+  @PostMapping("board/update_ok.do")
+  public String board_update_ok(BoardVO vo,Model model)
+  {
+	   boolean bCheck=dao.boardUpdate(vo);
+	   model.addAttribute("bCheck", bCheck);
+	   model.addAttribute("no", vo.getNo());
+	   return "board/update_ok";
+  }
+  @GetMapping("board/delete.do")
+  public String board_delete(int no,Model model)
+  {
+	   model.addAttribute("no", no);
+	   return "board/delete";
+  }
+  
+  @PostMapping("board/delete_ok.do")
+  public String board_delete_ok(int no,String pwd,Model model)
+  {
+	   boolean bCheck=dao.boardDelete(no, pwd);
+	   model.addAttribute("bCheck", bCheck);
+	   return "board/delete_ok";
+  }
 }

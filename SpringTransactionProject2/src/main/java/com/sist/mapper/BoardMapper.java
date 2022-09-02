@@ -1,6 +1,7 @@
 package com.sist.mapper;
 import java.util.*;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -47,5 +48,43 @@ public interface BoardMapper {
 		      +"WHERE group_id=#{group_id} AND group_step>#{group_step}")
   public void boardGroupStepIncrement(BoardVO vo);
   
+  @Insert("INSERT INTO spring_replyboard(no,name,subject,content,pwd,group_id,group_step,group_tab,root) "
+			  +"VALUES(sr1_no_seq.nextval,#{name},#{subject},#{content},#{pwd},#{group_id},#{group_step},#{group_tab},#{root})")
+  public void boardReplyInsert(BoardVO vo);
   
+  @Update("UPDATE spring_replyboard SET "
+		      +"depth=depth+1 "
+			  +"WHERE no=#{no}")
+  public void depthIncrement(int no);
+  
+  @Select("SELECT pwd FROM spring_replyboard "
+				     +"WHERE no=#{no}")
+  public String boardGetPassword(int no);
+  
+  @Update("UPDATE spring_replyboard SET "
+				  +"name=#{name},subject=#{subject},content=#{content} "
+				  +"WHERE no=#{no}")
+  public void boardUpdate(BoardVO vo);
+  
+  // 삭제
+  @Select("SELECT root,depth FROM spring_replyboard "
+				  +"WHERE no=#{no}")
+  public BoardVO boardGetRootDepthData(int no);
+  @Delete("DELETE FROM spring_replyboard "
+					  +"WHERE no=#{no}")
+  public void boardDelete(int no);
+  @Update("UPDATE spring_replyboard SET "
+					  +"subject=#{subject},content=#{content} "
+					  +"WHERE no=#{no}")
+  public void boardSubjectContentUpdate(BoardVO vo);
+  @Update("UPDATE spring_replyboard SET "
+				  +"depth=depth-1 "
+				  +"WHERE no=#{no}")
+  public void depthDecrement(int no);
 }
+
+
+
+
+
+
