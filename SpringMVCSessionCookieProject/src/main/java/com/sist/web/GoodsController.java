@@ -88,8 +88,13 @@ public class GoodsController {
    }
    // 쿠키 저장 
    @GetMapping("goods/detail_before.do")
-   public String goods_detail_before(int no,HttpServletResponse response)
+   public String goods_detail_before(int no,HttpServletResponse response,HttpServletRequest request)
    {
+		/*
+		 * Cookie[] cookies=request.getCookies(); if(cookies!=null) { for(int
+		 * i=0;i<cookies.length;i++) { if(cookies[i].getName().equals("goods"+no)) {
+		 * cookies[i].setMaxAge(0); response.addCookie(cookies[i]); break; } } }
+		 */
 	   Cookie cookie=new Cookie("goods"+no, String.valueOf(no)); // 단점 (클라이언트 브라우저에 저장) 문자열만 저장이 가능 
 	   cookie.setPath("/");
 	   cookie.setMaxAge(60*60*24);

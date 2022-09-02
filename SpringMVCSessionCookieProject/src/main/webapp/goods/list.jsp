@@ -96,7 +96,7 @@
 		        <a href="#">
 		          <img src="${vo.goods_poster }" alt="Lights" style="width:100%">
 		          <div class="caption">
-		            
+		            <p><a href="cookie_delete.do?no=${vo.no }" class="btn btn-xs btn-danger">삭제</a></p>
 		          </div>
 		        </a>
 		      </div>

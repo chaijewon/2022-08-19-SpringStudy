@@ -55,7 +55,7 @@ $(function(){
         </tr>
         <tr>
           <td width=30%>
-                      수량:<input type=number id="account" max="10" min="1" data-price="${vo.price }">:<span style="color:blue;" id="total">${vo.price }</span>원
+                      수량:<input type=number id="account" max="10" min="1" data-price="${vo.price }" value="1">:<span style="color:blue;" id="total">${vo.price }</span>원
           </td>
         </tr>
         <tr>
