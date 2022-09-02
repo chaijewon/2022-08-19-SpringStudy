@@ -1,6 +1,8 @@
 package com.sist.dao;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.*;
 import java.sql.*;
 @Repository
@@ -209,6 +211,8 @@ public class BoardDAO {
 	   }
 	   return vo;
    }
+   
+   
    // 답변하기 ==> 트랙잭션  
    
    public void boardReplyInsert(int pno,BoardVO vo)
@@ -297,7 +301,152 @@ public class BoardDAO {
 	   }
    }
    // 수정 
+   public BoardVO boardUpdateData(int no)
+   {
+	   BoardVO vo=new BoardVO();
+	   try
+	   {
+		   getConnection();
+		   String sql="SELECT no,name,subject,content "
+			  +"FROM spring_replyboard "
+			  +"WHERE no=?";
+		   ps=conn.prepareStatement(sql);
+		   ps.setInt(1, no);
+		   ResultSet rs=ps.executeQuery();
+		   rs.next();
+		   
+		   vo.setNo(rs.getInt(1));
+		   vo.setName(rs.getString(2));
+		   vo.setSubject(rs.getString(3));
+		   vo.setContent(rs.getString(4));
+		 
+		   rs.close();
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   disConnection();
+	   }
+	   return vo;
+   }
+   // 실제 수정 
+   public boolean boardUpdate(BoardVO vo)
+   {
+	   boolean bCheck=false;
+	   try
+	   {
+		   getConnection();
+		   String sql="SELECT pwd FROM spring_replyboard "
+				     +"WHERE no=?";
+		   ps=conn.prepareStatement(sql);
+		   ps.setInt(1, vo.getNo());
+		   ResultSet rs=ps.executeQuery();
+		   rs.next();
+		   String db_pwd=rs.getString(1);
+		   rs.close();
+		   
+		   if(db_pwd.equals(vo.getPwd()))
+		   {
+			   bCheck=true;
+			   sql="UPDATE spring_replyboard SET "
+				  +"name=?,subject=?,content=? "
+				  +"WHERE no=?";
+			   ps=conn.prepareStatement(sql);
+			   ps.setString(1, vo.getName());
+			   ps.setString(2, vo.getSubject());
+			   ps.setString(3, vo.getContent());
+			   ps.setInt(4, vo.getNo());
+			   ps.executeUpdate();
+		   }
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   disConnection();
+	   }
+	   return bCheck;
+   }
    // 삭제       ==> 트랜잭션 
+   public boolean boardDelete(int no,String pwd)
+   {
+	   boolean bCheck=false;
+	   try
+	   {
+		   getConnection();
+		   conn.setAutoCommit(false);// 일괄 처리 
+		   // 1. 비밀번호
+		   String sql="SELECT pwd FROM spring_replyboard "
+				     +"WHERE no=?";
+		   ps=conn.prepareStatement(sql);
+		   ps.setInt(1, no);
+		   ResultSet rs=ps.executeQuery();
+		   rs.next();
+		   String db_pwd=rs.getString(1);
+		   rs.close();
+		   if(db_pwd.equals(pwd))
+		   {
+			   bCheck=true;
+			   // 2. root,depth
+			   sql="SELECT root,depth FROM spring_replyboard "
+				  +"WHERE no=?";
+			   ps=conn.prepareStatement(sql);
+			   ps.setInt(1, no);
+			   rs=ps.executeQuery();
+			   rs.next();
+			   int root=rs.getInt(1);
+			   int depth=rs.getInt(2);
+			   rs.close();
+			   // 3. depth=0  ==> 삭제 , depth!=0 ==> 관리자가 삭제한 게시물 
+			   if(depth==0)
+			   {
+				   sql="DELETE FROM spring_replyboard "
+					  +"WHERE no=?";
+				   ps=conn.prepareStatement(sql);
+				   ps.setInt(1, no);
+				   ps.executeUpdate();
+			   }
+			   else
+			   {
+				   String msg="관리자가 삭제한 게시물입니다";
+				   sql="UPDATE spring_replyboard SET "
+					  +"subject=?,content=? "
+					  +"WHERE no=?";
+				   ps=conn.prepareStatement(sql);
+				   ps.setString(1, msg);
+				   ps.setString(2, msg);
+				   ps.setInt(3, no);
+				   ps.executeUpdate();
+			   }
+			   // 4. depth 감소
+			   sql="UPDATE spring_replyboard SET "
+				  +"depth=depth-1 "
+				  +"WHERE no=?";
+			   ps=conn.prepareStatement(sql);
+			   ps.setInt(1, root);
+			   ps.executeUpdate();
+		   }
+		   conn.commit();
+	   }catch(Exception ex)
+	   {
+		   try
+		   {
+			   conn.rollback();
+		   }catch(Exception e) {}
+	   }
+	   finally 
+	   {
+		   try
+		   {
+			   conn.setAutoCommit(true);
+			   disConnection();
+		   }catch(Exception ex) {}
+	   }
+	   return bCheck;
+   }
 }
 
 
