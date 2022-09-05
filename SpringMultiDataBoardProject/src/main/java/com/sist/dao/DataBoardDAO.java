@@ -36,4 +36,38 @@ public class DataBoardDAO {
 	{
 		return mapper.databoardDetailData(no);
 	}
+	
+	public boolean databoardUpdate(DataBoardVO vo)
+	{
+		boolean bCheck=false;
+		String db_pwd=mapper.databoardGetPassword(vo.getNo());
+		if(db_pwd.equals(vo.getPwd()))
+		{
+			bCheck=true;
+			mapper.databoardUpdate(vo);
+		}
+		return bCheck;
+	}
+	
+	public boolean databoardDelete(int no,String pwd)
+	{
+		boolean bCheck=false;
+		String db_pwd=mapper.databoardGetPassword(no);
+		if(db_pwd.equals(pwd))
+		{
+			bCheck=true;
+			mapper.databoardDelete(no);
+		}
+		return bCheck;
+	}
+	public DataBoardVO databoardInfoData(int no)
+	{
+		return mapper.databoardInfoData(no);
+	}
 }
+
+
+
+
+
+

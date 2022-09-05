@@ -88,7 +88,7 @@ public class DataBoardController {
 			  for(MultipartFile mf:list)
 			  {
 				  String filename=mf.getOriginalFilename();//사용자가 선택한 파일명
-				  mf.transferTo(new File(path+filename));
+				  mf.transferTo(new File(path+filename));// 파일 업로드
 				  // 업로드 
 				  temp1+=filename+",";
 				  File f=new File(path+filename);
@@ -202,7 +202,15 @@ public class DataBoardController {
 	  model.addAttribute("vo", vo);
 	  return "databoard/update";
   }
+  // JSP ==> Controller ==> JSP (전송 받은 데이터 출력) 
+  //  .do       |DAO연동 , model이용 => 데이터 전송 
   // 삭제하기 
+  @GetMapping("delete.do")
+  public String databoard_delete(int no,Model model)
+  {
+	  model.addAttribute("no", no);
+	  return "databoard/delete";
+  }
 }
 
 
