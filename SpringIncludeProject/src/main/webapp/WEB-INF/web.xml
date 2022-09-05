@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+<!-- 
+       교육 
+       1. 분석 
+       ***2. 문서교육 (메뉴얼)
+       ***3. 실제 프로그램을 제작 
+       4. 실전에 투입 
+ -->
+<servlet>
+		<servlet-name>appServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		
+		<!-- XML 사용시 : WebApplicationContext-->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/config/application-*.xml</param-value>
+		</init-param>
+		<!-- 환경 설정 자바인 경우  AnnotationConfigWebApplcationContext-->
+		<!-- <init-param>
+		  <param-name>contextClass</param-name>
+		  <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+		</init-param>
+		<init-param>
+		  <param-name>contextConfigLocation</param-name>
+		  <param-value>com.sist.config.BoardConfig</param-value>
+		</init-param> -->
+	</servlet>
+		
+	<servlet-mapping>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	<!-- 
+	     @WebServlet("*.do")
+	 -->
+	<!-- 
+	    request/response 미사용 = 한글 변환 
+	 -->
+	 <!-- 
+	    request.setCharacterEncoding("UTF-8")을 대신하는 코드  
+	  -->
+     <filter>
+		  <filter-name>encodingFilter</filter-name>
+		  <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		  <init-param>
+		    <param-name>encoding</param-name>
+		    <param-value>UTF-8</param-value>
+		  </init-param>
+     </filter>
+		
+     <filter-mapping>
+		  <filter-name>encodingFilter</filter-name>
+		  <url-pattern>/*</url-pattern>
+	</filter-mapping>
+</web-app>
