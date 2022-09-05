@@ -31,4 +31,9 @@ public class DataBoardDAO {
 		mapper.hitIncrement(no);
 		return mapper.databoardDetailData(no);
 	}
+	
+	public DataBoardVO databoardUpdateData(int no)
+	{
+		return mapper.databoardDetailData(no);
+	}
 }

@@ -20,6 +20,9 @@ import java.util.*;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.*;
+import java.net.URLEncoder;
+
+import org.snu.ids.ha.index.*;
 @Controller
 @RequestMapping("databoard/") // 공통으로 적용되는 URI주소를 설정 
 public class DataBoardController {
@@ -136,6 +139,24 @@ public class DataBoardController {
 	     model.addAttribute("sList", sList);
 	  }
 	  
+	  String data=vo.getContent();
+	  data=data.replaceAll("[0-9]", "");
+	  data=data.replaceAll("[a-zA-Z]", "");
+	  KeywordExtractor ke=new KeywordExtractor(); // R
+	  KeywordList kl=ke.extractKeyword(data, true);
+	  List<DataVO> list=new ArrayList<DataVO>();
+	  for(int i=0;i<kl.size();i++)
+	  {
+		  Keyword kwrd=kl.get(i);
+		  if(kwrd.getCnt()>1)
+		  {
+			  DataVO dvo=new DataVO();
+			  dvo.setWord(kwrd.getString());
+			  dvo.setCount(kwrd.getCnt());
+			  list.add(dvo);
+		  }
+	  }
+	  model.addAttribute("list", list);
 	  return "databoard/detail";
   }
   /*
@@ -152,8 +173,36 @@ public class DataBoardController {
   @GetMapping("download.do")
   public void databoard_download(String fn,HttpServletResponse response)
   {
-	  
+	  try
+	  {
+		  File file=new File("c:\\download\\"+fn);
+		  response.setContentLength((int)file.length());
+		  response.setHeader("Content-Disposition", "attachment;filename="
+				                     +URLEncoder.encode(fn,"UTF-8"));
+		  // 다운로드창을 보여준다 
+		  BufferedInputStream bis=new BufferedInputStream(new FileInputStream(file));//서버
+		  BufferedOutputStream bos=new BufferedOutputStream(response.getOutputStream());//클라이언트 
+		  byte[] buffer=new byte[1024];
+		  int i=0; //읽은 바이트수 
+		  while((i=bis.read(buffer,0, 1024))!=-1) //-1 (EOF)
+		  {
+			  bos.write(buffer, 0, i);
+		  }
+		  
+		  bis.close();
+		  bos.close();
+		  
+	  }catch(Exception ex){}
   }
+  // 수정하기 
+  @GetMapping("update.do")
+  public String databoard_update(int no,Model model)
+  {
+	  DataBoardVO vo=dao.databoardUpdateData(no);
+	  model.addAttribute("vo", vo);
+	  return "databoard/update";
+  }
+  // 삭제하기 
 }
 
 

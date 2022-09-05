@@ -19,6 +19,27 @@ h1 {
    text-align: center
 }
 </style>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Word', 'Count'],
+         <c:forEach var="dvo" items="${list}">
+          ['<c:out value="${dvo.word}"/>',     <c:out value="${dvo.count}"/>],
+         </c:forEach>
+        ]);
+
+        var options = {
+          title: '데이터분석',
+          is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+        chart.draw(data, options);
+      }
+    </script>
 </head>
 <body>
    <div class="container">
@@ -66,6 +87,12 @@ h1 {
           </td>
         </tr>
       </table>
+     </div>
+     <div style="height: 20px"></div>
+     <div class="row">
+       <div class="text-center">
+         <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
+       </div>
      </div>
    </div>
 </body>
