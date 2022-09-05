@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
+    <aop:aspectj-autoproxy/><!-- aop:어노테이션으로 설정 -->
+    <context:component-scan base-package="com.sist.*"/>
+    <!-- 클래스 선택적 메모리 할당  
+         @Component, 
+         @Repository, 
+         @Service, 
+         @Controller, 
+         @RestController, 
+         @ControllerAdvice, 
+         @Configuration
+    -->
+    <mvc:annotation-driven/><!-- RedirectAttributes : sendRedirect에서 데이터 전송 , Model :forward -->
+    <!-- 
+        사용자 요청  ============== DispatcherServlet ======== HandlerMapping => web.xml
+                                                       ==============
+                                     ================      | @Controller를 찾는다 
+                                         |ViewResovler ==> application-context.xml
+                                             | request
+                                            JSP 
+                                                        
+          1. DispatcherServlet : 요청을 받는다 
+          2. HandlerMapping : Model을 찾아 준다
+          ==================================== web.xml에 등록  
+          3. ViewResolver : JSP를 찾아주는 역할 
+          ==================================== 사용자 지정 
+             = MultipartResolver
+             = TilesView 
+               ========== 
+     -->
+    <bean id="viewResolver"
+        class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+        p:prefix="/"
+        p:suffix=".jsp"
+    />
+    <!-- 파일업로드  
+         multipartResolver : id는 스프링에서 사용중이 id
+    -->
+    <bean id="multipartResolver"
+       class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+    />
+</beans>
+
+
+
+
+
+
+
+
+
+
