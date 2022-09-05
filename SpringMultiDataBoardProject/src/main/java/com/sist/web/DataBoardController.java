@@ -16,6 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.sist.dao.*;
 import java.util.*;
+
+import javax.servlet.http.HttpServletResponse;
+
 import java.io.*;
 @Controller
 @RequestMapping("databoard/") // 공통으로 적용되는 URI주소를 설정 
@@ -63,7 +66,9 @@ public class DataBoardController {
   @PostMapping("insert_ok.do")
   public String databoard_insert_ok(DataBoardVO vo)
   {
+	  System.out.println("1111111");
 	  List<MultipartFile> list=vo.getFiles();
+	  System.out.println("size:"+list.size());
 	  String path="c:\\download\\";
 	  try
 	  {
@@ -89,16 +94,65 @@ public class DataBoardController {
 			  }
 			  temp1=temp1.substring(0,temp1.lastIndexOf(","));
 			  temp2=temp2.substring(0,temp2.lastIndexOf(","));
+			  System.out.println(temp1);
+			  System.out.println(temp2);
 			  vo.setFilename(temp1);
 			  vo.setFilesize(temp2);
 			  vo.setFilecount(list.size());
 		  }
-		  
+		  dao.boardInsert(vo);
 	  }catch(Exception ex) 
 	  {
 		  ex.printStackTrace();
 	  }
 	  return "redirect:list.do";
+  }
+  
+  @GetMapping("detail.do")
+  // 파일명(크기 bytes)
+  public String databoard_detail(int no,Model model)
+  {
+	  //DAO연동 ==> 다운로드 
+	  DataBoardVO vo=dao.databoardDetailData(no);
+	  model.addAttribute("vo", vo);
+	  
+	  if(vo.getFilecount()!=0) // 업로드된 파일이 있는 경우에만 전송 
+	  {
+	     List<String> fList=new ArrayList<String>();
+	     List<String> sList=new ArrayList<String>();
+	     StringTokenizer st=new StringTokenizer(vo.getFilename(),",");
+	     while(st.hasMoreTokens())
+	     {
+	    	 fList.add(st.nextToken());
+	     }
+	     
+	     st=new StringTokenizer(vo.getFilesize(),",");
+	     while(st.hasMoreTokens())
+	     {
+	    	 sList.add(st.nextToken());
+	     }
+	     
+	     model.addAttribute("fList", fList);
+	     model.addAttribute("sList", sList);
+	  }
+	  
+	  return "databoard/detail";
+  }
+  /*
+   *    Model ==> @Controller , @RestController 
+   *    ----------------------------------------
+   *    1. 매개변수 
+   *        사용자 전송값  ==> ?page=1 , ?no=1
+   *        form에서 전송된 데이터 => VO, String[]
+   *        스프링에서 제공하는 내장 객체 
+   *    2. 리턴형 : String , void
+   *    3. 파일 => redirect: (sendRedirect) , 경로/파일 (forward)
+   *               => request를 초기화 : 재전송     => JSP request전송 
+   */
+  @GetMapping("download.do")
+  public void databoard_download(String fn,HttpServletResponse response)
+  {
+	  
   }
 }
 

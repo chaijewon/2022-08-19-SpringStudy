@@ -25,4 +25,10 @@ public class DataBoardDAO {
 	{
 		return mapper.boardTotalPage();
 	}
+	
+	public DataBoardVO databoardDetailData(int no)
+	{
+		mapper.hitIncrement(no);
+		return mapper.databoardDetailData(no);
+	}
 }

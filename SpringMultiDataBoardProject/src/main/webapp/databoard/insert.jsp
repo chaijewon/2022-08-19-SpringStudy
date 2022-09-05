@@ -60,7 +60,7 @@ $(function(){
 		$('#user-table > tbody').append(
 		   '<tr id="m'+(fileIndex)+'">'
 		  +'<td width=20%>파일 '+(fileIndex+1)+'</td>'
-		  +'<td width=80%><input type=file name=files["'+(fileIndex)+'"]></td>'
+		  +'<td width=80%><input type=file name=files['+(fileIndex)+']></td>'
 		  +'</tr>'
 		)
 		fileIndex=fileIndex+1;

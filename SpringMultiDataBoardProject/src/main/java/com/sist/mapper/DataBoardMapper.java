@@ -4,6 +4,7 @@ import java.util.*;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
+import org.apache.ibatis.annotations.Update;
 
 import com.sist.dao.DataBoardVO;
 public interface DataBoardMapper {
@@ -15,7 +16,7 @@ public interface DataBoardMapper {
    public List<DataBoardVO> boardListData(Map map);
    
    // 총페이지 
-   @Select("SELECT CEIL(COUTN(*)/10.0) FROM spring_databoard")
+   @Select("SELECT CEIL(COUNT(*)/10.0) FROM spring_databoard")
    public int boardTotalPage();
    // 1. sequence , 2. selectkey , 3. subquery
    /*
@@ -29,4 +30,27 @@ public interface DataBoardMapper {
 		  +"#{no},#{name},#{subject},#{content},#{pwd},"
 		  +"SYSDATE,0,#{filename},#{filesize},#{filecount})")
    public void boardInsert(DataBoardVO vo);
+   
+   // 상세보기 
+   @Update("UPDATE spring_databoard SET "
+		  +"hit=hit+1 "
+		  +"WHERE no=#{no}")
+   public void hitIncrement(int no);
+   
+   @Select("SELECT no,name,subject,content,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,filename,filesize,filecount "
+		  +"FROM spring_databoard "
+		  +"WHERE no=#{no}")
+   public DataBoardVO databoardDetailData(int no);
 }
+
+
+
+
+
+
+
+
+
+
+
+
