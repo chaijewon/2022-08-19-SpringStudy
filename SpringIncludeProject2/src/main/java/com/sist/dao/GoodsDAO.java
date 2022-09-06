@@ -75,6 +75,13 @@ public class GoodsDAO {
 		}
 		return vo;
 	}
+	
+	/*@Select("SELECT * FROM ${table_name} "
+			 +"WHERE REGEXP_LIKE(goods_name,#{ss})")*/
+	 public List<GoodsVO> goodsFindData(Map map)
+	 {
+		 return mapper.goodsFindData(map);
+	 }
 }
 
 

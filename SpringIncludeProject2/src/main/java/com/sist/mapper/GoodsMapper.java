@@ -32,4 +32,18 @@ public interface GoodsMapper {
 		 +"WHERE id=#{id}")
    public MemberVO memberGetPassword(String id);
    
+   
+   @Select("SELECT * FROM ${table_name} "
+		  +"WHERE REGEXP_LIKE(goods_name,#{ss})")
+   public List<GoodsVO> goodsFindData(Map map);
 }
+
+
+
+
+
+
+
+
+
+

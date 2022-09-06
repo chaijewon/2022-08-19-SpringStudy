@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.*;
 import com.sist.dao.*;
@@ -62,4 +64,30 @@ public class GoodsController {
 	  model.addAttribute("main_jsp", "../goods/new_detail.jsp");
 	  return "main/main";
   }
+  
+  @RequestMapping("goods/find.do")
+  public String goods_find(String fs,String ss,Model model)
+  {
+	  System.out.println("fs="+fs+",ss="+ss);
+	  if(fs!=null && ss!=null)
+	  {
+		  Map map=new HashMap();
+		  map.put("table_name",fs);
+		  map.put("ss", ss);
+		  List<GoodsVO> list=dao.goodsFindData(map);
+		  System.out.println(list.size());
+		  model.addAttribute("list", list);
+	  }
+	  model.addAttribute("main_jsp", "../goods/find.jsp");
+	  return "main/main";
+  }
 }
+
+
+
+
+
+
+
+
+

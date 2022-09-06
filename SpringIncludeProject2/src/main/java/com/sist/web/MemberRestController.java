@@ -2,10 +2,14 @@ package com.sist.web;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.sist.dao.*;
+
+import oracle.jdbc.proxy.annotation.Post;
 @RestController
 public class MemberRestController {
     @Autowired
@@ -41,4 +45,45 @@ public class MemberRestController {
     	}
     	return result;
     }
+    
+    @PostMapping(value = "member/ajax_login_ok.do",produces = "text/html;charset=utf-8")
+    public String member_ajax_login(String id,String pwd,HttpSession session)
+    {
+    	String result="";
+    	MemberVO vo=dao.memberLogin(id, pwd);
+    	result=vo.getMsg();
+    	if(vo.getMsg().equals("OK"))
+    	{
+    		session.setAttribute("id", id);
+    		session.setAttribute("name", vo.getName());
+    		result=vo.getName();
+    	}
+    	return result;
+    }
+    
+    @GetMapping(value="member/vue_login_ok.do",produces = "text/plain;charset=utf-8")
+    // text/plain(json)  , text/html (일반문자열 , script)
+    public String member_vue_login(String id,String pwd,HttpSession session)
+    {
+    	String result="";
+    	MemberVO vo=dao.memberLogin(id, pwd);
+    	if(vo.getMsg().equals("OK"))
+    	{
+    		session.setAttribute("id", id);
+    		session.setAttribute("name", vo.getName());
+    	}
+    	JSONObject obj=new JSONObject(); // {}
+    	obj.put("msg", vo.getMsg());
+    	obj.put("name",vo.getName());
+    	result=obj.toJSONString();
+    	return result;
+    }
 }
+
+
+
+
+
+
+
+
