@@ -28,13 +28,13 @@
 	        <tr>
 	          <th width=30% class="text-right">ID</th>
 	          <td width=70%>
-	           <input type=text class="input-sm" size=15 v-model="id">
+	           <input type=text class="input-sm" size=15 v-model="id" ref="id">
 	          </td>
 	        </tr>
 	        <tr>
 	          <th width=30% class="text-right">PWD</th>
 	          <td width=70%>
-	           <input type=password  class="input-sm" size=15 v-model="pwd">
+	           <input type=password  class="input-sm" size=15 v-model="pwd" ref="pwd">
 	          </td>
 	        </tr>
 	        <tr>
@@ -81,11 +81,13 @@
     					alert("아이디가 존재하지 않습니다!!");
     					this.id="";
     					this.pwd="";
+    					this.$refs.id.focus();
     				}
     				else if(this.result.msg=="NOPWD")
     				{
     					alert("비밀번호가 틀립니다!!")
     					this.pwd="";
+    					this.$refs.pwd.focus();
     				}
     				else
     				{
