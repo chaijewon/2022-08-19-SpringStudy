@@ -9,7 +9,7 @@
        ***3. 실제 프로그램을 제작 
        4. 실전에 투입 
  -->
-<servlet>
+     <servlet>
 		<servlet-name>appServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		
