@@ -42,4 +42,44 @@ public class GoodsDAO {
 	{
 		return mapper.goodsDetailData(map);
 	}
+	
+	  /*//1. ID 체크
+	   @Select("SELECT COUNT(*) FROM project_member "
+			  +"WHERE id=#{id}")
+	   public int idCount(String id);
+	   //2. 비밀번호 비교 
+	   @Select("SELECT pwd,name FROM project_member "
+			 +"WHERE id=#{id}")
+	   public MemberVO memberGetPassword(String id);*/
+	public MemberVO memberLogin(String id,String pwd)
+	{
+		MemberVO vo=new MemberVO();
+		int count=mapper.idCount(id);
+		if(count==0)
+		{
+			vo.setMsg("NOID");
+		}
+		else
+		{
+			MemberVO dbVO=mapper.memberGetPassword(id);
+			if(pwd.equals(dbVO.getPwd())) // 로그인 상태
+			{
+				vo.setId(id);
+				vo.setName(dbVO.getName());
+				vo.setMsg("OK");
+			}
+			else
+			{
+				vo.setMsg("NOPWD");
+			}
+		}
+		return vo;
+	}
 }
+
+
+
+
+
+
+
