@@ -14,6 +14,9 @@ public class GoodsController {
   @Autowired
   private GoodsDAO dao;
   
+  @Autowired
+  private ReplyDAO rdao;
+  
   @GetMapping("goods/best.do")
   public String goods_best(String page,Model model)
   {
@@ -41,6 +44,12 @@ public class GoodsController {
   {
 	  CommonsController.goodsDetailData("goods_all", no, model, dao);
 	  model.addAttribute("main_jsp", "../goods/all_detail.jsp");
+	  // 댓글 
+	  ReplyVO vo=new ReplyVO();
+	  vo.setNo(no);
+	  vo.setType(1);
+	  List<ReplyVO> rList=rdao.replyListData(vo);
+	  model.addAttribute("rList", rList);
 	  return "main/main";
   }
   @GetMapping("goods/best_detail.do")
