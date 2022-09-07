@@ -1,6 +1,7 @@
 package com.sist.mapper;
 import java.util.*;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 /*
@@ -67,6 +68,28 @@ public interface ReplyMapper {
 		 +"depth=depth+1 "
 		 +"WHERE no=#{no}")
   public void replyDepthIncrement(int no);
+  
+  // 수정하기 
+  //1.depth , root 가지고 온다 
+  @Select("SELECT depth,root FROM spring_reply "
+		 +"WHERE no=#{no}")
+  public ReplyVO replyInfoData(int no);
+  //2.depth>0 UPDATE , depth==0 DELETE
+  @Update("UPDATE spring_reply SET "
+		 +"msg='관리자가 삭제한 댓글입니다' "
+		 +"WHERE no=#{no}")
+  public void replyMsgUpdate(int no);
+  
+  @Delete("DELETE FROM spring_reply "
+		 +"WHERE no=#{no}")
+  public void replyDelete(int no);
+  //3.depth = 감소
+  @Update("UPDATE spring_reply SET "
+		 +"depth=depth-1 "
+		 +"WHERE no=#{no}")
+  public void replyDepthDecrement(int no);
+  
+  
 }
 
 

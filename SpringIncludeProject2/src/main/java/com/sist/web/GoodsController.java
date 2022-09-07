@@ -58,6 +58,8 @@ public class GoodsController {
   {
 	  CommonsController.goodsDetailData("goods_best", no, model, dao);
 	  model.addAttribute("main_jsp", "../goods/best_detail.jsp");
+	// 댓글 
+		 
 	  return "main/main";
   }
   @GetMapping("goods/special_detail.do")
@@ -72,6 +74,12 @@ public class GoodsController {
   {
 	  CommonsController.goodsDetailData("goods_new", no, model, dao);
 	  model.addAttribute("main_jsp", "../goods/new_detail.jsp");
+	  ReplyVO vo=new ReplyVO();
+	  vo.setBno(no);
+	  vo.setType(2);
+	  List<ReplyVO> rList=rdao.replyListData(vo);
+	  System.out.println("size:"+rList.size());
+	  model.addAttribute("rList", rList);
 	  return "main/main";
   }
   

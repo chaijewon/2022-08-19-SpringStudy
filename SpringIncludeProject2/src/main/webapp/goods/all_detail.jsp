@@ -114,7 +114,9 @@ $(function(){
                 </tr>
                 <tr>
                   <td colspan="2">
-                   <pre style="white-space: pre-wrap;border: none;background-color: white;">${rvo.msg }</pre>
+                   <c:set var="k" value="${30*rvo.group_tab }"/>
+                   
+                   <pre style="white-space: pre-wrap;border: none;background-color: white;margin-left:${k}px ">${rvo.msg }</pre>
                   </td>
                 </tr>
               </table>

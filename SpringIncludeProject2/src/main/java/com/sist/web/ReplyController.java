@@ -104,7 +104,7 @@ public class ReplyController {
    public String reply_delete(ReplyVO vo)
    {
 	   //DAO연동
-	   
+	   dao.replyDelete(vo.getNo());
 	   String uri="";
 	   if(vo.getType()==1)
 	   {

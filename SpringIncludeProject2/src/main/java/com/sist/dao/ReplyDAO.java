@@ -1,6 +1,7 @@
 package com.sist.dao;
 import java.util.*;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
@@ -60,6 +61,24 @@ public class ReplyDAO {
 	   vo.setRoot(pno);
 	   mapper.replyReplyInsert(vo);
 	   mapper.replyDepthIncrement(pno);
+   }
+   
+   /*@Delete("DELETE FROM spring_reply "
+			 +"WHERE no=#{no}")*/
+   @Transactional
+   public void replyDelete(int no)
+   {
+	   //1. depth,root
+	   ReplyVO vo=mapper.replyInfoData(no);
+	   if(vo.getDepth()==0)
+	   {
+		   mapper.replyDelete(no);
+	   }
+	   else
+	   {
+		   mapper.replyMsgUpdate(no);
+	   }
+	   mapper.replyDepthDecrement(vo.getRoot());
    }
 }
 
