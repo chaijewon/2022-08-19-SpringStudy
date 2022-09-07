@@ -15,7 +15,7 @@ public class ReplyController {
    private ReplyDAO dao;
    
    @PostMapping("reply/reply_insert.do")
-   public String reply_insert(ReplyVO vo,HttpSession session)
+   public String reply_insert(ReplyVO vo,HttpSession session) throws Exception
    {
 	   String id=(String)session.getAttribute("id");
 	   String name=(String)session.getAttribute("name");
@@ -42,4 +42,36 @@ public class ReplyController {
 	   
 	   return "redirect:"+uri;
    }
+   @PostMapping("reply/reply_update.do")
+   public String reply_update(ReplyVO vo)
+   {
+	   // DAO 
+	   dao.replyUpdate(vo);
+	   // 화면 이동 
+	   String uri="";
+	   if(vo.getType()==1)
+	   {
+		   uri="../goods/all_detail.do?no="+vo.getBno();   
+	   }
+	   else if(vo.getType()==2)
+	   {
+		   uri="../goods/new_detail.do?no="+vo.getBno();
+	   }
+	   else if(vo.getType()==3)
+	   {
+		   uri="../goods/special_detail.do?no="+vo.getBno();
+	   }
+	   else if(vo.getType()==4)
+	   {
+		   uri="../goods/best_detail.do?no="+vo.getBno();
+	   }
+	   
+	   return "redirect:"+uri;
+   }
 }
+
+
+
+
+
+

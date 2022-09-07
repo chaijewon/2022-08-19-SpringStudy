@@ -46,9 +46,10 @@ public class GoodsController {
 	  model.addAttribute("main_jsp", "../goods/all_detail.jsp");
 	  // 댓글 
 	  ReplyVO vo=new ReplyVO();
-	  vo.setNo(no);
+	  vo.setBno(no);
 	  vo.setType(1);
 	  List<ReplyVO> rList=rdao.replyListData(vo);
+	  System.out.println("size:"+rList.size());
 	  model.addAttribute("rList", rList);
 	  return "main/main";
   }

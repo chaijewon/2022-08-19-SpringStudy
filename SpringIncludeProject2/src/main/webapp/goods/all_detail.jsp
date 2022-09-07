@@ -6,6 +6,30 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
+let u=0;
+$(function(){
+	$('.updates').hide();
+	$('.up').click(function(){
+		$('.updates').hide();
+		$('.up').text("수정");
+		let no=$(this).attr("data-no");
+		if(u==0)
+		{
+			$('#u'+no).show();
+			$('#up'+no).text("취소");
+			u=1;
+		}
+		else
+		{
+			$('#u'+no).hide();
+			$('#up'+no).text("수정");
+			u=0;
+		}
+	})
+})
+</script>
 </head>
 <body>
   <div class="container">
@@ -58,7 +82,7 @@
                  <td class="text-right">
                    <c:if test="${sessionScope.id!=null }">
                      <c:if test="${sessionScope.id==rvo.id }">
-                       <a href="#" class="btn btn-xs btn-danger">수정</a>
+                       <span class="btn btn-xs btn-danger up" data-no="${rvo.no }" id="up${rvo.no }">수정</span>
                        <a href="#" class="btn btn-xs btn-primary">삭제</a>
                      </c:if>
                      <a href="#" class="btn btn-xs btn-info">댓글</a>
@@ -76,6 +100,19 @@
                   </td>
                 </tr>
               </table>
+              <table class="table updates" style="display:none" id="u${rvo.no }">
+		        <tr>
+		          <td>
+		           <form method="post" action="../reply/reply_update.do">
+		            <input type=hidden name="no" value="${rvo.no }">
+		            <input type=hidden name="bno" value="${vo.no }">
+		            <input type=hidden name="type" value="1">
+		            <textarea rows="5" cols="75" name="msg" style="float: left">${rvo.msg }</textarea>
+		            <input type=submit value="댓글수정" style="height:103px;float: left" class="btn btn-sm btn-danger">
+		           </form>
+		          </td>
+		        </tr>
+		      </table>
             </c:forEach>
           </td>
         </tr>
@@ -84,9 +121,11 @@
 	      <table class="table">
 	        <tr>
 	          <td>
-	           <form method="post" action="">
+	           <form method="post" action="../reply/reply_insert.do">
+	            <input type=hidden name="bno" value="${vo.no }">
+	            <input type=hidden name="type" value="1">
 	            <textarea rows="5" cols="85" name="msg" style="float: left"></textarea>
-	            <input type=button value="댓글쓰기" style="height:103px;float: left" class="btn btn-sm btn-danger">
+	            <input type=submit value="댓글쓰기" style="height:103px;float: left" class="btn btn-sm btn-danger">
 	           </form>
 	          </td>
 	        </tr>

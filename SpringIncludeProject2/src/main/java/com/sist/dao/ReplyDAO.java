@@ -4,6 +4,7 @@ import java.util.*;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -33,5 +34,13 @@ public class ReplyDAO {
   public void replyInsert(ReplyVO vo)
   {
 	  mapper.replyInsert(vo);
+  }
+  
+  /*@Update("UPDATE spring_reply SET "
+			 +"msg=#{msg} "
+			 +"WHERE no=#{no}")*/
+  public void replyUpdate(ReplyVO vo)
+  {
+	  mapper.replyUpdate(vo);
   }
 }

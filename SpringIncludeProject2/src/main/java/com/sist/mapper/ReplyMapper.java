@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Select;
 	  private Date regdate;
  */
 import org.apache.ibatis.annotations.SelectKey;
+import org.apache.ibatis.annotations.Update;
 
 import com.sist.dao.ReplyVO;
 public interface ReplyMapper {
@@ -28,6 +29,10 @@ public interface ReplyMapper {
   public void replyInsert(ReplyVO vo);
   
   // 수정 
+  @Update("UPDATE spring_reply SET "
+		 +"msg=#{msg} "
+		 +"WHERE no=#{no}")
+  public void replyUpdate(ReplyVO vo);
   // 삭제  ====================
   // 댓글 => 댓글  =============  트랜잭션 적용 
 }
