@@ -35,6 +35,38 @@ public interface ReplyMapper {
   public void replyUpdate(ReplyVO vo);
   // 삭제  ====================
   // 댓글 => 댓글  =============  트랜잭션 적용 
+  // pno = group_id , group_step , group_tab
+  @Select("SELECT group_id,group_step,group_tab "
+		 +"FROM spring_reply "
+		 +"WHERE no=#{no}")
+  public ReplyVO replyParentInfoData(int no);
+  // group_step을 변경
+  /*                            group_id group_step group_tab
+   *     AAAAAA                   1         0           0
+   *       =>DDDDDD               1         2           1
+   *       =>BBBBB                1         3           1
+   *        =>CCCCCC              1         4           2
+   *       =>KKKKKK               1         1           1
+   *       
+   */
+  @Update("UPDATE spring_reply SET "
+		 +"group_step=group_step+1 "
+		 +"WHERE group_id=#{group_id} AND group_step>#{group_step}")
+  public void replyGroupStepIncrement(ReplyVO vo);
+  // insert 
+  @SelectKey(keyProperty = "no",resultType = int.class,before = true, 
+		  statement = "SELECT NVL(MAX(no)+1,1) as no FROM spring_reply")
+  // MySQL  ====> NVL() : IFNULL
+  //              TO_CHAR : DATE_FORMAT
+  // NUMBER : int ,double , VARCHAR2:VARCHAR , CLOB : text
+  @Insert("INSERT INTO spring_reply(no,bno,id,name,msg,group_id,type,group_step,group_tab,root) VALUES("
+		 +"#{no},#{bno},#{id},#{name},#{msg},#{group_id},#{type},#{group_step},#{group_tab},#{root})")
+  public void replyReplyInsert(ReplyVO vo);
+  // depth변경 
+  @Update("UPDATE spring_reply SET "
+		 +"depth=depth+1 "
+		 +"WHERE no=#{no}")
+  public void replyDepthIncrement(int no);
 }
 
 

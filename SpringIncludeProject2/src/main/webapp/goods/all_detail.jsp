@@ -9,10 +9,13 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
 let u=0;
+let r=0;
 $(function(){
 	$('.updates').hide();
+	$('.replys').hide();
 	$('.up').click(function(){
 		$('.updates').hide();
+		$('.replys').hide();
 		$('.up').text("수정");
 		let no=$(this).attr("data-no");
 		if(u==0)
@@ -26,6 +29,26 @@ $(function(){
 			$('#u'+no).hide();
 			$('#up'+no).text("수정");
 			u=0;
+		}
+	})
+	
+	// 댓글 
+	$('.re').on("click",function(){
+		$('.replys').hide();
+		$('.updates').hide();
+		let no=$(this).attr("data-no");
+		$('.re').text("댓글");
+		if(r==0)
+		{
+			$('#r'+no).show();
+			$('#re'+no).text("취소");
+			r=1;
+		}
+		else
+		{
+			$('#r'+no).hide();
+			$('#re'+no).text("댓글");
+			r=0;
 		}
 	})
 })
@@ -83,19 +106,14 @@ $(function(){
                    <c:if test="${sessionScope.id!=null }">
                      <c:if test="${sessionScope.id==rvo.id }">
                        <span class="btn btn-xs btn-danger up" data-no="${rvo.no }" id="up${rvo.no }">수정</span>
-                       <a href="#" class="btn btn-xs btn-primary">삭제</a>
+                       <a href="../reply/reply_delete.do?no=${rvo.no }&bno=${rvo.bno}&type=${rvo.type}" class="btn btn-xs btn-primary">삭제</a>
                      </c:if>
-                     <a href="#" class="btn btn-xs btn-info">댓글</a>
+                     <span class="btn btn-xs btn-info re" data-no="${rvo.no }" id="re${rvo.no }">댓글</a>
                    </c:if>
                  </td>
                 </tr>
                 <tr>
                   <td colspan="2">
-                   <c:if test="${rvo.group_tab>0 }">
-                    <c:forEach var="i" begin="1" end="${rvo.group_tab }">
-                      &nbsp;&nbsp;
-                    </c:forEach>
-                   </c:if>
                    <pre style="white-space: pre-wrap;border: none;background-color: white;">${rvo.msg }</pre>
                   </td>
                 </tr>
@@ -109,6 +127,19 @@ $(function(){
 		            <input type=hidden name="type" value="1">
 		            <textarea rows="5" cols="75" name="msg" style="float: left">${rvo.msg }</textarea>
 		            <input type=submit value="댓글수정" style="height:103px;float: left" class="btn btn-sm btn-danger">
+		           </form>
+		          </td>
+		        </tr>
+		      </table>
+		      <table class="table replys" style="display:none" id="r${rvo.no }">
+		        <tr>
+		          <td>
+		           <form method="post" action="../reply/reply_reply_insert.do">
+		            <input type=hidden name="pno" value="${rvo.no }">
+		            <input type=hidden name="bno" value="${vo.no }">
+		            <input type=hidden name="type" value="1">
+		            <textarea rows="5" cols="75" name="msg" style="float: left"></textarea>
+		            <input type=submit value="댓글" style="height:103px;float: left" class="btn btn-sm btn-danger">
 		           </form>
 		          </td>
 		        </tr>
