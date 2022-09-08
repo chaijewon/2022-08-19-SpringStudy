@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import java.util.*;
 import com.sist.mapper.*;
 import com.sist.vo.CategoryVO;
+import com.sist.vo.FoodVO;
 @Repository
 public class FoodDAO {
    // 스프링에서 구현된 Mapper를 가지고 온다 
@@ -14,5 +15,15 @@ public class FoodDAO {
    public List<CategoryVO> categoryListData(Map map)
    {
 	   return mapper.categoryListData(map);
+   }
+   
+   public List<FoodVO> foodListData(int cno)
+   {
+	   return mapper.foodListData(cno);
+   }
+   
+   public CategoryVO categoryInfoData(int cno)
+   {
+	   return mapper.categoryInfoData(cno);
    }
 }

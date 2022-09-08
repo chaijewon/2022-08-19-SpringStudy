@@ -15,5 +15,17 @@ public class FoodServiceImpl implements FoodService{
 		// TODO Auto-generated method stub
 		return dao.categoryListData(map);
 	}
+
+	@Override
+	public List<FoodVO> foodListData(int cno) {
+		// TODO Auto-generated method stub
+		return dao.foodListData(cno);
+	}
+
+	@Override
+	public CategoryVO categoryInfoData(int cno) {
+		// TODO Auto-generated method stub
+		return dao.categoryInfoData(cno);
+	}
    
 }
