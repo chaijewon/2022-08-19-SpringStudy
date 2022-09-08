@@ -20,4 +20,11 @@ public interface FoodMapper {
 		  +"FROM food_category "
 		  +"WHERE cno=#{cno}")
    public CategoryVO categoryInfoData(int cno);
+   
+   // 상세보기 
+   @Select("SELECT fno,name,poster,address,score,tel,type,time,parking,menu,price "
+		  +"FROM food_house "
+		  +"WHERE fno=#{fno}")
+   public FoodVO foodDetailData(int fno);
+   // 명소 , 쇼핑 , 자연 , 레시피
 }

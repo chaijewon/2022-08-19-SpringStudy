@@ -13,6 +13,15 @@
       <h1 class="text-center">${cvo.title }</h1>
       <h4 class="text-center">${cvo.subject }</h4>
     </div>
+    <%--
+       JSP (Link) ==> @Controller(Model)처리 
+                            |
+                                              필요한 데이터 (DAO) === session
+                            |
+                                                  화면지정(return) ==> Model(전송객체)  
+                       => 추천 
+                       프로그램 (Back,Front) => 데이터 관리                                        
+     --%>
     <div class="row">
       <table class="table">
         <tr>
@@ -21,9 +30,10 @@
               <table class="table">
                 <tr>
                   <td width=30% rowspan="4">
-                   <img src="${vo.poster }" style="width:300px;height: 200px" class="img-rounded">
+                   <a href="../food/food_detail.do?fno=${vo.fno }">
+                   <img src="${vo.poster }" style="width:300px;height: 200px" class="img-rounded"></a>
                   </td>
-                  <td width=70%><h3>${vo.name }&nbsp;<span style="color:orange">${vo.score }</span></h3></td>
+                  <td width=70%><h3><a href="../food/food_detail.do?fno=${vo.fno }">${vo.name }</a>&nbsp;<span style="color:orange">${vo.score }</span></h3></td>
                 </tr>
                 <tr>
                   <td>${vo.address }</td>

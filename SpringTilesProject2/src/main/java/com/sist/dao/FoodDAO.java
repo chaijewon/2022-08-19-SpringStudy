@@ -26,4 +26,9 @@ public class FoodDAO {
    {
 	   return mapper.categoryInfoData(cno);
    }
+   
+   public FoodVO foodDetailData(int fno)
+   {
+	   return mapper.foodDetailData(fno);
+   }
 }

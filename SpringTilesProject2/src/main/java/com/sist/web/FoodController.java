@@ -23,5 +23,22 @@ public class FoodController {
     	 model.addAttribute("cvo", vo);
     	 return "food/food_list";
      }
+     
+     @GetMapping("food/food_detail.do")
+     public String food_detail(int fno,Model model)
+     {
+    	 //DAO
+    	 FoodVO vo=service.foodDetailData(fno);
+    	 model.addAttribute("vo", vo);
+    	 return "food/food_detail";
+     }
    
 }
+
+
+
+
+
+
+
+
