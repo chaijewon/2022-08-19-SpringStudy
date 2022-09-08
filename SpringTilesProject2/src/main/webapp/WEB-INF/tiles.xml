@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+  <!-- name : @Controller = return "" -->
+  <definition name="main" template="/WEB-INF/main/main.jsp">
+    <!-- <jsp:include page="/WEB-INF/main/header.jsp"> -->
+    <put-attribute name="header" value="/WEB-INF/main/header.jsp"/>
+    <put-attribute name="content" value="/WEB-INF/main/home.jsp"/>
+  </definition>
+  <!--  return main/main -->
+  <definition name="*/*" extends="main">
+    <put-attribute name="content" value="/WEB-INF/{1}/{2}.jsp"/>
+  </definition>
+</tiles-definitions>
