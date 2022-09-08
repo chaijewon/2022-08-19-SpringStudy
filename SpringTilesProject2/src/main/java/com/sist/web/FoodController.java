@@ -13,6 +13,9 @@ public class FoodController {
      @Autowired
      private FoodService service;
      
+     @Autowired
+     private RecipeService rServ;
+     
      @GetMapping("food/food_list.do")
      public String food_list(int cno,Model model)
      {
@@ -30,6 +33,12 @@ public class FoodController {
     	 //DAO
     	 FoodVO vo=service.foodDetailData(fno);
     	 model.addAttribute("vo", vo);
+    	 
+    	 String ss=vo.getType();
+    	 ss=ss.replace("/", "|");
+    	 // 탕 | 찌개 | 전골
+    	 List<RecipeVO> rList=rServ.recipeFindData(ss);
+    	 model.addAttribute("rList", rList);
     	 return "food/food_detail";
      }
    

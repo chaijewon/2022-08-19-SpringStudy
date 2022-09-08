@@ -123,6 +123,17 @@
 	<div style="height: 20px"></div>
 	<div class="row">
 	  <%-- 자연 , 명소 , 쇼핑 , 레시피 --%>
+	  <h2>관련 레시피</h2>
+	  <hr>
+	  <c:forEach var="rvo" items="${rList }">
+	    <div class="col-md-2">
+		    <div class="thumbnail">
+		      <a href="#">
+		        <img src="${rvo.poster }" title="${rvo.title }" style="width:100%">
+		      </a>
+		    </div>
+		  </div>
+	  </c:forEach>
 	</div>
   </div>
 </body>

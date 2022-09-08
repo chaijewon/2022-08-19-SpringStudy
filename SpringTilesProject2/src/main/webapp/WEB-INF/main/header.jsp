@@ -23,7 +23,7 @@
           <li><a href="#">쇼핑</a></li>
         </ul>
       </li>
-      <li><a href="#">레시피</a></li>
+      <li><a href="../recipe/list.do">레시피</a></li>
     </ul>
   </div>
 </nav>
