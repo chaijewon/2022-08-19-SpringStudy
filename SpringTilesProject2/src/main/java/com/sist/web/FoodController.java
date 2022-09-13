@@ -35,7 +35,7 @@ public class FoodController {
     	 model.addAttribute("vo", vo);
     	 
     	 String ss=vo.getType();
-    	 ss=ss.replace("/", "|");
+    	 ss=ss.replace("/", "|").replace(" ", "").replace("기타", "");
     	 // 탕 | 찌개 | 전골
     	 List<RecipeVO> rList=rServ.recipeFindData(ss);
     	 model.addAttribute("rList", rList);

@@ -29,6 +29,11 @@ public class FoodDAO {
    
    public FoodVO foodDetailData(int fno)
    {
+	   mapper.hitIncrement(fno);
 	   return mapper.foodDetailData(fno);
+   }
+   public List<String> foodTop5()
+   {
+	   return mapper.foodTop5();
    }
 }

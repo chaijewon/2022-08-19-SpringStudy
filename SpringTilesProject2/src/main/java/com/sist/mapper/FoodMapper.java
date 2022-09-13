@@ -2,6 +2,7 @@ package com.sist.mapper;
 import java.util.*;
 
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.sist.vo.CategoryVO;
 import com.sist.vo.FoodVO;
@@ -27,4 +28,14 @@ public interface FoodMapper {
 		  +"WHERE fno=#{fno}")
    public FoodVO foodDetailData(int fno);
    // 명소 , 쇼핑 , 자연 , 레시피
+   
+   @Update("UPDATE food_house SET "
+		  +"hit=hit+1 "
+		  +"WHERE fno=#{fno}")
+   public void hitIncrement(int fno);
+   
+   @Select("SELECT name,rownum "
+		  +"FROM (SELECT name FROM food_house ORDER BY hit DESC) "
+		  +"WHERE rownum<=5")
+   public List<String> foodTop5();
 }

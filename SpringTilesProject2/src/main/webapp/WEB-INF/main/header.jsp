@@ -18,12 +18,13 @@
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">서울 여행
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="#">명소</a></li>
-          <li><a href="#">자연</a></li>
-          <li><a href="#">쇼핑</a></li>
+          <li><a href="../seoul/list.do?tab=1">명소</a></li>
+          <li><a href="../seoul/list.do?tab=2">자연</a></li>
+          <li><a href="../seoul/list.do?tab=3">쇼핑</a></li>
         </ul>
       </li>
       <li><a href="../recipe/list.do">레시피</a></li>
+      <li><a href="../chat/chat.do">채팅</a></li>
     </ul>
   </div>
 </nav>

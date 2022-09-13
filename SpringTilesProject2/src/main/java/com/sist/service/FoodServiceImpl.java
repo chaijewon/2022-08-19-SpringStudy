@@ -33,5 +33,11 @@ public class FoodServiceImpl implements FoodService{
 		// TODO Auto-generated method stub
 		return dao.foodDetailData(fno);
 	}
+
+	@Override
+	public List<String> foodTop5() {
+		// TODO Auto-generated method stub
+		return dao.foodTop5();
+	}
    
 }

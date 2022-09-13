@@ -6,4 +6,5 @@ public interface FoodService {
 	public List<FoodVO> foodListData(int cno);
 	public CategoryVO categoryInfoData(int cno);
 	public FoodVO foodDetailData(int fno);
+	public List<String> foodTop5();
 }

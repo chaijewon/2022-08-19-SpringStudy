@@ -1,6 +1,12 @@
 package com.sist.service;
 
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.sist.vo.SeoulVO;
 /*
  *   1. @Controller 
  *   2. @RestController
@@ -18,7 +24,35 @@ import org.springframework.stereotype.Service;
  *   @Inject
  *   
  */
+import com.sist.dao.*;
 @Service
-public class SeoulServiceImpl {
+public class SeoulServiceImpl implements SeoulService{
+
+	@Autowired
+	private SeoulDAO dao;
+	
+	@Override
+	public List<SeoulVO> seoulListData(Map map) {
+		// TODO Auto-generated method stub
+		return dao.seoulListData(map);
+	}
+
+	@Override
+	public SeoulVO seoulDetailData(Map map) {
+		// TODO Auto-generated method stub
+		return dao.seoulDetailData(map);
+	}
+
+	@Override
+	public int seoulTotalPage(Map map) {
+		// TODO Auto-generated method stub
+		return dao.seoulTotalPage(map);
+	}
+
+	@Override
+	public List<SeoulVO> seoulTop5(Map map) {
+		// TODO Auto-generated method stub
+		return dao.seoulTop5(map);
+	}
 
 }
