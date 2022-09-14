@@ -52,6 +52,15 @@ public class ReplyController {
     	ra.addAttribute("no", vo.getCno());
     	return "redirect:../seoul/detail.do";
     }
+    
+    @PostMapping("reply/update.do")
+    public String reply_update(ReplyVO vo,RedirectAttributes ra)
+    {
+    	dao.replyUpdate(vo);
+    	ra.addAttribute("tab", vo.getType());
+    	ra.addAttribute("no", vo.getCno());
+    	return "redirect:../seoul/detail.do";
+    }
 }
 
 

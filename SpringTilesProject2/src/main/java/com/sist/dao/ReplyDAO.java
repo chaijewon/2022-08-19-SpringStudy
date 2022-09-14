@@ -167,7 +167,25 @@ public class ReplyDAO {
 		END;
 		/
     */
-   
+   public void replyUpdate(ReplyVO vo)
+   {
+	   try
+	   {
+		   getConnection();
+		   String sql="{CALL replyUpdate(?,?)}";
+		   cs=conn.prepareCall(sql);
+		   cs.setInt(1, vo.getNo());
+		   cs.setString(2, vo.getMsg());
+		   cs.executeQuery();
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   disConnection();
+	   }
+   }
    
 }
 

@@ -25,6 +25,7 @@
         </ul>
       </li>
       <li><a href="../recipe/list.do">레시피</a></li>
+      <li><a href="../food/food_find.do">맛집 검색</a></li>
       <c:if test="${sessionScope.id!=null }">
         <li><a href="../member/logout.do">로그아웃</a></li>
       </c:if>

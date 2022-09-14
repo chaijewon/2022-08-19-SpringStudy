@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.*;
 import com.sist.service.*;
@@ -40,6 +41,13 @@ public class FoodController {
     	 List<RecipeVO> rList=rServ.recipeFindData(ss);
     	 model.addAttribute("rList", rList);
     	 return "food/food_detail";
+     }
+     
+     @RequestMapping("food/food_find.do")
+     public String food_find(String ss,Model model)
+     {
+    	 
+    	 return "food/food_find";// */*
      }
    
 }
