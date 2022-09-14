@@ -7,9 +7,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.*;
 import com.sist.vo.*;
+import com.sist.dao.ReplyDAO;
 import com.sist.service.*;
 @Controller
 public class SeoulController {
+   @Autowired
+   private ReplyDAO dao;
+   
    @Autowired
    private SeoulService service;
    private String[] tables={"","seoul_location","seoul_nature","seoul_shop"};
@@ -44,7 +48,13 @@ public class SeoulController {
 	   SeoulVO vo=service.seoulDetailData(map);
 	   model.addAttribute("vo", vo);
 	   model.addAttribute("tab", tab); //tab => 구분
-	   return "seoul/detail";
+	   
+	   ReplyVO rvo=new ReplyVO();
+	   rvo.setCno(no);
+	   rvo.setType(tab);
+	   List<ReplyVO> list=dao.replyListData(rvo);
+	   model.addAttribute("list", list);
+	   return "seoul/detail";//forward => Model 
    }
 }
 

@@ -29,8 +29,13 @@
        </ul>
       </div>
       <div class="col-sm-4">
-       <h3>인기 맛집</h3>
+       <h3>인기 뮤직</h3>
        <hr>
+       <ul>
+         <c:forEach var="mvo" items="${mList }">
+           <li>${mvo.title }(${mvo.singer })</li>
+         </c:forEach>
+       </ul>
       </div>
     </div>
   </div>
