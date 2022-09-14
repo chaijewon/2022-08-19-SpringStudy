@@ -1,5 +1,6 @@
 package com.sist.web;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,10 +45,49 @@ public class FoodController {
      }
      
      @RequestMapping("food/food_find.do")
-     public String food_find(String ss,Model model)
+     public String food_find(String page,String ss,Model model)
      {
+    	 if(ss==null)
+    		 ss="강남";
     	 
+    	 if(page==null)
+    		 page="1";
+    	 
+    	 int curpage=Integer.parseInt(page);
+    	 Map map=new HashMap();
+    	 int rowSize=12;
+    	 int start=(rowSize*curpage)-(rowSize-1);
+    	 int end=rowSize*curpage;
+    	 
+    	 map.put("start", start);
+    	 map.put("end", end);
+    	 map.put("address", ss);
+    	 
+    	 List<FoodVO> list=service.foodFindData(map);
+    	 int totalpage=service.foodLocationTotalPage(ss);
+    	 
+    	 model.addAttribute("list", list);
+    	 model.addAttribute("curpage", curpage);
+    	 model.addAttribute("totalpage", totalpage);
+    	 model.addAttribute("ss", ss);
     	 return "food/food_find";// */*
+     }
+     /*
+      *   스프링 = 페이지 지정 
+      *   Vue => Router => Node
+      *   React <=> Spring-Boot
+      */
+     @GetMapping("food/food_find_vue.do")
+     public String food_find_vue()
+     {
+    	 return "food/food_find_vue";
+     }
+     
+     @GetMapping("food/food_detail_vue.do")
+     public String food_detail_vue(int fno,Model model)
+     {
+    	 model.addAttribute("fno", fno);
+    	 return "food/food_detail_vue";
      }
    
 }

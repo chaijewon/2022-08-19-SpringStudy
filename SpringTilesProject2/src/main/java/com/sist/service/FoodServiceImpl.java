@@ -39,5 +39,23 @@ public class FoodServiceImpl implements FoodService{
 		// TODO Auto-generated method stub
 		return dao.foodTop5();
 	}
+
+	@Override
+	public List<FoodVO> foodFindData(Map map) {
+		// TODO Auto-generated method stub
+		return dao.foodFindData(map);
+	}
+
+	@Override
+	public int foodLocationTotalPage(String address) {
+		// TODO Auto-generated method stub
+		return dao.foodLocationTotalPage(address);
+	}
+
+	@Override
+	public FoodVO foodDetailVueData(int fno) {
+		// TODO Auto-generated method stub
+		return dao.foodDetailVueData(fno);
+	}
    
 }

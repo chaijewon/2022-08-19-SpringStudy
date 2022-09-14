@@ -9,9 +9,10 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 import com.sist.webchat.WebSocketChatHandler;
 
 //@Configuration
-@EnableWebSocket
+//@EnableWebSocket
 public class WebSocketConfig implements WebSocketConfigurer{
 
+	
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 		// TODO Auto-generated method stub

@@ -38,4 +38,27 @@ public interface FoodMapper {
 		  +"FROM (SELECT name FROM food_house ORDER BY hit DESC) "
 		  +"WHERE rownum<=5")
    public List<String> foodTop5();
+   
+   @Select("SELECT fno,name,poster,num "
+		  +"FROM (SELECT fno,name,poster,rownum as num "
+		  +"FROM (SELECT fno,name,poster "
+		  +"FROM food_location WHERE address LIKE '%'||#{address}||'%')) "
+		  +"WHERE num BETWEEN #{start} AND #{end}")
+   public List<FoodVO> foodFindData(Map map);
+   
+   @Select("SELECT CEIL(COUNT(*)/12.0) FROM food_location "
+		  +"WHERE address LIKE '%'||#{address}||'%'")
+   public int foodLocationTotalPage(String address);
+   
+   @Select("SELECT fno,name,poster,address,score,tel,type,time,parking,menu,price "
+			  +"FROM food_location "
+			  +"WHERE fno=#{fno}")
+	public FoodVO foodDetailVueData(int fno);
 }
+
+
+
+
+
+
+

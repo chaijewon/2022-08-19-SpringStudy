@@ -1,5 +1,6 @@
 package com.sist.webchat;
 import org.apache.commons.collections.map.HashedMap;
+import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -7,6 +8,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 // 처리 (채팅)
 import java.util.*;
 import java.util.concurrent.*;
+//@Component
 public class WebSocketChatHandler extends TextWebSocketHandler{
    // 접속한 사람 저장 : ID가 한개만 설정
     private Map<String,WebSocketSession> users=new HashMap<String,WebSocketSession>();
