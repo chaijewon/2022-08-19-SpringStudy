@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sist.dao.RecommandDAO;
 import com.sist.recommand.NaverDataClass;
 import com.sist.recommand.RecommandManager;
+import com.sist.vo.FoodVO;
 /*
  *   상황
         휴식 드라이브 산책 집 출/퇴근길 휴가/여행 운동 하우스파티 시상식 일/공부 카페 거리 클럽 고백 해변 공연 라운지 애도 집중
@@ -110,6 +112,7 @@ public class RecommandRestController {
 					 }
 				 }
 			 }
+			 List<FoodVO> sList=new ArrayList<FoodVO>();
 			 // 실제 추천할 데이터 출력 
 			 for(int i=0;i<fList.size();i++)
 			 {
@@ -117,8 +120,29 @@ public class RecommandRestController {
 				 if(count[i]>=2)
 				 {
 					 System.out.println(name+":"+count[i]);
+					 FoodVO vo=dao.recommandDetailData(name);
+					 sList.add(vo);
 				 }
 			 }
+			 
+			 JSONArray arr=new JSONArray();
+			 for(FoodVO vo:sList)
+			 {
+				 JSONObject obj=new JSONObject();
+				 obj.put("fno",vo.getFno());
+				 obj.put("name", vo.getName());
+				 obj.put("poster", vo.getPoster().substring(0,vo.getPoster().indexOf("^")));
+				 arr.add(obj);
+			 }
+			 result=arr.toJSONString();
+			 /*
+			  *          JSON/XML
+			  *   Front  <======>  Back <===> DB
+			  *                    (java,c#,파이썬)
+			  *     |
+			  *    javascript/kotlin
+			  *    (Vue,React => 자동 파싱)
+			  */
 		 }catch(Exception ex){}
 	  
 	   return result;

@@ -40,9 +40,22 @@ function recommandData(res)
 	    data:{"fd":res},
 	    success:function(result)
 	    {
+	    	//alert(result);
 	    	let res=JSON.parse(result);
 	    	let data="";
-	    	
+	    	data=res.map((m)=>(
+	    		'<div class="col-md-3">'
+	    		    +'<div class="thumbnail">'
+	    		      +'<a href="#">'
+	    		        +'<img src="'+m.poster+'" alt="Lights" style="width:350px;height: 200px">'
+	    		        +'<div class="caption">'
+	    		          +'<p>'+m.name+'</p>'
+	    		        +'</div>'
+	    		      +'</a>'
+	    		    +'</div>'
+	    		  +'</div>'
+	    	));
+	    	$('#recom').html(data);
 	    }
 	})
 }
