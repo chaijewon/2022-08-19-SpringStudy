@@ -20,4 +20,9 @@ public class RecommandController {
      {
     	 return "recommand/recommand";
      }
+     @GetMapping("recommand/recommand_vue.do")
+     public String food_recommand_vue()
+     {
+    	 return "recommand/recommand_vue";
+     }
 }
