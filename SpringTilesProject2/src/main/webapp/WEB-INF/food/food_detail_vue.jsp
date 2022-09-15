@@ -46,31 +46,57 @@
           <td width=20% style="color:gray">주차</td>
           <td width=80%>{{vo.parking}}</td>
         </tr>
-        <tr>
+        <tr v-show="vo.menu!='no'">
           <td width=20% style="color:gray">메뉴</td>
-          <td width=80%>{{vo.menu}}</td>
+          <td width=80%>
+            <ul>
+              <li v-for="m in vo.menu.split('원')">{{m}}</li>
+            </ul>
+          </td>
         </tr>
       </table>
     </div>
   </div>
   <script>
+  /* const myDetail={
+		 data(){
+			 return {
+				 fno:${fno},
+			  		vo:{}
+			 }
+		 },
+		 mounted(){
+		  
+			   axios.get("http://localhost:8080/web/food/detail_vue.do",{
+			  			params:{
+			  				fno:this.fno
+			  			}
+			  }).then(result=>{
+			  			console.log(result.data);
+			  			this.vo=result.data;
+			  })
+		  
+		 }
+  }
+  Vue.createApp(myDetail).mount('.container'); */
   new Vue({
-  	el:'.container',
-  	data:{
-  		fno:${fno},
-  		vo:{}
-  	},
-  	mounted:function(){
-  		axios.get("http://localhost:8080/web/food/detail_vue.do",{
-  			params:{
-  				fno:this.fno
-  			}
-  		}).then(result=>{
-  			console.log(result.data);
-  			this.vo=result.data;
-  		})
-  	}
-  })
+	  	el:'.container',
+	  	data:{
+	  		fno:${fno},
+	  		vo:{}
+	  	},
+	  	mounted:function(){
+	  		axios.get("http://localhost:8080/web/food/detail_vue.do",{
+	  			params:{
+	  				fno:this.fno
+	  			}
+	  		}).then(result=>{
+	  			console.log(result.data);
+	  			this.vo=result.data;
+	  		})
+	  	}
+	  })
+	  
   </script>
 </body>
 </html>

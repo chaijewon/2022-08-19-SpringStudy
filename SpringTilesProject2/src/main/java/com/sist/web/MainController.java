@@ -45,7 +45,8 @@ public class MainController {
 	   
 	   return "main";
    }
-   @GetMapping("site/chat/chat.do")
+  
+   @GetMapping("chat/chat.do")
    public String chat_chat()
    {
 	   return "site/chat/chat";
