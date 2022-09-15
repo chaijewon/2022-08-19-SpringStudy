@@ -8,11 +8,13 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Component;
 
+@Component
 public class NaverDataClass {
 
 
-    public static String recommandData(String fd) {
+    public String recommandData(String fd) {
         String clientId = "yk0YPv7Zz0gZyYy7gxOs"; //애플리케이션 클라이언트 아이디값"
         String clientSecret = "2p7haqV7zA"; //애플리케이션 클라이언트 시크릿값"
 

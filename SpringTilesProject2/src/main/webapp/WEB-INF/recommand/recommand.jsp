@@ -11,8 +11,41 @@ $(function(){
 	$('.btns').click(function(){
 		let type=$(this).attr("data-type");
 		// ajax 
+		$.ajax({
+			type:'get',
+			url:'../recommand/recommand_sub.do',
+			data:{"type":type},
+			success:function(result)
+			{
+				//alert(result);
+				let res=JSON.parse(result);
+				let data="";
+				for(let i=0;i<res.length;i++)
+				{
+				   data+='<span class="btn btn-sm btn-info" onclick="recommandData(\''+res[i]+'\')">'+res[i]+'</span>&nbsp;&nbsp;';	
+				}
+				
+				$('#sub').html(data);
+			}
+			
+		})
 	})
 })
+function recommandData(res)
+{
+	
+	$.ajax({
+	    type:'post',
+	    url:'../recommand/recommand_data.do',
+	    data:{"fd":res},
+	    success:function(result)
+	    {
+	    	let res=JSON.parse(result);
+	    	let data="";
+	    	
+	    }
+	})
+}
 </script>
 </head>
 <body>
@@ -27,11 +60,15 @@ $(function(){
      </div>
      <div style="height: 10px"></div>
      <div class="row">
-      
+       <div class="text-center" id="sub">
+       
+       </div>
      </div>
      <div style="height: 20px"></div>
      <div class="row">
-     
+       <div class="text-center" id="recom">
+        
+       </div>
      </div>
    </div>
 </body>

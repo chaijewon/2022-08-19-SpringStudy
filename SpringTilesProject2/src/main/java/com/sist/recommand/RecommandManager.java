@@ -10,16 +10,7 @@ import java.util.regex.Pattern;
 // 루씬 
 @Component
 public class RecommandManager {
-  /*
-   *   {	"lastBuildDate":"Thu, 15 Sep 2022 11:14:34 +0900",	
-   *   "total":860582,	"start":1,	"display":100,	
-   *   "items":[		
-   *   {			"title":"[MBTI 여행] J에게 <b>추천<\/b>하는 <b>여름에<\/b> 꼭 먹어야 할 <b>서울 맛집<\/b>!",			
-   *                 "link":"https:\/\/blog.naver.com\/arex_blog?Redirect=Log&logNo=222851721836",			
-   *                 "description":"&quot;MBTI J에게&quot; <b>추천<\/b>하는 <b>여름에<\/b> 꼭 먹어야 하는 <b>서울 맛집<\/b> 며칠 전 말복이었는데 다들 몸보신은 하셨나요? 2022년의 얼마 남지 않은 <b>여름<\/b> 반드시!! 먹어야 하는 <b>서울<\/b> <b>여름<\/b> <b>맛집<\/b> 뿌시기를 계획해 보자 J에게... ",			"bloggername":"공항철도",			
-   *   "bloggerlink":"https:\/\/blog.naver.com\/arex_blog",			"postdate":"20220819"		},
-   */
-  public static List<String> jsonParser(String json)
+  public List<String> jsonParser(String json)
   {
 	  List<String> list=new ArrayList<String>();
 	  try
@@ -37,16 +28,13 @@ public class RecommandManager {
 	  }catch(Exception ex) {}
 	  return list;
   }
-  public static void main(String[] args) {
+  /*public static void main(String[] args) {
 	 Scanner scan=new Scanner(System.in);
 	 System.out.print("계절 입력(봄,여름,가을,겨울):");
 	 String fd=scan.next();
 	 String json=NaverDataClass.recommandData(fd);
 	 List<String> jList=jsonParser(json);
-	 /* for(String s:jList)
-	 {
-		 System.out.println(s);
-	 }*/
+	
 	 FoodRecommandDAO dao=new FoodRecommandDAO();
 	 List<String> list=dao.foodAllData();
 	 
@@ -91,7 +79,7 @@ public class RecommandManager {
 			 }
 		 }
 	 }catch(Exception ex){}
-  }
+  }*/
 }
 
 

@@ -1,10 +1,18 @@
 package com.sist.web;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.json.simple.JSONArray;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.sist.dao.RecommandDAO;
+import com.sist.recommand.NaverDataClass;
+import com.sist.recommand.RecommandManager;
 /*
  *   상황
         휴식 드라이브 산책 집 출/퇴근길 휴가/여행 운동 하우스파티 시상식 일/공부 카페 거리 클럽 고백 해변 공연 라운지 애도 집중
@@ -17,7 +25,15 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class RecommandRestController {
-   @GetMapping("recommand/recommand_sub.do")
+   
+   @Autowired
+   private NaverDataClass nds;
+   @Autowired
+   private RecommandManager rm;
+   @Autowired
+   private RecommandDAO dao;
+   
+   @GetMapping(value="recommand/recommand_sub.do",produces = "text/plain;charset=utf-8")
    public String recommand_sub(int type)
    {
 	   String[] type1= {"봄", "여름", "가을", "겨울", "맑은날", "추운날", "흐린날" ,"비오는날", "더운날","눈오는날"};
@@ -51,6 +67,60 @@ public class RecommandRestController {
 		   }
 		   result=arr.toJSONString();
 	   }catch(Exception ex){}
+	   return result;
+   }
+   
+   @PostMapping(value="recommand/recommand_data.do",produces = "text/plain;charset=utf-8")
+   public String recommand_data(String fd)
+   {
+	   String result="";
+	   String json=nds.recommandData(fd);
+	   List<String> list=rm.jsonParser(json);
+	   /*for(String s:list)
+	   {
+		   System.out.println(s);
+	   }*/
+	   List<String> fList=dao.recomandNameData();
+	   try
+		 {
+			 Pattern[] p=new Pattern[fList.size()]; //[A-Z] 단어패턴 (이름)
+			 
+			 for(int i=0;i<p.length;i++)
+			 {
+				 p[i]=Pattern.compile(fList.get(i));
+			 }
+			 
+			 Matcher[] m=new Matcher[fList.size()];
+			 
+			 int[] count=new int[fList.size()];
+			 for(String s:list)
+			 {
+				 for(int i=0;i<m.length;i++)
+				 {
+					 m[i]=p[i].matcher(s);
+					 if(m[i].find())
+					 {
+						 String ss=m[i].group();
+						 //System.out.println(ss);
+						 //RecommandVO vo=new RecommandVO();
+						 //vo.setName(ss);
+						 //vo.setCount(vo.getCount()+1);
+						 //rList.add(vo);
+						 count[i]++;
+					 }
+				 }
+			 }
+			 // 실제 추천할 데이터 출력 
+			 for(int i=0;i<fList.size();i++)
+			 {
+				 String name=fList.get(i);
+				 if(count[i]>=2)
+				 {
+					 System.out.println(name+":"+count[i]);
+				 }
+			 }
+		 }catch(Exception ex){}
+	  
 	   return result;
    }
 }
