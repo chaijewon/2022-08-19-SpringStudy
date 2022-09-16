@@ -39,6 +39,15 @@ public class BoardController {
 	   return "board/update";
    }
    
+   @GetMapping("board/delete.do")
+   public String board_delete(int no,Model model)
+   {
+	   model.addAttribute("no", no);
+	   return "board/delete";
+   }
+   // Vue / React ==> 화면 변경 (Router)
+   // View단 ,서버단 , DB단 
+   
 }
 
 

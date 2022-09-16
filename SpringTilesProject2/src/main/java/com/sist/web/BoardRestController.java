@@ -107,6 +107,13 @@ public class BoardRestController {
     	 return result;
      }
      
+     @GetMapping(value="board/delete_vue.do",produces = "text/plain;charset=utf-8")
+     public String board_delete_vue_ok(int no,String pwd)
+     {
+    	 String result=dao.boardDelete(no,pwd);
+    	 return result;
+     }
+     
 }
 
 
