@@ -25,23 +25,23 @@ h1 {
        <tr>
          <th width=20% class="text-right">이름</th>
          <td width=80%>
-           <input type=text v-model="name" ref="name" size=20 class="input-sm" :value="vo.name">
+           <input type=text  ref="name" size=20 class="input-sm" v-model="name">
            <%--
                v-bind:value=""
             --%>
-           <input type=hidden name=no value="${vo.no }">
+           <input type=hidden name=no :value="vo.no">
          </td>
        </tr>
        <tr>
          <th width=20% class="text-right">제목</th>
          <td width=80%>
-           <input type=text v-model="subject" ref="subject" size=50 class="input-sm" :value="vo.subject">
+           <input type=text  ref="subject" size=50 class="input-sm" v-model="subject">
          </td>
        </tr>
        <tr>
          <th width=20% class="text-right">내용</th>
          <td width=80%>
-           <textarea rows="10" cols="50" v-model="content" ref="content">{{vo.content }}</textarea>
+           <textarea rows="10" cols="50" v-model="content" ref="content">{{content }}</textarea>
          </td>
        </tr>
        <tr>
@@ -69,15 +69,66 @@ h1 {
 		   content:'',
 		   pwd:'',
 		   vo:{},
-		   no:0,
+		   no:${no},
 		   res:''
 	   },
 	   mounted:function(){
-		   
+		   let _this=this;
+		   axios.get("http://localhost:8080/web/board/update_vue.do",{
+			   params:{
+				   no:_this.no
+			   }
+		   }).then(function(result){
+			   _this.vo=result.data;
+			   _this.name=_this.vo.name;
+			   _this.subject=_this.vo.subject;
+			   _this.content=_this.vo.content;
+		   })
 	   },
 	   methods:{
 		   boardUpdate:function(){
-			   
+				if(this.name.trim()=="")
+	   			{
+	   				this.$refs.name.focus();
+	   				return;
+	   			}
+	   			if(this.subject.trim()=="")
+	   			{
+	   				this.$refs.subject.focus();
+	   				return;
+	   			}
+	   			if(this.content.trim()=="")
+	   			{
+	   				this.$refs.content.focus();
+	   				return;
+	   			}
+	   			if(this.pwd.trim()=="")
+	   			{
+	   				this.$refs.pwd.focus();
+	   				return;
+	   			}
+	   			let _this=this;
+	   			axios.get("http://localhost:8080/web/board/update_vue_ok.do",{
+	   				params:{
+	   					no:_this.no,
+	   					name:_this.name,
+	   					subject:_this.subject,
+	   					content:_this.content,
+	   					pwd:_this.pwd
+	   				}
+	   			}).then(function(result){
+	   				_this.res=result.data; // YES/NO
+	   				if(_this.res==='yes')
+	   				{
+	   					location.href="../board/detail.do?no="+_this.no;
+	   				}
+	   				else
+	   				{
+	   					alert("비밀번호가 틀립니다!!");
+	   					_this.pwd="";
+	   					_this.$refs.pwd.fodcus()
+	   				}
+	   			})
 		   }
 	   }
    })

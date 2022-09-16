@@ -31,4 +31,27 @@ public interface BoardMapper {
    @Select("SELECT no,name,subject,content,hit,TO_CHAR(regdate,'YYYY-MM-DD') as dbday FROM spring_board "
 		  +"WHERE no=#{no}")
    public BoardVO boardDetailData(int no);
+   
+   @Select("SELECT pwd FROM spring_board "
+		  +"WHERE no=#{no}")
+   public String boardGetPassword(int no);
+   
+   @Update("UPDATE spring_board SET "
+		  +"name=#{name},subject=#{subject},content=#{content} "
+		  +"WHERE no=#{no}")
+   public void boardUpdate(BoardVO vo);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

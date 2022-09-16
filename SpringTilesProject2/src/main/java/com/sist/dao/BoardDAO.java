@@ -48,4 +48,28 @@ public class BoardDAO {
     	mapper.hitIncrement(no);
     	return mapper.boardDetailData(no);
     }
+    
+    public BoardVO boardUpdateData(int no)
+    {
+    	return mapper.boardDetailData(no);
+    }
+    
+    public String boardUpdate(BoardVO vo)
+    {
+    	String result="no";
+    	String db_pwd=mapper.boardGetPassword(vo.getNo());
+    	if(db_pwd.equals(vo.getPwd()))
+    	{
+    		result="yes";
+    		mapper.boardUpdate(vo);
+    	}
+    	return result;
+    }
 }
+
+
+
+
+
+
+

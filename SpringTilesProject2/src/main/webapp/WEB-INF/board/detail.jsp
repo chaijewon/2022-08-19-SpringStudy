@@ -47,7 +47,7 @@ h1 {
         </tr>
         <tr>
           <td colspan="4" class="text-right">
-            <a href="#" class="btn btn-xs btn-info">수정</a>
+            <a :href="'../board/update.do?no='+no" class="btn btn-xs btn-info">수정</a>
             <a href="#" class="btn btn-xs btn-warning">삭제</a>
             <a href="../board/list.do" class="btn btn-xs btn-success">목록</a>
           </td>
@@ -56,25 +56,25 @@ h1 {
      </div>
    </div>
    <script>
-    new Vue({
-    	el:'.container',
-    	data:{
-    		vo:{},
-    		no:${no}
-    	},
-    	mounted:function(){
-    		let _this=this;
-    		// 요청 
-    		axios.get("http://localhost:8080/web/board/detail_vue.do",{
-    			params:{
-    				no:_this.no
-    			}
-    		// 요청 처리 결과값 읽기 => 데이터값 변경 (상태변경) 상태 관리 프로그램 
-    		}).then(function(result){
-    			_this.vo=result.data;
-    		})
-    	}
-    })
+   new Vue({
+   	el:'.container',
+   	data:{
+   		vo:{},
+   		no:${no}
+   	},
+   	mounted:function(){
+   		let _this=this;
+   		// 요청 
+   		axios.get("http://localhost:8080/web/board/detail_vue.do",{
+   			params:{
+   				no:_this.no
+   			}
+   		// 요청 처리 결과값 읽기 => 데이터값 변경 (상태변경) 상태 관리 프로그램 
+   		}).then(function(result){
+   			_this.vo=result.data;
+   		})
+   	}
+   })
    </script>
 </body>
 </html>
