@@ -62,4 +62,23 @@ public class FoodDAO {
    {
 	   return mapper.foodDetailVueData(fno);
    }
+   /*
+    *      @Select("SELECT fno,name,poster,num "
+		    +"FROM (SELECT fno,name,poster,rownum as num "
+		    +"FROM (SELECT fno,name,poster "
+		    +"FROM food_location ORDER BY fno ASC)) "
+		    +"WHERE num BETWEEN #{start} AND #{end}")
+		   public List<FoodVO> foodAllData(Map map);
+		   
+		   @Select("SELECT CEIL(COUNT(*)/12.0) FROM food_location")
+		   public int foodTotalPage();
+    */
+   public List<FoodVO> foodAllData(Map map)
+   {
+	   return mapper.foodAllData(map);
+   }
+   public int foodTotalPage()
+   {
+	   return mapper.foodTotalPage();
+   }
 }
