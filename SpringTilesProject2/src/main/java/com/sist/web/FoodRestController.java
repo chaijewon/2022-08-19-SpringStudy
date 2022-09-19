@@ -178,7 +178,7 @@ public class FoodRestController {
     		obj.put("fno", vo.getFno());
     		obj.put("name", vo.getName());
     		obj.put("poster", vo.getPoster());
-    		obj.put("address", vo.getAddress());
+    		obj.put("address", vo.getAddress().substring(0,vo.getAddress().lastIndexOf("지")).trim());
     		obj.put("tel", vo.getTel());
     		obj.put("type", vo.getType());
     		obj.put("time", vo.getTime());

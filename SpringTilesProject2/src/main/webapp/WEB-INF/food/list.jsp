@@ -64,6 +64,38 @@
           <tr>
            <td colspan="2"><h3>{{food_detail.name}}<span style="color:orange">{{food_detail.score}}</span></h3></td>
           </tr>
+          <tr>
+            <td style="color:gray" width="20%">주소</td>
+            <td width=80%>{{food_detail.address}}</td>
+          </tr>
+          <tr>
+            <td style="color:gray" width="20%">전화</td>
+            <td width=80%>{{food_detail.tel}}</td>
+          </tr>
+          <tr>
+            <td style="color:gray" width="20%">음식종류</td>
+            <td width=80%>{{food_detail.type}}</td>
+          </tr>
+          <tr>
+            <td style="color:gray" width="20%">가격대</td>
+            <td width=80%>{{food_detail.price}}</td>
+          </tr>
+          <tr v-if="food_detail.parking!=='no'">
+            <td style="color:gray" width="20%">주차</td>
+            <td width=80%>{{food_detail.parking}}</td>
+          </tr>
+          <tr v-if="food_detail.time!=='no'">
+            <td style="color:gray" width="20%">시간대</td>
+            <td width=80%>{{food_detail.time}}</td>
+          </tr>
+          <tr v-if="food_detail.menu!=='no'">
+            <td style="color:gray" width="20%">메뉴</td>
+            <td width=80%>
+              <ul>
+                <li v-for="m in food_detail.menu.split('원')">{{m}}</li>
+              </ul>
+            </td>
+          </tr>
         </table>
       </div>
     </div>
