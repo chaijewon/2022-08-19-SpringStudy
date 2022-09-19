@@ -185,6 +185,7 @@ public class FoodRestController {
     		obj.put("parking", vo.getParking());
     		obj.put("price", vo.getPrice());
     		obj.put("menu", vo.getMenu());
+    		obj.put("score", vo.getScore());
     		
     		result=obj.toJSONString();
     		System.out.println(result);
