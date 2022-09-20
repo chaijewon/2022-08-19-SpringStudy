@@ -114,6 +114,7 @@ public class SeoulRestController {
     	String[] cook_name={"","location","nature","shop"};
     	String result="";
     	Cookie[] cookies=request.getCookies();
+    	System.out.println("cookie-size:"+cookies.length);
     	List<SeoulVO> list=new ArrayList<SeoulVO>();
     	if(cookies!=null)
     	{
@@ -131,6 +132,19 @@ public class SeoulRestController {
     		}
     	}
     	// list => JSON
+    	JSONArray arr=new JSONArray();
+    	System.out.println("list:"+list.size());
+    	for(SeoulVO vo:list)
+    	{
+    		JSONObject obj=new JSONObject();
+    		obj.put("no",vo.getNo());
+    		obj.put("title",vo.getTitle());
+    		obj.put("address",vo.getAddress().substring(vo.getAddress().indexOf(" ")).trim());
+    		obj.put("msg",vo.getMsg());
+    		obj.put("poster",vo.getPoster());
+    		arr.add(obj);
+    	}
+    	result=arr.toJSONString();
     	return result;
     }
     // 로그인 처리 

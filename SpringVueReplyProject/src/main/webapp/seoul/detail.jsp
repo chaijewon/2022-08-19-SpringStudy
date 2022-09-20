@@ -40,9 +40,7 @@
          </tr>
          <tr>
            <td class="text-right">
-             <input type=button class="btn btn-xs btn-primary" value="목록"
-              @click="javascript:history.back()"
-             >
+             <a href="../seoul/list.do" class="btn btn-xs btn-primary">목록</a>
            </td>
          </tr>
        </table>
@@ -60,12 +58,30 @@
                    <%--
                          <c:if test="${sessionScope.id==re.id}">
                     --%>
-                   <span class="btn btn-xs btn-info" v-if="re.id===sessionId">수정</span>
-                   <span class="btn btn-xs btn-warning" v-if="re.id===sessionId">삭제</span>
+                   <input type=button class="btn btn-xs btn-info" v-if="re.id===sessionId" value="수정" @click="replyUpdate_temp()">
+                   <input type=button class="btn btn-xs btn-warning" v-if="re.id===sessionId" value="삭제" v-on:click="replyDelete(re.no)">
                  </td>
                </tr>
                <tr>
                  <td colspan="2" valign="top" class="text-left"><pre style="white-space: pre-wrap;border: none;background-color: white">{{re.msg}}</pre></td>
+               </tr>
+               <tr v-show="isShow">
+                 <td colspan="2">
+                   <form method="post" action="../seoul/reply_update.do">
+	                   <table class="table">
+				          <tr>
+				            <td>
+				              <input type=hidden name="cno" :value="cno">
+				              <input type=hidden name="type" :value="type">
+				              <input type=hidden name="no" :value="re.no">
+				              <textarea rows="5" cols="70" ref="msg" style="float:left" name="msg">{{re.msg}}</textarea>
+				              <input type=submit value="댓글수정" class="btn btn-sm btn-primary"
+				                style="height: 105px">
+				            </td>
+				          </tr>
+				        </table>
+			        </form>
+                 </td>
                </tr>
              </table>
            </td>
@@ -112,7 +128,8 @@
     		type:${type},
     		reply_list:[],
     		sessionId:'',
-    		msg:''
+    		msg:'',
+    		isShow:false
     	},
     	mounted:function(){
     		let _this=this;
@@ -147,7 +164,46 @@
         			_this.reply_list=result.data;
         			_this.sessionId=result.data[0].sessionId
         		})
-    		}
+    		},
+    		replyDelete:function(no){
+    			let _this=this;
+    			axios.get("http://localhost:8080/web/seoul/reply_delete.do",{
+        			params:{
+        				cno:_this.cno,
+        				type:_this.type,
+        				no:no
+        			}
+        		}).then(function(result){
+        			console.log(result.data)
+        			_this.reply_list=result.data;
+        			_this.sessionId=result.data[0].sessionId
+        		})
+    		},
+    		replyUpdate_temp:function(){
+    			this.isShow=true;
+    		}/* ,
+    		replyUpdate:function(no){
+    			
+    			alert("msg="+this.msg)
+    			if(this.msg==="")
+    			{
+    				this.$refs.msg.focus();
+    				return;
+    			}
+    			let _this=this;
+    			axios.get("http://localhost:8080/web/seoul/reply_update.do",{
+        			params:{
+        				cno:_this.cno,
+        				type:_this.type,
+        				msg:_this.msg
+        			}
+        		}).then(function(result){
+        			_this.msg="";
+        			console.log(result.data)
+        			_this.reply_list=result.data;
+        			_this.sessionId=result.data[0].sessionId
+        		})
+    		} */
     	}
     })
    </script>

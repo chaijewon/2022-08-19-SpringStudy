@@ -13,6 +13,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sist.vo.*;
@@ -79,6 +80,27 @@ public class ReplyRestController {
 	   String result=reply_json_data(list, id);
 	   return result;
 	   
+   }
+   @GetMapping(value="seoul/reply_delete.do",produces = "text/plain;charset=utf-8")
+   public String reply_delete(ReplyVO vo,HttpSession session)
+   {
+	   String result="";
+	   String id=(String)session.getAttribute("id");
+	   // 삭제 
+	   dao.replyDelete(vo.getNo());
+	   // 삭제후 목록
+	   vo.setType(vo.getType()+3);
+	   List<ReplyVO> list=dao.replyListData(vo);
+	   result=reply_json_data(list, id);
+	   return result;
+   }
+   // ********************* 수정 예정 
+   @PostMapping(value="seoul/reply_update.do",produces = "text/html;charset=utf-8")
+   public String reply_update(ReplyVO vo)
+   {
+	   String result="<script>location.href=\"../seoul/detail.do?no="+vo.getCno()+"&type="+vo.getType()+"\";</script>";
+	   dao.replyUpdate(vo);
+	   return result;
    }
 }
 

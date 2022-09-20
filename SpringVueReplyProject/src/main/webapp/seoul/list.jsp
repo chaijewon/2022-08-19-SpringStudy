@@ -52,17 +52,21 @@
    </div>
     <div style="height: 20px"></div>
     <div class="row" id="seoul_cookie">
-    
+      <span v-for="i in cook_list">
+        <img :src="i.poster" style="width:100px;height:100px;margin-left: 5px">
+      </span>
+      
     </div>
   </div>
   <script>
     const list=new Vue({
-    	el:'#seoul_list',
+    	el:'.container',
     	data:{
     		curpage:1,
     		totalpage:0,
     		seoul_list:[],
-    		type:1
+    		type:1,
+    		cook_list:[]
     	},
     	mounted:function(){
     		this.send()
@@ -70,6 +74,7 @@
     	methods:{
     		send:function(){
     			let _this=this;
+    			// 목록 받기
         		axios.get("http://localhost:8080/web/seoul/list_vue.do",{
         			params:{
         				page:_this.curpage,
@@ -80,6 +85,15 @@
         			_this.curpage=result.data[0].curpage;
         			_this.totalpage=result.data[0].totalpage;
         			_this.type=result.data[0].type;
+        		})
+        		// 쿠키 전송받기 
+        		axios.get("http://localhost:8080/web/seoul/cook_list.do",{
+        			params:{
+        				type:_this.type
+        			}
+        		}).then(function(result){
+        			console.log(result.data)
+        			_this.cook_list=result.data;
         		})
     		},
     		seoulChange:function(no){
@@ -95,12 +109,6 @@
     			this.curpage=this.curpage<this.totalpage?this.curpage+1:this.curpage;
     			this.send();
     		}
-    	}
-    })
-    const cook=new Vue({
-    	el:'#seoul_cookie',
-    	data:{
-    		seoul_cook:[]
     	}
     })
   </script>

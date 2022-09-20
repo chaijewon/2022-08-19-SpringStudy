@@ -149,6 +149,25 @@ public class ReplyDAO {
 			   commit;
 			END;
     */
+   public void replyUpdate(ReplyVO vo)
+   {
+	   try
+	   {
+		   getConnection();
+		   String sql="{CALL replyUpdate(?,?)}";
+		   cs=conn.prepareCall(sql);
+		   cs.setInt(1, vo.getNo());
+		   cs.setString(2, vo.getMsg());
+		   cs.executeQuery();
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   disConnection();
+	   }
+   }
    // 댓글 삭제
    /*
     *   create or replace NONEDITIONABLE PROCEDURE replyDelete(
@@ -161,6 +180,26 @@ public class ReplyDAO {
 		  COMMIT;
 		END;
     */
+   public void replyDelete(int no)
+   {
+	   try
+	   {
+		   getConnection();
+		   
+		   String sql="{CALL replyDelete(?)}";
+		   cs=conn.prepareCall(sql);
+		   cs.setInt(1, no);
+		   cs.executeQuery();
+		   
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   disConnection();
+	   }
+   }
 }
 
 
