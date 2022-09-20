@@ -7,6 +7,8 @@ package com.sist.web;
  */
 import java.util.*;
 
+import javax.servlet.http.HttpSession;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,24 +22,63 @@ import com.sist.dao.*;
 public class ReplyRestController {
    @Autowired
    private ReplyDAO dao;
-   
-   @GetMapping("seoul/reply_list.do")
-   public String reply_list(int cno,int type)
+   // 수정 / 삭제 ==> 본인 
+   // v-if=""
+   public String reply_json_data(List<ReplyVO> list,String id)
    {
-	   String result="";
-	   ReplyVO vo=new ReplyVO();
-	   vo.setCno(cno);
-	   vo.setType(type);
-	   List<ReplyVO> list=dao.replyListData(vo);
-	   
+	   /*
+	    *   private int no,cno,type;
+	        private String id,name,msg,dbday;
+	    */
 	   JSONArray arr=new JSONArray();
+	   int k=0;
 	   for(ReplyVO rvo:list)
 	   {
 		   JSONObject obj=new JSONObject();
-		   
+		   obj.put("no", rvo.getNo());
+		   obj.put("cno", rvo.getCno());
+		   obj.put("type", rvo.getType());
+		   obj.put("id", rvo.getId());
+		   obj.put("name", rvo.getName());
+		   obj.put("msg", rvo.getMsg());
+		   obj.put("dbday", rvo.getDbday());
+		   if(k==0)
+		   {
+			   obj.put("sessionId", id);
+		   }
+		   k++;
+		   arr.add(obj);
 	   }
-	   
+	   return arr.toJSONString();
+   }
+   
+   @GetMapping(value="seoul/reply_list.do",produces = "text/plain;charset=utf-8")
+   public String reply_list(int cno,int type,HttpSession session)
+   {
+	   String id=(String)session.getAttribute("id");
+	   String result="";
+	   ReplyVO vo=new ReplyVO();
+	   vo.setCno(cno);
+	   vo.setType(type+3);
+	   List<ReplyVO> list=dao.replyListData(vo);
+	   result=reply_json_data(list,id);
 	   return result;//JSON
+   }
+   @GetMapping(value="seoul/reply_insert.do",produces = "text/plain;charset=utf-8")
+   public String reply_insert(ReplyVO vo,HttpSession session)
+   {
+	   String id=(String)session.getAttribute("id");
+	   String name=(String)session.getAttribute("name");
+	   vo.setId(id);
+	   vo.setName(name);
+	   vo.setType(vo.getType()+3);
+	   
+	   dao.replyInsert(vo);
+	   
+	   List<ReplyVO> list=dao.replyListData(vo);
+	   String result=reply_json_data(list, id);
+	   return result;
+	   
    }
 }
 

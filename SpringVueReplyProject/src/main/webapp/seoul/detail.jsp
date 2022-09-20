@@ -49,7 +49,39 @@
      </div>
      <div style="height: 20px"></div>
      <div class="row" id="seoul_reply">
-     
+        <table class="table">
+          <tr>
+           <td>
+             <%-- [{JSONObject:~VO},{},{},{}] --%>
+             <table class="table" v-for="re in reply_list">
+               <tr>
+                 <td class="text-left">◑&nbsp;{{re.name}}&nbsp;({{re.dbday}})</td>
+                 <td class="text-right">
+                   <%--
+                         <c:if test="${sessionScope.id==re.id}">
+                    --%>
+                   <span class="btn btn-xs btn-info" v-if="re.id===sessionId">수정</span>
+                   <span class="btn btn-xs btn-warning" v-if="re.id===sessionId">삭제</span>
+                 </td>
+               </tr>
+               <tr>
+                 <td colspan="2" valign="top" class="text-left"><pre style="white-space: pre-wrap;border: none;background-color: white">{{re.msg}}</pre></td>
+               </tr>
+             </table>
+           </td>
+          </tr>
+        </table>
+        <c:if test="${sessionScope.id!=null }">
+	        <table class="table"> <%-- null,''이 아닌 경우에 실행 --%>
+	          <tr>
+	            <td>
+	              <textarea rows="5" cols="78" ref="msg" style="float:left" v-model="msg"></textarea>
+	              <input type=button value="댓글쓰기" class="btn btn-sm btn-primary"
+	                style="height: 105px" @click="replyWrite()">
+	            </td>
+	          </tr>
+	        </table>
+        </c:if>
      </div>
    </div>
    <script>
@@ -70,6 +102,52 @@
     		}).then(function(result){
     			_this.seoul_detail=result.data
     		})
+    	}
+    })
+    
+    new Vue({
+    	el:'#seoul_reply',
+    	data:{
+    		cno:${no},
+    		type:${type},
+    		reply_list:[],
+    		sessionId:'',
+    		msg:''
+    	},
+    	mounted:function(){
+    		let _this=this;
+    		axios.get("http://localhost:8080/web/seoul/reply_list.do",{
+    			params:{
+    				cno:_this.cno,
+    				type:_this.type
+    			}
+    		}).then(function(result){
+    			console.log(result.data)
+    			_this.reply_list=result.data;
+    			_this.sessionId=result.data[0].sessionId
+    		})
+    	},
+    	methods:{
+    		replyWrite:function(){
+    			if(this.msg==="")
+    			{
+    				this.$refs.msg.focus();
+    				return;
+    			}
+    			let _this=this;
+    			axios.get("http://localhost:8080/web/seoul/reply_insert.do",{
+        			params:{
+        				cno:_this.cno,
+        				type:_this.type,
+        				msg:_this.msg
+        			}
+        		}).then(function(result){
+        			_this.msg="";
+        			console.log(result.data)
+        			_this.reply_list=result.data;
+        			_this.sessionId=result.data[0].sessionId
+        		})
+    		}
     	}
     })
    </script>
