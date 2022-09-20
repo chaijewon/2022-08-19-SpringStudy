@@ -13,6 +13,14 @@
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd">
     <context:component-scan base-package="com.sist.*"/>
+    <mvc:annotation-driven/>
+    <!-- Interceptor 처리 -->
+    <mvc:interceptors>
+     <mvc:interceptor>
+       <mvc:mapping path="/**/*"/><!-- Controller 전체 메소드  -->
+       <bean id="commonsInterseptor" class="com.sist.intercepter.CommonsIntercepter"/>
+     </mvc:interceptor>
+    </mvc:interceptors>
     <bean id="viewResolver"
        class="org.springframework.web.servlet.view.InternalResourceViewResolver"
        p:prefix="/"

@@ -128,7 +128,14 @@ public class SeoulRestController {
     	// list => JSON
     	return result;
     }
-    
+    // 로그인 처리 
+    @GetMapping(value="member/login_vue.do",produces = "text/plain;charset=utf-8")
+    public String login_vue(String id,String pwd)
+    {
+    	String result="";
+    	
+    	return result;
+    }
 }
 
 
