@@ -21,6 +21,9 @@
        <bean id="commonsInterseptor" class="com.sist.intercepter.CommonsIntercepter"/>
      </mvc:interceptor>
     </mvc:interceptors>
+    <bean id="bcryptPasswordEncoder"
+      class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"
+    />
     <bean id="viewResolver"
        class="org.springframework.web.servlet.view.InternalResourceViewResolver"
        p:prefix="/"

@@ -4,6 +4,7 @@ import org.apache.commons.collections.map.HashedMap;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,6 +12,7 @@ import java.util.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import com.sist.dao.*;
 import com.sist.vo.*;
@@ -19,6 +21,9 @@ import com.sist.vo.*;
 public class SeoulRestController {
     @Autowired
     private SeoulDAO sDao;
+    
+    @Autowired
+    private BCryptPasswordEncoder encoder;
     
     @GetMapping(value="seoul/list_vue.do",produces = "text/plain;charset=utf-8")
     // text/html (Ajax) , text/xml (XML), text/plain (JSON)
@@ -130,12 +135,26 @@ public class SeoulRestController {
     }
     // 로그인 처리 
     @GetMapping(value="member/login_vue.do",produces = "text/plain;charset=utf-8")
-    public String login_vue(String id,String pwd)
+    public String login_vue(String id,String pwd,HttpSession session)
     {
     	String result="";
-    	
+    	String temp=encoder.encode(pwd);
+    	System.out.println("pwd="+pwd+",암호화:"+temp);
+    	MemberVO vo=sDao.isLogin(id, pwd);
+    	if(vo.getMsg().equals("OK"))
+    	{
+    		session.setAttribute("id", vo.getId());
+    		session.setAttribute("name", vo.getName());
+    		//session은 기본 30분 유지 
+    		//session.setMaxInactiveInterval(interval);
+    	}
+    	result=vo.getMsg();//NOID , NOPWD, OK 
+    	// List => React,Redux,Vue , Vue3 , Vuex , Ajax ==> [](JSONArray)
+    	// VO   => {} (JSONObject)
+    	// 일반 데이터형 전송 
     	return result;
     }
+    
 }
 
 

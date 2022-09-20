@@ -107,18 +107,20 @@
     					  pwd:_this.pwd
     				  }
     			  }).then(function(result){ // callback (시스템에 의해 자동 호출 success:function(result))
-    				  if(result==='NOID')
+    				  _this.res=result.data;
+    			  
+    				  if(_this.res==='NOID')
     				  {
     					  alert("ID가 존재하지 않습니다!!");
-    					  this.id="";
-    					  this.pwd="";
-    					  this.$refs.id.focus();
+    					  _this.id="";
+    					  _this.pwd="";
+    					  _this.$refs.id.focus();
     				  }
-    				  else if(result==='NOPWD')
+    				  else if(_this.res==='NOPWD')
     				  {
     					  alert("비밀번호가 틀립니다!!");
-    					  this.pwd="";
-    					  this.$refs.pwd.focus();
+    					  _this.pwd="";
+    					  _this.$refs.pwd.focus();
     				  }
     				  else
     				  {
