@@ -58,7 +58,7 @@
                    <%--
                          <c:if test="${sessionScope.id==re.id}">
                     --%>
-                   <input type=button class="btn btn-xs btn-info" v-if="re.id===sessionId" value="수정" @click="replyUpdate_temp()">
+                   <input type=button class="btn btn-xs btn-info" v-if="re.id===sessionId" value="수정" @click="replyUpdate_temp(re.no)">
                    <input type=button class="btn btn-xs btn-warning" v-if="re.id===sessionId" value="삭제" v-on:click="replyDelete(re.no)">
                  </td>
                </tr>
@@ -74,7 +74,7 @@
 				              <input type=hidden name="cno" :value="cno">
 				              <input type=hidden name="type" :value="type">
 				              <input type=hidden name="no" :value="re.no">
-				              <textarea rows="5" cols="70" ref="msg" style="float:left" name="msg">{{re.msg}}</textarea>
+				              <textarea rows="5" cols="70" ref="msg" style="float:left" v-model="msg"></textarea>
 				              <input type=submit value="댓글수정" class="btn btn-sm btn-primary"
 				                style="height: 105px">
 				            </td>
@@ -179,8 +179,16 @@
         			_this.sessionId=result.data[0].sessionId
         		})
     		},
-    		replyUpdate_temp:function(){
+    		replyUpdate_temp:function(no){
     			this.isShow=true;
+    			for(let re of this.reply_list)
+    			{
+    				if(re.no===no)
+    				{
+    					this.msg=re.msg;
+    					break;
+    				}
+    			}
     		}/* ,
     		replyUpdate:function(no){
     			

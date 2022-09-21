@@ -2,31 +2,25 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:c="http://www.springframework.org/schema/c"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
-		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
-		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd">
-    <context:component-scan base-package="com.sist.*"/>
-    <mvc:annotation-driven/>
-    <!-- Interceptor 처리 -->
-    <mvc:interceptors>
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
+   <aop:aspectj-autoproxy/>
+   <context:component-scan base-package="com.sist.*"/>
+   <mvc:annotation-driven/>
+   <mvc:interceptors>
      <mvc:interceptor>
-       <mvc:mapping path="/seoul/list.do"/><!-- Controller 전체 메소드  -->
-       <bean id="autoLoginInterseptor" class="com.sist.interceptor.AutoLoginInterceptor"/>
+       <mvc:mapping path="/main/main.do"/>
+       <bean id="autoInterceptor" class="com.sist.interceptor.AutoLoginInterceptor"/>
      </mvc:interceptor>
-    </mvc:interceptors>
-    <bean id="bcryptPasswordEncoder"
-      class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"
-    />
-    <bean id="viewResolver"
+   </mvc:interceptors>
+   <bean id="viewResolver"
        class="org.springframework.web.servlet.view.InternalResourceViewResolver"
        p:prefix="/"
        p:suffix=".jsp"
-    />
+   />
 </beans>
