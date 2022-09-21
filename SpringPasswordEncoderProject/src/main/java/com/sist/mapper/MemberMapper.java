@@ -27,7 +27,7 @@ public interface MemberMapper {
    public int memberIdCheck(String id);
    @Insert("INSERT INTO spring_join VALUES("
 		  +"#{id},#{pwd},#{name},#{sex},#{birthday},#{email},#{post},"
-		  +"#{addr1},#{addr2},#{tel},#{content},#{sessionId},#{limited},'ROLE_USER'")
+		  +"#{addr1},#{addr2},#{tel},#{content},'',null,'ROLE_USER')")
    public void memberJoinInsert(MemberVO vo);
    // 로그인    ==> 복호화 ====> 자동로그인
    @Select("SELECT pwd,name,role FROM spring_join "
