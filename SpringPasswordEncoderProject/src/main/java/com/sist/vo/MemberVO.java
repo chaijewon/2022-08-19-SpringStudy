@@ -37,4 +37,6 @@ public class MemberVO {
   private String sessionId;
   private Date limited;
   private String role;
+  private String tel1;
+  private String tel2;
 }
