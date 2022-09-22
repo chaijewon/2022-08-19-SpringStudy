@@ -22,7 +22,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FoodVO {
-  private int fno,cno;
-  private String name,address,tel,type,price,time,parking,menu,poster,id,msg;
+  private int fno,cno,hit;
+  private String name,address,tel,type,price,time,parking,menu,poster,id,msg,rday;
   private double score;
 }

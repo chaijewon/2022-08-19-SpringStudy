@@ -40,18 +40,24 @@ public class FoodRestController {
 		String result="";
 		FoodVO vo=dao.foodDetailData(fno);
 		// vo=>JSON변경 ==> JSONObject
+		String menu=vo.getMenu();
+		menu=menu.replace("원", "^");
+	    menu=menu.substring(0,menu.lastIndexOf("^"));
 		JSONObject obj=new JSONObject();
 		obj.put("fno", vo.getFno());
+		
 		obj.put("poster", vo.getPoster());
 		obj.put("name", vo.getName());
 		obj.put("score", vo.getScore());
-		obj.put("address", vo.getAddress());
+		obj.put("address", vo.getAddress().substring(0,vo.getAddress().lastIndexOf("지")).trim());
 		obj.put("tel", vo.getTel());
 		obj.put("type", vo.getType());
 		obj.put("time", vo.getTime());
 		obj.put("price", vo.getPrice());
 		obj.put("parking", vo.getParking());
-		obj.put("menu", vo.getMenu());
+		obj.put("menu", menu);
+		
+		result=obj.toJSONString();
 		return result;
 	}
 }
