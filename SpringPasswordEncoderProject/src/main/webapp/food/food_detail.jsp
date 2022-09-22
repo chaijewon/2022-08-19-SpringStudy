@@ -73,6 +73,7 @@
 		   won:10000
 	   },
 	   created:function(){
+		   /* global kakao */
 		   if(window.kakao && window.kakao.maps)
 		   {
 			  this.initMap();   
@@ -109,9 +110,9 @@
 	   methods:{
 		   addScript:function() {
 			      const script = document.createElement('script');
-			        /* global kakao */
+			       
 			        script.onload = () => kakao.maps.load(this.initMap);
-			        script.src = 'http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=b18319530b6d6d62d5c86a8807893413&libraries=services';
+			        script.src = 'http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=b18319530b6d6d62d5c86a8807893413';
 			        document.head.appendChild(script);
 			    },
 		   initMap:function(){
