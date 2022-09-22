@@ -17,6 +17,7 @@
 }
 
 </style>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
@@ -58,29 +59,27 @@
                    <%--
                          <c:if test="${sessionScope.id==re.id}">
                     --%>
-                   <input type=button class="btn btn-xs btn-info" v-if="re.id===sessionId" value="수정" @click="replyUpdate_temp(re.no)">
+                   <input type=button class="btn btn-xs btn-info ups" v-if="re.id===sessionId" value="수정" @click="replyUpdate_temp(re.no)" :id="'up'+re.no">
                    <input type=button class="btn btn-xs btn-warning" v-if="re.id===sessionId" value="삭제" v-on:click="replyDelete(re.no)">
                  </td>
                </tr>
                <tr>
                  <td colspan="2" valign="top" class="text-left"><pre style="white-space: pre-wrap;border: none;background-color: white">{{re.msg}}</pre></td>
                </tr>
-               <tr v-show="isShow">
+               <tr :id="'u'+re.no" class="updates" style="display:none">
                  <td colspan="2">
-                   <form method="post" action="../seoul/reply_update.do">
 	                   <table class="table">
 				          <tr>
 				            <td>
 				              <input type=hidden name="cno" :value="cno">
 				              <input type=hidden name="type" :value="type">
 				              <input type=hidden name="no" :value="re.no">
-				              <textarea rows="5" cols="70" ref="msg" style="float:left" v-model="msg"></textarea>
+				              <textarea rows="5" cols="70" ref="msg" style="float:left" id="msg">{{re.msg}}</textarea>
 				              <input type=submit value="댓글수정" class="btn btn-sm btn-primary"
 				                style="height: 105px">
 				            </td>
 				          </tr>
 				        </table>
-			        </form>
                  </td>
                </tr>
              </table>
@@ -129,9 +128,11 @@
     		reply_list:[],
     		sessionId:'',
     		msg:'',
-    		isShow:false
+    		isShow:false,
+    		no:0
     	},
     	mounted:function(){
+    		
     		let _this=this;
     		axios.get("http://localhost:8080/web/seoul/reply_list.do",{
     			params:{
@@ -143,6 +144,8 @@
     			_this.reply_list=result.data;
     			_this.sessionId=result.data[0].sessionId
     		})
+    		
+    		
     	},
     	methods:{
     		replyWrite:function(){
@@ -180,15 +183,21 @@
         		})
     		},
     		replyUpdate_temp:function(no){
-    			this.isShow=true;
-    			for(let re of this.reply_list)
+    			$('.updates').hide();
+    			if(this.no==0)
     			{
-    				if(re.no===no)
-    				{
-    					this.msg=re.msg;
-    					break;
-    				}
+    				$('#u'+no).show();
+    				$('#up'+no).val("취소");
+    				this.no=1;
     			}
+    			else
+    			{
+    				$('#u'+no).hide();
+    				$('#up'+no).val("수정");
+    				this.no=0;
+    			}
+    			
+    			
     		}/* ,
     		replyUpdate:function(no){
     			

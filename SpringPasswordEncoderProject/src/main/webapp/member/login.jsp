@@ -27,10 +27,11 @@ $(function(){
 			$('#pwd').focus();
 			return;
 		}
+		let ck=$("#ck").is(":checked");
 		$.ajax({
 			type:'post',
 			url:'../member/login_ok.do',
-			data:{"id":id,"pwd":pwd},
+			data:{"id":id,"pwd":pwd,"ck":ck},
 			success:function(result)
 			{
 				let res=result.trim();
@@ -76,7 +77,7 @@ $(function(){
         </tr>
         <tr>
           <td colspan="2">
-            <input type=checkbox id="ck" value="true"> 로그인 상태 유지
+            <input type=checkbox id="ck"> 로그인 상태 유지
           </td>
         </tr>
         <tr>

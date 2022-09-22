@@ -13,7 +13,7 @@ public class MainController {
 
 	@Autowired
 	private FoodDAO dao;
-	
+	// preHandle() 호출 
 	@GetMapping("main/main.do")
 	public String main_main(Model model)
 	{

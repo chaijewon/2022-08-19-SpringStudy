@@ -18,7 +18,7 @@
     <mvc:interceptors>
      <mvc:interceptor>
        <mvc:mapping path="/seoul/list.do"/><!-- Controller 전체 메소드  -->
-       <bean id="autoLoginInterseptor" class="com.sist.interceptor.AutoLoginInterceptor"/>
+       <bean id="autoLoginInterseptor" class="com.sist.intercepter.CommonsIntercepter"/>
      </mvc:interceptor>
     </mvc:interceptors>
     <bean id="bcryptPasswordEncoder"
