@@ -16,7 +16,7 @@
         <c:if test="${s.index>=0 && s.index<12 }">
           <div class="col-md-3">
 		    <div class="thumbnail">
-		      <a href="#">
+		      <a href="../food/food_list.do?cno=${vo.cno }">
 		        <img src="${vo.poster }" title="${vo.subject }" style="width:100%">
 		        <div class="caption">
 		          <p>${vo.title }</p>
@@ -35,7 +35,7 @@
         <c:if test="${s.index>=12 && s.index<18 }">
           <div class="col-md-4">
 		    <div class="thumbnail">
-		      <a href="#">
+		      <a href="../food/food_list.do?cno=${vo.cno }">
 		        <img src="${vo.poster }" title="${vo.subject }" style="width:100%">
 		        <div class="caption">
 		          <p>${vo.title }</p>
@@ -54,7 +54,7 @@
         <c:if test="${s.index>=18 && s.index<30 }">
           <div class="col-md-3">
 		    <div class="thumbnail">
-		      <a href="#">
+		      <a href="../food/food_list.do?cno=${vo.cno }">
 		        <img src="${vo.poster }" title="${vo.subject }" style="width:100%">
 		        <div class="caption">
 		          <p>${vo.title }</p>

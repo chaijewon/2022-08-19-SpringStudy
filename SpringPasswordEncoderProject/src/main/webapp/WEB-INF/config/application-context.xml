@@ -14,7 +14,7 @@
    <mvc:annotation-driven/>
    <mvc:interceptors>
      <mvc:interceptor>
-       <mvc:mapping path="/main/main.do"/>
+       <mvc:mapping path="/member/login.do"/>
        <bean id="autoInterceptor" class="com.sist.interceptor.AutoLoginInterceptor"/>
      </mvc:interceptor>
    </mvc:interceptors>

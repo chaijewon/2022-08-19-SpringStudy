@@ -66,7 +66,7 @@ $(function(){
         <tr>
           <th width=35% class="text-right">ID</th>
           <td width=65%>
-            <input type=text id="id" size=15 class="input-sm">
+            <input type=text id="id" size=15 class="input-sm" value="${id }">
           </td>
         </tr>
         <tr>
@@ -77,7 +77,7 @@ $(function(){
         </tr>
         <tr>
           <td colspan="2">
-            <input type=checkbox id="ck"> 로그인 상태 유지
+            <input type=checkbox id="ck"> 아이디저장
           </td>
         </tr>
         <tr>

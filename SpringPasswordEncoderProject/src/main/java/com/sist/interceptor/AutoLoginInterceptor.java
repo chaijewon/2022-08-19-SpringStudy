@@ -18,11 +18,8 @@ public class AutoLoginInterceptor extends HandlerInterceptorAdapter{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		// TODO Auto-generated method stub
-		HttpSession session=request.getSession();
-		/*
-		 * String sid=(String)session.getAttribute("id"); if(sid!=null) {
-		 * session.invalidate(); }
-		 */
+		/*HttpSession session=request.getSession();
+		
 		Cookie[] cookies=request.getCookies();
 		String id="",name="",role="";
 		if(cookies!=null)
@@ -52,10 +49,25 @@ public class AutoLoginInterceptor extends HandlerInterceptorAdapter{
 					//response.sendRedirect("../main/main.do");
 				}
 			}
+		}*/
+		// Cookie ==> 최신방문 , 자동로그인 ,ID저장 
+		Cookie[] cookies=request.getCookies();
+		if(cookies!=null)
+		{
+			for(int i=0;i<cookies.length;i++)
+			{
+				String key=cookies[i].getName();
+				if(key.equals("id"))
+				{
+					String id=cookies[i].getValue();
+					request.setAttribute("id", id);
+					break;
+				}
+			}
 		}
 		return super.preHandle(request, response, handler);
 	}
-
+    
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
