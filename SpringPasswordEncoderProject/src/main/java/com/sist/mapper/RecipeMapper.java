@@ -97,6 +97,22 @@ public interface RecipeMapper {
 		 +"FROM recipe WHERE chef=(SELECT chef FROM chef WHERE no=#{no}))) "
 		 +"WHERE num BETWEEN #{start} AND #{end}")
   public List<RecipeVO> chefMakeRecipeData(Map map);
+  
+  @Select("SELECT CEIL(COUNT(*)/12.0) FROM recipe "
+		 +"WHERE chef=(SELECT chef FROM chef WHERE no=#{no})")
+  public int chefMakeTotalPage(Map map);
+  
+  
+  @Select("SELECT no,title,chef,poster,num "
+			 +"FROM (SELECT no,title,chef,poster,rownum as num "
+			 +"FROM (SELECT /*+INDEX_ASC(recipe recipe_no_pk) */ no,title,chef,poster "
+			 +"FROM recipe WHERE chef=(SELECT chef FROM chef WHERE no=#{no}) AND REGEXP_LIKE(title, #{ss}))) "
+			 +"WHERE num BETWEEN #{start} AND #{end}")
+  public List<RecipeVO> chefMakeRecipeFindData(Map map);
+	  
+  @Select("SELECT CEIL(COUNT(*)/12.0) FROM recipe "
+		 +"WHERE chef=(SELECT chef FROM chef WHERE no=#{no}) AND REGEXP_LIKE(title,#{ss})")
+  public int chefMakeFindTotalPage(Map map);
   // 레시피 => 재료별 레시피
 }
 

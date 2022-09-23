@@ -79,7 +79,48 @@ public class RecipeDAO {
    {
 	   return mapper.recipeFindTotalPage(map);
    }
+   
+    /*
+   *   @Select("SELECT no,title,chef,poster,num "
+		 +"FROM (SELECT no,title,chef,poster,rownum as num "
+		 +"FROM (SELECT /*+INDEX_ASC(recipe recipe_no_pk)  no,title,chef,poster "
+		 +"FROM recipe WHERE chef=(SELECT chef FROM chef WHERE no=#{no}))) "
+		 +"WHERE num BETWEEN #{start} AND #{end}")
+      public List<RecipeVO> chefMakeRecipeData(Map map);
+   */
+  public List<RecipeVO> chefMakeRecipeData(Map map)
+  {
+	  return mapper.chefMakeRecipeData(map);
+  }
+  
+  /*
+   *  @Select("SELECT CEIL(COUNT(*)/12.0) FROM recipe "
+		 +"WHERE recipe chef=(SELECT chef FROM chef WHERE no=#{no})")
+         public int chefMakeTotalPage(Map map);
+   */
+  public int chefMakeTotalPage(Map map)
+  {
+	  return mapper.chefMakeTotalPage(map);
+  }
+  
+  /*@Select("SELECT no,title,chef,poster,num "
+			 +"FROM (SELECT no,title,chef,poster,rownum as num "
+			 +"FROM (SELECT /*+INDEX_ASC(recipe recipe_no_pk)  no,title,chef,poster "
+			 +"FROM recipe WHERE chef=(SELECT chef FROM chef WHERE no=#{no}) AND title REGEXP_LIKE(title, #{ss}))) "
+			 +"WHERE num BETWEEN #{start} AND #{end}")*/
+	public List<RecipeVO> chefMakeRecipeFindData(Map map)
+	{
+		return mapper.chefMakeRecipeFindData(map);
+	}
+		  
+	/*@Select("SELECT CEIL(COUNT(*)/12.0) FROM recipe "
+			 +"WHERE chef=(SELECT chef FROM chef WHERE no=#{no}) AND title REGEXP_LIKE(title,#{ss})")*/
+	public int chefMakeFindTotalPage(Map map)
+	{
+		return mapper.chefMakeFindTotalPage(map);
+	}
 }
+    
 
 
 

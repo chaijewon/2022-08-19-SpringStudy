@@ -35,4 +35,20 @@ public class MemberDAO {
     {
     	return mapper.memberJoinInfoData(id);
     }
+    //@Select("SELECT pwd FROM spring_join "
+  		  //+"WHERE id=#{id}")
+     public String memberGetPassword(String id)
+     {
+    	 return mapper.memberGetPassword(id);
+     }
+     
+     /*
+      *  @Select("SELECT * FROM spring_join "
+		  +"WHERE id=#{id}")
+         public MemberVO memberUpdateData(String id);
+      */
+     public MemberVO memberUpdateData(String id)
+     {
+    	 return mapper.memberUpdateData(id);
+     }
 }

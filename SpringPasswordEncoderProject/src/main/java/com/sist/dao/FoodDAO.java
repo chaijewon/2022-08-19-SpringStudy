@@ -57,3 +57,4 @@ public class FoodDAO {
 	  return mapper.foodDetailData(fno);
   }
 }
+  

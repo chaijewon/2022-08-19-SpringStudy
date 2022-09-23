@@ -36,7 +36,7 @@
       <li><a href="../member/login.do"><span class="glyphicon glyphicon-log-in"></span>로그인</a></li>
      </c:if>
      <c:if test="${sessionScope.id!=null }">
-      <li><a href="../member/join_update.do"><span class="glyphicon glyphicon-user"></span>회원수정</a></li>
+      <li><a href="../member/join_before.do"><span class="glyphicon glyphicon-user"></span>회원수정</a></li>
       <li><a href="../member/logout.do"><span class="glyphicon glyphicon-log-in"></span>로그아웃</a></li>
      </c:if>
     </ul>

@@ -119,6 +119,39 @@ public class MemberController {
 	   session.invalidate();
 	   return "redirect:../main/main.do";
    }
+   
+   @GetMapping("member/join_before.do")
+   public String member_before(Model model)
+   {
+        model.addAttribute("main_jsp", "../member/join_before.jsp");
+        return "main/main";
+   }
+   @GetMapping("member/join_before_ok.do")
+   @ResponseBody
+   public String member_before_ok(String pwd,HttpSession session)
+   {
+	   String id=(String)session.getAttribute("id");
+	   String result="";
+	   String db_pwd=dao.memberGetPassword(id);
+	   if(encoder.matches(pwd, db_pwd))
+	   {
+		   result="yes";
+	   }
+	   else
+	   {
+		   result="no";
+	   }
+	   return result;
+   }
+   @GetMapping("member/join_update.do")
+   public String join_update(Model model,HttpSession session)
+   {
+	   String id=(String)session.getAttribute("id");
+	   MemberVO vo=dao.memberUpdateData(id);
+	   model.addAttribute("vo", vo);
+	   model.addAttribute("main_jsp", "../member/join_update.jsp");
+	   return "main/main";
+   }
 }
 
 

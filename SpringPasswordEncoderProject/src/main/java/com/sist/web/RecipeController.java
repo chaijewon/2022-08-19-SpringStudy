@@ -100,10 +100,43 @@ public class RecipeController {
     	 return "main/main";
      }
      
-     @GetMapping("chef_detail.do")
-     public String chef_detail(int no,String page,Model model)
+     @RequestMapping("chef_detail.do")
+     public String chef_detail(int no,String page,String ss,Model model)
      {
     	 // 데이터 읽기 
+    	 if(page==null)
+    	 {
+    		 page="1";
+    	 }
+    	 int curpage=Integer.parseInt(page);
+    	 Map map=new HashMap();
+    	 int rowSize=12;
+    	 int start=(rowSize*curpage)-(rowSize-1);
+    	 int end=rowSize*curpage;
+    	 map.put("start", start);
+    	 map.put("end",end);
+    	 map.put("no", no);
+    	 
+    	 List<RecipeVO> list=new ArrayList<RecipeVO>();
+    	 int totalpage=0;
+    	 if(ss==null || ss.equals(""))
+    	 {
+    	   list=dao.chefMakeRecipeData(map);
+    	   totalpage=dao.chefMakeTotalPage(map);
+    	 }
+    	 else
+    	 {
+    		 map.put("ss", ss);
+    		 list=dao.chefMakeRecipeFindData(map);
+    		 totalpage=dao.chefMakeFindTotalPage(map);
+    	 }
+    	 // 데이터 전송 
+    	 model.addAttribute("curpage", curpage);
+    	 model.addAttribute("totalpage", totalpage);
+    	 model.addAttribute("list", list);
+    	 model.addAttribute("no", no);//no (쉐프)
+    	 model.addAttribute("ss", ss);
+    	 // Vue
     	 model.addAttribute("main_jsp", "../recipe/chef_detail.jsp");
     	 return "main/main";
      }
