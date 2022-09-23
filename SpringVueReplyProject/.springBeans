@@ -9,6 +9,7 @@
 	<configs>
 		<config>src/main/webapp/WEB-INF/config/application-context.xml</config>
 		<config>src/main/webapp/WEB-INF/config/application-datasource.xml</config>
+		<config>src/main/webapp/WEB-INF/security-servlet.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

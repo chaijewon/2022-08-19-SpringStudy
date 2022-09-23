@@ -112,7 +112,7 @@
 			      const script = document.createElement('script');
 			       
 			        script.onload = () => kakao.maps.load(this.initMap);
-			        script.src = 'http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=b18319530b6d6d62d5c86a8807893413';
+			        script.src = 'http://dapi.kakao.com/v2/maps/sdk.js?appkey=b18319530b6d6d62d5c86a8807893413&libraries=services';
 			        document.head.appendChild(script);
 			    },
 		   initMap:function(){
