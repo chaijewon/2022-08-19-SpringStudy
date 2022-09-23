@@ -2,6 +2,7 @@ package com.sist.dao;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.sist.vo.*;
@@ -51,4 +52,13 @@ public class MemberDAO {
      {
     	 return mapper.memberUpdateData(id);
      }
+     /*@Update("UPADTE spring_join SET "
+  		   +"name=#{name},sex=#{sex},email=#{email},"
+  		   +"post=#{post},addr1=#{addr1},addr2=#{addr2},"
+  		   +"tel=#{tel},content=#{content} "
+  		   +"WHERE id=#{id}")*/
+  	public void memberUpdate(MemberVO vo)
+  	{
+  		mapper.memberUpdate(vo);
+  	}
 }

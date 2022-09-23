@@ -152,6 +152,15 @@ public class MemberController {
 	   model.addAttribute("main_jsp", "../member/join_update.jsp");
 	   return "main/main";
    }
+   @PostMapping("member/join_update_ok.do")
+   public String join_update_ok(MemberVO vo,HttpSession session)
+   {
+	   vo.setTel(vo.getTel1()+"-"+vo.getTel2());
+	   //DB연동 
+	   dao.memberUpdate(vo);
+	   session.setAttribute("name", vo.getName());
+	   return "redirect:../main/main.do";
+   }
 }
 
 
