@@ -11,8 +11,10 @@
   <div class="container">
     <div class="row">
       <div class="text-center">
+       <form method="post" action="../recipe/list.do">
         <input type=text size=30 class="input-sm" name="type">
         <input type=submit value="검색" class="btn btn-sm btn-primary">
+       </form>
       </div>
     </div>
     <div style="height: 20px"></div>

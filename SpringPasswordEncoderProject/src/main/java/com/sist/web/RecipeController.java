@@ -3,6 +3,7 @@ package com.sist.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.*;
 import com.sist.dao.*;
@@ -44,7 +45,7 @@ public class RecipeController {
     	 {
     		 map.put("ss", type);
     		 list=dao.recipeFindData(map);
-    		 totalpage=dao.recipeFindTotalPage(type);
+    		 totalpage=dao.recipeFindTotalPage(map);
     	 }
     	 
     	 for(RecipeVO vo:list)
@@ -75,7 +76,37 @@ public class RecipeController {
     	 return "main/main";
      }
      
+     @GetMapping("chef_list.do")
+     public String chef_list(String page,Model model)
+     {
+    	 if(page==null)
+    	 {
+    		 page="1";
+    	 }
+    	 int curpage=Integer.parseInt(page);
+    	 Map map=new HashMap();
+    	 int rowSize=12;
+    	 int start=(rowSize*curpage)-(rowSize-1);
+    	 int end=rowSize*curpage;
+    	 map.put("start", start);
+    	 map.put("end",end);
+    	 List<ChefVO> list=dao.chefListData(map);
+    	 int totalpage=dao.chefTotalPage();
+    	 
+    	 model.addAttribute("curpage", curpage);
+    	 model.addAttribute("totalpage", totalpage);
+    	 model.addAttribute("list", list);
+    	 model.addAttribute("main_jsp", "../recipe/chef_list.jsp");
+    	 return "main/main";
+     }
      
+     @GetMapping("chef_detail.do")
+     public String chef_detail(int no,String page,Model model)
+     {
+    	 // 데이터 읽기 
+    	 model.addAttribute("main_jsp", "../recipe/chef_detail.jsp");
+    	 return "main/main";
+     }
 }
 
 

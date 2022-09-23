@@ -75,9 +75,9 @@ public class RecipeDAO {
     *   @Select("SELECT CEIL(COUNT(*)/12.0) FROM chef WHERE REGEXP_LIKE(title,#{title})")
          public int recipeFindTotalPage(String title)
     */
-   public int recipeFindTotalPage(String title)
+   public int recipeFindTotalPage(Map map)
    {
-	   return mapper.recipeFindTotalPage(title);
+	   return mapper.recipeFindTotalPage(map);
    }
 }
 

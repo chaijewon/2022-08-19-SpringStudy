@@ -18,7 +18,7 @@
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">레시피<span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="../recipe/list.do">레시피목록</a></li>
-          <li><a href="#">쉐프</a></li>
+          <li><a href="../recipe/chef_list.do">쉐프</a></li>
           <li><a href="#">레시피만들기</a></li><%-- ROLE_ADMIN , ROLE_USER , ROLE_MEMBER , ROLE_MANAGER --%>
         </ul>
       </li>

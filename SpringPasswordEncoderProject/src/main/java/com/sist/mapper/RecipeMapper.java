@@ -75,9 +75,9 @@ public interface RecipeMapper {
 		MEM_CONT3          VARCHAR2(20)  
 		MEM_CONT7          VARCHAR2(20)
    */
-  @Select("SELECT no,chef,poster,mem_cont1,mem_cont2,mem_cont_3,mem_cont7,num "
-		 +"FROM (SELECT no,chef,poster,mem_cont1,mem_cont2,mem_cont_3,mem_cont7,rownum as num "
-		 +"FROM (SELECT /*+ INDEX_ASC(chef chef_no_pk) */no,chef,poster,mem_cont1,mem_cont2,mem_cont_3,mem_cont7 "
+  @Select("SELECT no,chef,poster,mem_cont1,mem_cont2,mem_cont3,mem_cont7,num "
+		 +"FROM (SELECT no,chef,poster,mem_cont1,mem_cont2,mem_cont3,mem_cont7,rownum as num "
+		 +"FROM (SELECT /*+ INDEX_ASC(chef chef_no_pk) */no,chef,poster,mem_cont1,mem_cont2,mem_cont3,mem_cont7 "
 		 +"FROM chef)) "
 		 +"WHERE num BETWEEN #{start} AND #{end}")
   public List<ChefVO> chefListData(Map map);
@@ -88,9 +88,15 @@ public interface RecipeMapper {
   @Select("SELECT CEIL(COUNT(*)/30.0) FROM chef")
   public int chefTotalPage();
   
-  @Select("SELECT CEIL(COUNT(*)/12.0) FROM chef WHERE REGEXP_LIKE(title,#{title})")
-  public int recipeFindTotalPage(String title);
+  @Select("SELECT CEIL(COUNT(*)/12.0) FROM recipe WHERE REGEXP_LIKE(title,#{ss})")
+  public int recipeFindTotalPage(Map map);
   // 쉐프 검색 
+  @Select("SELECT no,title,chef,poster,num "
+		 +"FROM (SELECT no,title,chef,poster,rownum as num "
+		 +"FROM (SELECT /*+INDEX_ASC(recipe recipe_no_pk) */ no,title,chef,poster "
+		 +"FROM recipe WHERE chef=(SELECT chef FROM chef WHERE no=#{no}))) "
+		 +"WHERE num BETWEEN #{start} AND #{end}")
+  public List<RecipeVO> chefMakeRecipeData(Map map);
   // 레시피 => 재료별 레시피
 }
 
