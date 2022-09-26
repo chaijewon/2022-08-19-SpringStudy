@@ -60,6 +60,7 @@
       </table>
     </div>
     <div class="col-sm-5">
+       ID:{{id}}
       <div id="map" style="width:100%;height:350px;"></div>
     </div>
   </div>
@@ -70,7 +71,8 @@
 	   data:{
 		   fno:${fno},
 		   food_detail:{},
-		   won:10000
+		   won:10000,
+		   id:''
 	   },
 	   created:function(){
 		   
@@ -95,6 +97,8 @@
 		   }).then(function(result){
 			   console.log(result.data)
 			   _this.food_detail=result.data
+			   _this.id=window.sessionStorage.getItem("id") 
+			   
 		   })
 		   
 		   

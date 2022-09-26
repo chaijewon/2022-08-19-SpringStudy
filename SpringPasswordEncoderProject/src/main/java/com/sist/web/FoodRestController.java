@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.*;
+
+import javax.servlet.http.HttpSession;
+
 import com.sist.dao.*;
 import com.sist.vo.FoodVO;
 @RestController
@@ -35,8 +38,9 @@ public class FoodRestController {
 	}
 	
 	@GetMapping(value="food/detail_vue.do",produces = "text/plain;charset=utf-8")
-	public String food_detail_vue(int fno)
+	public String food_detail_vue(int fno,HttpSession session)
 	{
+		
 		String result="";
 		FoodVO vo=dao.foodDetailData(fno);
 		// vo=>JSON변경 ==> JSONObject
@@ -56,6 +60,7 @@ public class FoodRestController {
 		obj.put("price", vo.getPrice());
 		obj.put("parking", vo.getParking());
 		obj.put("menu", menu);
+		obj.put("id", (String)session.getAttribute("id"));
 		
 		result=obj.toJSONString();
 		return result;
