@@ -13,6 +13,7 @@ import org.apache.ibatis.annotations.Select;
 		GOODS_DELIVERY    NOT NULL VARCHAR2(20)   
 		GOODS_POSTER               VARCHAR2(260)
  */
+import org.apache.ibatis.annotations.Update;
 
 import com.sist.vo.GoodsVO;
 public interface GoodsMapper {
@@ -36,6 +37,12 @@ public interface GoodsMapper {
   @Select("SELECT * FROM ${table_name} "
 		 +"WHERE no=#{no}")
   public GoodsVO goodsDetailData(Map map); // VO에 존재 (GoodsVO) , VO에 없는 변수 포함 (Map map)
+  
+  @Update("UPDATE ${table_name} SET "
+		 +"hit=hit+1 "
+		 +"WHERE no=#{no}")
+  public void goodsHitIncrement(Map map);
+  
   
   @Select("SELECT no,goods_name,goods_price,goods_poster,rownum "
 		 +"FROM (SELECT no,goods_name,goods_price,goods_poster "

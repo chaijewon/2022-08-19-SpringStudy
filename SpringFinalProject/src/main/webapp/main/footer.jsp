@@ -8,10 +8,19 @@
 </head>
 <body>
 <footer class="container-fluid text-center">
-  <a href="#myPage" title="To Top">
-    <span class="glyphicon glyphicon-chevron-up"></span>
-  </a>
-  <p>Bootstrap Theme Made By <a href="https://www.w3schools.com" title="Visit w3schools">www.w3schools.com</a></p>
+     <div class="col-sm-6">
+       <h3>최신 상품 뉴스</h3>
+     </div>
+     <div class="col-sm-3">
+       <h3>최신 게시물</h3>
+     </div>
+     <div class="col-sm-3">
+       <h3>가장 많이 본 상품</h3>
+     </div>
+	  <div style="height: 30px"></div>
+	  <div class="row">
+	    <p>Made By <a href="#" title="Visit w3schools">쌍용 강남 교육센터 3강의장</a></p>
+	  </div>
 </footer>
 </body>
 </html>

@@ -79,6 +79,7 @@ public class GoodsDAO {
     */
    public GoodsVO goodsDetailData(Map map)
    {
+	   mapper.goodsHitIncrement(map);
 	   return mapper.goodsDetailData(map);
    }
    /*

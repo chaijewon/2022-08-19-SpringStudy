@@ -34,6 +34,16 @@ public class GoodsController {
     	map.put("end", end);
     	map.put("table_name", tbls[Integer.parseInt(type)]);
     	List<GoodsVO> list=dao.goodsListData(map);
+    	for(GoodsVO vo:list)
+    	{
+    		String s=vo.getGoods_name();
+    		if(s.length()>25)
+    		{
+    			s=s.substring(0,25)+"...";
+    			vo.setGoods_name(s);
+    		}
+    		vo.setGoods_name(s);
+    	}
     	int totalpage=dao.goodsTotalPage(map);
     	
     	model.addAttribute("curpage", curpage);
@@ -45,6 +55,20 @@ public class GoodsController {
     	return "main/main";
     	//tiles ==> goods/list
     	
+    }
+    
+    @GetMapping("goods/detail.do")
+    public String goods_detail(int no,int type,Model model)
+    {
+    	Map map=new HashMap();
+    	map.put("no", no);
+    	map.put("table_name", tbls[type]);
+        GoodsVO vo=dao.goodsDetailData(map);
+        
+        model.addAttribute("type", type);
+        model.addAttribute("vo", vo);
+    	model.addAttribute("main_jsp", "../goods/detail.jsp"); // thymeleaf
+    	return "main/main"; // goods/detail(tiles)
     }
 }
 
