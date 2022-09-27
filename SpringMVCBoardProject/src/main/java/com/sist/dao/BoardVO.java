@@ -5,7 +5,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class BoardVO {
-   private int no,hit;
+   private int no,hit,num;
    private String name1;
    private String name,subject,content,pwd,dbday;
    private Date regdate;

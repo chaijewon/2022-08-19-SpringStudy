@@ -157,6 +157,7 @@ public class GoodsController {
    public String goods_session_insert(int no,int account,HttpSession session,Model model)
    {
 	   List<CartVO> list=(List<CartVO>)session.getAttribute("cart");
+	   
 	   if(list==null)
 	   {
 		   list=new ArrayList<CartVO>();
