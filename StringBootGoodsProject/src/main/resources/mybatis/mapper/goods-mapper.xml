@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.goods.dao.GoodsMapper">
+  <!-- 
+     @Select("SELECT no,goods_name,goods_price,goods_poster,rownum "
+		 +"FROM (SELECT no,goods_name,goods_price,goods_poster "
+		 +"FROM ${table_name} ORDER BY no ASC) "
+		 +"WHERE rownum<=6")
+   -->
+  <select id="goodsMainData" resultType="com.sist.goods.vo.GoodsVO" parameterType="hashmap">
+    SELECT no,goods_name,goods_price,goods_poster
+    FROM ${table_name} ORDER BY no ASC
+    LIMIT 0,6
+  </select>
+  <!-- 
+    @Select("SELECT no,goods_name,goods_price,goods_poster,num "
+		 +"FROM (SELECT no,goods_name,goods_price,goods_poster,rownum as num "
+		 +"FROM (SELECT no,goods_name,goods_price,goods_poster "
+		 +"FROM ${table_name} ORDER BY no ASC)) "
+		 +"WHERE num BETWEEN #{start} AND #{end}")
+   -->
+   <select id="goodsListData" resultType="com.sist.goods.vo.GoodsVO" parameterType="hashmap">
+     SELECT no,goods_name,goods_price,goods_poster
+     FROM ${table_name} ORDER BY no ASC
+     LIMIT #{start},#{end}
+   </select>
+   
+   <!-- 
+       @Select("SELECT CEIL(COUNT(*)/12.0) FROM ${table_name}")
+       public int goodsTotalPage(Map map);
+       
+       NVL = ISNULL
+       TO_CHAR = DATE_FORMAT
+    -->
+    <select id="goodsTotalPage" resultType="int" parameterType="hashmap">
+      SELECT CEIL(COUNT(*)/12.0) FROM ${table_name}
+    </select>
+</mapper>
