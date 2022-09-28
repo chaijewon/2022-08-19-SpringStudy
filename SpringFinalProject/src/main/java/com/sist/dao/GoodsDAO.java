@@ -102,6 +102,17 @@ public class GoodsDAO {
    {
 	   return mapper.goodsTotalPage(map);
    }
+   /*
+    *   @Select("SELECT no,goods_name,goods_poster,rownum "
+		 +"FROM (SELECT no,goods_name,goods_poster "
+		 +"FROM goods_all ORDER BY hit DESC) "
+		 +"WHERE rownum<=5")
+  public List<GoodsVO> goodsFooterData();
+    */
+   public List<GoodsVO> goodsFooterData()
+   {
+	   return mapper.goodsFooterData();
+   }
 }
 
 

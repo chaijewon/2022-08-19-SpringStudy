@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
  *   
  *   {	"lastBuildDate":"Wed, 28 Sep 2022 09:39:26 +0900",
  *   
- *   {	"lastBuildDate":"Wed, 28 Sep 2022 09:39:26 +0900",	
+ *  [ {	"lastBuildDate":"Wed, 28 Sep 2022 09:39:26 +0900",	
  *   "total":8525216,	"start":1,	"display":100,	
  *   "items":[		{	
  *   		"title":"에어서울 &quot;영상 공모전 참여하고 다낭 다녀오세요&quot;",			

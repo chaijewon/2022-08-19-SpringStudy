@@ -49,6 +49,13 @@ public interface GoodsMapper {
 		 +"FROM ${table_name} ORDER BY no ASC) "
 		 +"WHERE rownum<=6")
   public List<GoodsVO> goodsMainData(Map map);
+  
+  @Select("SELECT no,goods_name,goods_poster,rownum "
+		 +"FROM (SELECT no,goods_name,goods_poster "
+		 +"FROM goods_all ORDER BY hit DESC) "
+		 +"WHERE rownum<=5")
+  public List<GoodsVO> goodsFooterData();
+  
 }
 
 
