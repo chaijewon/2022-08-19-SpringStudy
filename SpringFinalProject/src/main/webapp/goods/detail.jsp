@@ -8,7 +8,7 @@
 </head>
 <body>
   <div class="container">
-   <div class="row">
+   <div class="row" style="height: 700px">
     <table class="table">
       <tr>
         <td width="30%" rowspan="4" class="text-center">
@@ -18,8 +18,25 @@
           <sub>${vo.goods_sub }</sub>
         </td>
       </tr>
+      <tr>
+        <td width=70%><h3><span style="color:red">${vo.goods_discount }%</span>&nbsp;${vo.goods_price }</h3></td>
+      </tr>
+      <tr>
+        <td width=70%><span style="color:green;font-size: 9px">첫구매할인가</span>&nbsp;${vo.goods_first_price }</td>
+      </tr>
+      <tr>
+        <td width=70%>배송:${vo.goods_delivery }</td>
+      </tr>
     </table>
    </div>
   </div>
 </body>
 </html>
+
+
+
+
+
+
+
+
