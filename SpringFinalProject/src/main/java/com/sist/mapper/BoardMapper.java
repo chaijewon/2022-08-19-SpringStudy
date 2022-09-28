@@ -42,6 +42,9 @@ public interface BoardMapper {
 		 +"FROM goods_board ORDER BY no DESC)) "
 		 +"WHERE num BETWEEN #{start} AND #{end}")
   public List<BoardVO> boardListData(Map map);
+  
+  @Select("SELECT COUNT(*) FROM goods_board")
+  public int boardRowCount();
   /*
    *    @Insert("INSERT INTO goods_board(no,name,subject,content,pwd) VALUES("
 		 +"(SELECT IFNULL(MAX(no)+1,1) FROM goods_board),"
@@ -64,6 +67,18 @@ public interface BoardMapper {
 		 +"WHERE no=#{no}")
   public BoardVO boardDetail(int no);
   
+  @Select("SELECT no,subject,num "
+			 +"FROM (SELECT no,subject,rownum as num  "
+			 +"FROM (SELECT no,subject "
+			 +"FROM goods_board ORDER BY no DESC)) "
+			 +"WHERE num=#{num}")
+  public BoardVO boardPNData(int num);
+  
+  @Select("SELECT no,subject,hit,rownum "
+		 +"FROM (SELECT no,subject,hit "
+		 +"FROM goods_board ORDER BY hit DESC) "
+		 +"WHERE rownum<=5")
+  public List<BoardVO> boardFooterData();
 }
 
 

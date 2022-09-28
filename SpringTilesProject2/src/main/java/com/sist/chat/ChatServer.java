@@ -27,12 +27,13 @@ public class ChatServer {
 	public void onMessage(String message,Session session) throws Exception
 	{
 		// 쓰레드 동기화 
-		synchronized (users) {
+		//synchronized (users) {
 			for(Session s:users)
 			{
+				System.out.println(s.getId());
 				s.getBasicRemote().sendText(message);
 			}
-		}
+		//}
 	}
 }
 

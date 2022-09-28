@@ -23,7 +23,7 @@
         </ul>
       </li>
       <li><a href="../news/find.do">뉴스</a></li>
-      <li><a href="#">커뮤니티</a></li>
+      <li><a href="../board/list.do">커뮤니티</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="#"><span class="glyphicon glyphicon-user"></span> 회원가입</a></li>

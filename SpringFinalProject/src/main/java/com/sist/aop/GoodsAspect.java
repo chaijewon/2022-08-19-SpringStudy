@@ -28,6 +28,9 @@ public class GoodsAspect {
    @Autowired
    private GoodsDAO dao;
    
+   @Autowired
+   private BoardDAO bDao;
+   
    @After("execution(* com.sist.web.*Controller.*(..))") // .. 0이상
    public void footer()
    {
@@ -62,6 +65,19 @@ public class GoodsAspect {
 			   vo.setGoods_name(name);
 		   }
 		   request.setAttribute("gList", gList);
+		   
+		   List<BoardVO> bList=bDao.boardFooterData();
+		   for(BoardVO vo:bList)
+		   {
+			   String subject=vo.getSubject();
+			   if(subject.length()>13)
+			   {
+				   subject=subject.substring(0,13)+"...";
+				   vo.setSubject(subject);
+			   }
+			   vo.setSubject(subject);
+		   }
+		   request.setAttribute("boardList", bList);
 	   }catch(Exception ex){}
    }
 }

@@ -163,7 +163,7 @@ public class GoodsController {
 		   list=new ArrayList<CartVO>();
 	   }
 	   // 세션에 저장된 데이터 
-	  
+	   
 	   GoodsVO vo=dao.goodsDetailData(no);
 	   CartVO cvo=new CartVO();
 	   cvo.setNo(no);

@@ -30,6 +30,12 @@ public interface GoodsMapper {
 		 +"FROM ${table_name} ORDER BY no ASC LIMIT #{start},#{end}
 		 
 		=> no int autoincrement()
+		let sum=0;
+		for(let i=0;arr.length;i++)
+		{
+		   sum+=i
+		}
+		document.write(sum)
    */
   @Select("SELECT CEIL(COUNT(*)/12.0) FROM ${table_name}")
   public int goodsTotalPage(Map map);

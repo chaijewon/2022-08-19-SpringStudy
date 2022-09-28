@@ -21,6 +21,15 @@
      </div>
      <div class="col-sm-3">
        <h3>최신 게시물</h3>
+       <table class="table">
+         <c:forEach var="bvo" items="${boardList }">
+           <tr>
+            <td class="text-left">
+             <a href="../board/detail.do?no=${bvo.no }">${bvo.subject }</a>
+            </td>
+           </tr>
+         </c:forEach>
+       </table>
      </div>
      <div class="col-sm-3">
        <h3>가장 많이 본 상품</h3>

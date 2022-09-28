@@ -55,4 +55,37 @@ public class BoardDAO {
 	   mapper.hitIncrement(no);
 	   return mapper.boardDetail(no);
    }
+   
+   /*
+    *   @Select("SELECT COUNT(*) FROM goods_board")
+         public int boardRowCount();
+    */
+   public int boardRowCount()
+   {
+	   return mapper.boardRowCount();
+   }
+   
+   /*
+    *   @Select("SELECT no,subject,num "
+			 +"FROM (SELECT no,subject,rownum as num  "
+			 +"FROM (SELECT no,subject "
+			 +"FROM goods_board ORDER BY no DESC)) "
+			 +"WHERE num=#{num}")
+        public BoardVO boardPNData(int num);
+    */
+   public BoardVO boardPNData(int num)// 이전 / 다음 
+   {
+	   return mapper.boardPNData(num);
+   }
+   /*
+    *   @Select("SELECT no,subject,hit,rownum "
+		 +"FROM (SELECT no,subject,hit "
+		 +"FROM goods_board ORDER BY hit DESC) "
+		 +"WHERE rownum<=5")
+        public List<BoardVO> boardFooterData()
+    */
+   public List<BoardVO> boardFooterData()
+   {
+	   return mapper.boardFooterData();
+   }
 }
