@@ -13,4 +13,44 @@
   <select id="boardTotalPage" resultType="int">
     SELECT COUNT(*) FROM board
   </select>
+  <insert id="boardInsert" parameterType="com.sist.board.vo.BoardVO">
+   INSERT INTO board(name,subject,content,pwd) VALUES(#{name},#{subject},#{content},#{pwd})
+  </insert>
+  <!-- 상세보기  -->
+  <update id="hitIncrement" parameterType="int">
+   UPDATE board SET
+   hit=hit+1
+   WHERE no=#{no}
+  </update>
+  <select id="boardDetailData" resultType="com.sist.board.vo.BoardVO" parameterType="int">
+   SELECT no,name,subject,content,DATE_FORMAT(regdate,'%Y-%m-%d') as dbday,hit
+   FROM board
+   WHERE no=#{no}
+  </select>
+  
+  <!-- 수정하기  -->
+  <select id="boardGetPassword" resultType="string" parameterType="int">
+    SELECT pwd FROM board
+    WHERE no=#{no}
+  </select>
+  <update id="boardUpdate" parameterType="com.sist.board.vo.BoardVO">
+    UPDATE board SET 
+    name=#{name},
+    subject=#{subject},
+    content=#{content}
+    WHERE no=#{no}
+  </update>
+  
+  <delete id="boardDelete" parameterType="int">
+    DELETE FROM board 
+    WHERE no=#{no}
+  </delete>
 </mapper>
+
+
+
+
+
+
+
+

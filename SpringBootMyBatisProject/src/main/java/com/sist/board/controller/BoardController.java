@@ -58,7 +58,37 @@ public class BoardController {
    @PostMapping("/insert_ok")
    public String board_insert_ok(BoardVO vo)
    {
+	   service.boardInsert(vo);
 	   return "redirect:/";
+   }
+   
+   @GetMapping("/detail")
+   public String board_detail(int no, Model model)
+   {
+	   BoardVO vo=service.boardDetailData(no);
+	   model.addAttribute("vo", vo);
+	   return "detail";
+   }
+   // 요청 확인   @GetMapping("/detail")
+   // 요청 데이터 받기 board_detail(int no, Model model)
+   // 결과을 모아서  model.addAttribute("vo", vo);
+   // 보여줄 화면으로 이동 return "detail";
+   @GetMapping("/update")
+   public String board_update(int no,Model model)
+   {
+	   BoardVO vo=service.boardUpdateData(no);
+	   model.addAttribute("vo", vo);// 데이터 전송
+	   return "update";
+   }
+   // WebFlux front=flux (MVC)
+   // vue => vuex , react = redux
+   // MVC ==> 사용자 요청 ==> Controller == 전송 === JSP
+   // 보내는 데이터 : 구분자 (primary key) , 검색 
+   @GetMapping("/delete")
+   public String board_delete(int no,Model model)
+   {
+	   model.addAttribute("no", no);
+	   return "delete";
    }
 }
 
