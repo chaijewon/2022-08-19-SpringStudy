@@ -79,7 +79,7 @@
 	     <%--위치 --%>
 	     <div id="map" style="width:100%;height:350px;"></div>
 
-		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b18319530b6d6d62d5c86a8807893413&libraries=services"></script>
+		
 		<script>
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		    mapOption = {

@@ -60,7 +60,6 @@
       </table>
     </div>
     <div class="col-sm-5">
-       ID:{{id}}
       <div id="map" style="width:100%;height:350px;"></div>
     </div>
   </div>
@@ -74,19 +73,6 @@
 		   won:10000,
 		   id:''
 	   },
-	   created:function(){
-		   
-		   if(window.kakao && window.kakao.maps)
-		   {
-			  this.initMap();   
-			  
-		   }
-		   else
-		   {
-			   this.addScript();
-			   
-		   }
-	   },
 	   mounted:function(){
 		   // 카카오 등록 
 		   let _this=this;
@@ -97,8 +83,17 @@
 		   }).then(function(result){
 			   console.log(result.data)
 			   _this.food_detail=result.data
-			   _this.id=window.sessionStorage.getItem("id") 
 			   
+			   if(window.kakao && window.kakao.maps)
+			   {
+				  _this.initMap();   
+				  
+			   }
+			   else
+			   {
+				   _this.addScript();
+				   
+			   }
 		   })
 		   
 		   
@@ -109,7 +104,7 @@
 			      const script = document.createElement('script');
 			      /* global kakao*/
 			        script.onload = () => kakao.maps.load(this.initMap);
-			        script.src = 'http://dapi.kakao.com/v2/maps/sdk.js?appkey=b18319530b6d6d62d5c86a8807893413&libraries=services';
+			        script.src = 'http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=b18319530b6d6d62d5c86a8807893413&libraries=services';
 			        document.head.appendChild(script);
 			    },
 		   initMap:function(){
