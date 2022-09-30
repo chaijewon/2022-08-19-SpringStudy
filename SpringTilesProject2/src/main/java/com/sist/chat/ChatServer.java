@@ -5,10 +5,13 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
+
+import org.springframework.stereotype.Component;
+
 import java.util.*;
 @ServerEndpoint("/site/chat/chat-ws")
 public class ChatServer {
-    private Set<Session> users=Collections.synchronizedSet(new HashSet<Session>());
+    private static List<Session> users=new ArrayList<Session>();
     //  접속자의 중복을 허용하지 않는다 ===========> 저장시에는 동기화 
     //  NodeJS ==> VUE,React
 	@OnOpen
@@ -26,14 +29,18 @@ public class ChatServer {
 	@OnMessage
 	public void onMessage(String message,Session session) throws Exception
 	{
-		// 쓰레드 동기화 
-		//synchronized (users) {
-			for(Session s:users)
-			{
-				System.out.println(s.getId());
-				s.getBasicRemote().sendText(message);
-			}
-		//}
+		 System.out.println("수신 된메시지 : " + message);
+
+		
+	    //세션리스트에게 데이터를 보낸다.
+	    Iterator<Session> iterator = users.iterator();
+	    System.out.println("현재명:"+users.size());
+	    while(iterator.hasNext()){
+	    	//해당 데이터를 다른 세션들에게 뿌린다.
+	  	  iterator.next().getBasicRemote().sendText(message);
+	  	  System.out.println(session.getId()+"전송");
+	    }
+        
 	}
 }
 
