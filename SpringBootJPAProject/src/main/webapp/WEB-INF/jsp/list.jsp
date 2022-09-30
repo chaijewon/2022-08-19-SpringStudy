@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,7 +48,7 @@
            <td width=10% class="text-center">${count }</td>
            <td width=45% class="text-left"><a href="/detail?no=${vo.no }">${vo.subject }</a></td>
            <td width=15% class="text-center">${vo.name }</td>
-           <td width=20% class="text-center">${vo.dbday }</td>
+           <td width=20% class="text-center">${vo.regdate }</td>
            <td width=10% class="text-center">${vo.hit }</td>
          </tr>
          <c:set var="count" value="${count-1 }"/>

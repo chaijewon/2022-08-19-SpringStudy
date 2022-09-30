@@ -28,6 +28,7 @@ public interface BoardDAO extends JpaRepository<BoardEntity, Integer>{
    
    @Query(value="SELECT COUNT(*) FROM board",nativeQuery = true)
    public int boardRowCount();
+   
 }
 
 
