@@ -12,6 +12,7 @@ import com.sist.web.vo.CategoryEntity;
  *   ========================================================
  *      Model : 전송 객체 
  */
+import com.sist.web.vo.FoodEntity;
 @Repository
 public interface FoodCategoryDAO extends JpaRepository<CategoryEntity, Integer>{
     @Query(value="SELECT cno,title,poster,link,subject "
@@ -19,4 +20,12 @@ public interface FoodCategoryDAO extends JpaRepository<CategoryEntity, Integer>{
     	  +"LIMIT :start,:end",nativeQuery = true)
     // LIMIT ==> 0  , rownum ==> 1
     public List<CategoryEntity> categoryListData(@Param("start") Integer start,@Param("end") Integer end);
+    
+    public CategoryEntity findByCno(int cno);
+	/*
+	 *   이름으로 SQL문장 제작 
+	 *   findBy컬럼명(컬럼명)
+	 *   => select * from food_category WHERE 컬럼명=컬럼값
+	 */
+    
 }

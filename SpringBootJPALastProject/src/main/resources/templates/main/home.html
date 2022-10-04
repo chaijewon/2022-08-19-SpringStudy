@@ -58,7 +58,7 @@
      <div class="row">
        <div class="col-md-4" th:each="vo:${list}">
 	    <div class="thumbnail">
-	      <a th:href="@{/food/category_list(cno=${cno})}">
+	      <a th:href="@{/food/category_list(cno=${vo.cno})}">
 	        <img th:src="${vo.poster}" alt="Lights" style="width:100%">
 	        <div class="caption">
 	          <p th:text="${vo.title}"></p>

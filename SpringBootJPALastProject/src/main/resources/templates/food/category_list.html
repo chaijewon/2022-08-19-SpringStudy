@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+.row1{
+   margin: 0px auto;
+   width: 800px;
+}
+</style>
+</head>
+<body>
+   <div class="container-fluid">
+    <div class="jumbotron">
+      <h3 class="text-center" th:text="${cvo.title}"></h3>
+      <h4 class="text-center" th:text="${cvo.subject}"></h4>
+    </div>  
+  </div>
+  <div class="row row1">
+    <table class="table">
+      <tr>
+       <td>
+         <table class="table" th:each="vo:${list}">
+           <tr>
+             <td width="30%" class="text-center" rowspan="4">
+               <!-- 
+                      <img th:src=""> thymeleaf
+                      <img :src="">  vue
+                      <img src={}>  react
+                      <img src="${}"> jsp
+                -->
+               <a th:href="@{/food/detail(fno=${vo.fno})}">
+                <img th:src="${vo.poster}" style="width: 240px;height: 200px">
+               </a>
+             </td>
+             <td width="70%"><b><a th:href="@{/food/detail(fno=${vo.fno})}"><span th:text="${vo.name}" style="font-size: 20px"></span></a>&nbsp;
+               <span th:text="${vo.score}" style="font-size: 20px;color:orange"></span></b>
+             </td>
+           </tr>
+           <tr>
+             <td width="70%" th:text="${vo.address}"></td>
+           </tr>
+           <tr>
+             <td width="70%" th:text="${vo.tel}"></td>
+           </tr>
+           <tr>
+             <td width="70%" th:text="${vo.type}"></td>
+           </tr>
+         </table>
+       </td>
+      </tr>
+    </table>
+  </div>
+</body>
+</html>
+
+
