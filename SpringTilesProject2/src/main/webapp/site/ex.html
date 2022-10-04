@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('#rect').click(function(){
+		let a=$(this).text();
+		let b=parseInt(a)+1;
+		$(this).text(b);
+	})
+})
+</script>
+</head>
+<body>
+  <div id="rect" style="width: 200px;height: 200px">1</div>
+</body>
+</html>
