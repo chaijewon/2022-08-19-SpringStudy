@@ -14,11 +14,11 @@
       <%-- 이미지 5개 --%>
       <table class="table">
         <tr>
-          <c:forTokens items="${vo.poster }" delims="^" var="image">
+          <c:forEach var="image" items="${iList }">
             <td>
               <img src="${image }" style="width: 100%">
             </td>
-          </c:forTokens>
+          </c:forEach>
         </tr>
       </table>
    </div>
@@ -54,18 +54,13 @@
 	         <td width="30%" style="color:gray">주차</td>
 	         <td width="70%">${vo.parking }</td>
 	       </tr>
-	       <c:if test="${vo.menu!='no' }">
 		       <tr>
 		         <td width="30%" style="color:gray">메뉴</td>
 		         <td width="70%">
-		           <ul>
-		             <c:forTokens items="${vo.menu }" delims="원" var="m">
-		               <li>${m }원</li>
-		             </c:forTokens>
-		           </ul>
+		           ${vo.menu }
 		         </td>
 		       </tr>
-	       </c:if>
+	      
 	       <tr>
 	         <td colspan="2" class="text-right">
 	           <input type=button value="목록" class="btn btn-xs btn-warning"

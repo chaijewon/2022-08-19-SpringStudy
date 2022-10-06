@@ -67,7 +67,7 @@
 		 },
 		 mounted(){
 		  
-			   axios.get("http://localhost:8080/web/food/detail_vue.do",{
+			   axios.get("http://52.78.101.41:8080/web/food/detail_vue.do",{
 			  			params:{
 			  				fno:this.fno
 			  			}
@@ -86,7 +86,7 @@
 	  		vo:{}
 	  	},
 	  	mounted:function(){
-	  		axios.get("http://localhost:8080/web/food/detail_vue.do",{
+	  		axios.get("http://52.78.101.41/food/detail_vue.do",{
 	  			params:{
 	  				fno:this.fno
 	  			}

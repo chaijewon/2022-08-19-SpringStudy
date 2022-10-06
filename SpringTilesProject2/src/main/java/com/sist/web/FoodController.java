@@ -35,11 +35,20 @@ public class FoodController {
     	 //DAO
     	 FoodVO vo=service.foodDetailData(fno);
     	 model.addAttribute("vo", vo);
+    	 List<String> iList=new ArrayList<String>();
+    	 String poster=vo.getPoster();
+    	 StringTokenizer st=new StringTokenizer(poster,"^");
+    	 while(st.hasMoreTokens())
+    	 {
+    		 iList.add(st.nextToken());
+    	 }
+    	 model.addAttribute("iList", iList);
     	 
     	 String ss=vo.getType();
     	 ss=ss.replace("/", "|").replace(" ", "").replace("기타", "");
     	 // 탕 | 찌개 | 전골
     	 List<RecipeVO> rList=rServ.recipeFindData(ss);
+    	 
     	 model.addAttribute("rList", rList);
     	 return "food/food_detail";
      }

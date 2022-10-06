@@ -74,7 +74,7 @@ h1 {
 	   },
 	   mounted:function(){
 		   let _this=this;
-		   axios.get("http://localhost:8080/web/board/update_vue.do",{
+		   axios.get("http://52.78.101.41/board/update_vue.do",{
 			   params:{
 				   no:_this.no
 			   }
@@ -108,7 +108,7 @@ h1 {
 	   				return;
 	   			}
 	   			let _this=this;
-	   			axios.get("http://localhost:8080/web/board/update_vue_ok.do",{
+	   			axios.get("http://52.78.101.41:8080/web/board/update_vue_ok.do",{
 	   				params:{
 	   					no:_this.no,
 	   					name:_this.name,

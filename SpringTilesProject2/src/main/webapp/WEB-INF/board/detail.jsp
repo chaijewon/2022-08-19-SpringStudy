@@ -65,7 +65,7 @@ h1 {
    	mounted:function(){
    		let _this=this;
    		// 요청 
-   		axios.get("http://localhost:8080/web/board/detail_vue.do",{
+   		axios.get("http://52.78.101.41/board/detail_vue.do",{
    			params:{
    				no:_this.no
    			}

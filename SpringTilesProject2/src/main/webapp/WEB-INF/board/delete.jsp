@@ -53,7 +53,7 @@ h1 {
     	 methods:{
     		 boardDelete:function(){
     			 let _this=this;
-    			 axios.get("http://localhost:8080/web/board/delete_vue.do",{
+    			 axios.get("http://52.78.101.41/board/delete_vue.do",{
     				 params:{
     					 no:_this.no,
     					 pwd:_this.pwd

@@ -21,10 +21,10 @@
      <div class="row">
        <div class="text-center">
          <ul class="pagination">
-			  <li><a href="#">&lt;</a></li>
+			  <li th:if="${startPage > 1}"><a th:href="@{/seoul/location(page=${startPage-1})}">&lt;</a></li>
 			  <li th:class="${curpage==i}?'active':''" th:each="i:${#numbers.sequence(startPage,endPage)}">
 			  <a th:href="@{/seoul/location(page=${i})}" th:text="${i}"></a></li>
-			  <li><a href="#">&gt;</a></li>
+			  <li th:if="${endPage < totalpage}"><a th:href="@{/seoul/location(page=${endPage+1})}">&gt;</a></li>
 			</ul>
        </div>
      </div>

@@ -80,7 +80,7 @@
     	},
     	mounted:function(){
     		let _this=this;
-    		axios.get("http://localhost:8080/web/board/list_vue.do",{
+    		axios.get("http://52.78.101.41/board/list_vue.do",{
     			params:{
     				page:_this.curpage
     			}

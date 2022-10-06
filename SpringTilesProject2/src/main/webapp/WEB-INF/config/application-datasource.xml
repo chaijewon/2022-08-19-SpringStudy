@@ -12,7 +12,7 @@
     <bean id="ds"
         class="org.apache.commons.dbcp.BasicDataSource"
         p:driverClassName="oracle.jdbc.driver.OracleDriver"
-        p:url="jdbc:oracle:thin:@localhost:1521:XE"
+        p:url="jdbc:oracle:thin:@211.63.89.131:1521:XE"
         p:username="hr"
         p:password="happy"
      />

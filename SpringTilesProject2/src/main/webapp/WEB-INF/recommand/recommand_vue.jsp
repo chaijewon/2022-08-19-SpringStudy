@@ -39,7 +39,7 @@
     	 },
     	 methods:{
     		 menu:function(no){
-    			 axios.get('http://localhost:8080/web/recommand/recommand_sub.do',{
+    			 axios.get('http://52.78.101.41/recommand/recommand_sub.do',{
     				 params:{
     					 type:no
     				 }

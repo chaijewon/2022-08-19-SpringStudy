@@ -94,7 +94,7 @@ h1 {
     			}
     			
     			// 전송  => ?name=
-    			axios.get("http://localhost:8080/web/board/insert_vue.do",{
+    			axios.get("http://52.78.101.41/board/insert_vue.do",{
     				params:{
     					name:this.name,
     					subject:this.subject,

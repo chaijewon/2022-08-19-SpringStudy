@@ -50,12 +50,12 @@
          // success:function(result)
     	 mounted:function(){
     		 // window.onload => main
-    		 // http://localhost:8080/web/food/vue_find.do?ss=%EA%B0%95%EB%82%A8&page=1
+    		 // http://52.78.101.41:8080/web/food/vue_find.do?ss=%EA%B0%95%EB%82%A8&page=1
     		 this.send();
     	 },
     	 methods:{
     		 send:function(){
-    			 axios.get('http://localhost:8080/web/food/vue_find.do',{
+    			 axios.get('http://52.78.101.41/food/vue_find.do',{
         			 params:{
         				 ss:this.ss,
         				 page:this.curpage

@@ -114,7 +114,7 @@
 	 mounted:function(){
 		 console.log("Vue:this="+this)//Vue(object)
 		 let _this=this;
-		 axios.get("http://localhost:8080/web/food/food_all_vue.do",{
+		 axios.get("http://52.78.101.41/food/food_all_vue.do",{
 			 params:{
 				 page:_this.curpage
 			 }
@@ -130,7 +130,7 @@
 		 prev:function(){
 			 this.curpage=this.curpage>1?this.curpage-1:this.curpage;
 			 let _this=this;
-			 axios.get("http://localhost:8080/web/food/food_all_vue.do",{
+			 axios.get("http://52.78.101.41/food/food_all_vue.do",{
 				 params:{
 					 page:_this.curpage
 				 }
@@ -145,7 +145,7 @@
 			 this.curpage=this.curpage<this.totalpage?this.curpage+1:this.curpage;
 			 
 			 let _this=this;
-			 axios.get("http://localhost:8080/web/food/food_all_vue.do",{
+			 axios.get("http://52.78.101.41/food/food_all_vue.do",{
 				 params:{
 					 page:_this.curpage
 				 }
@@ -164,7 +164,7 @@
 		     /*
 		           public String detail(int gno,int fno)
 		     */
-			 axios.get("http://localhost:8080/web/food/detail_vue.do",{
+			 axios.get("http://52.78.101.41/food/detail_vue.do",{
 				 params:{
 					 fno:no
 				 }
