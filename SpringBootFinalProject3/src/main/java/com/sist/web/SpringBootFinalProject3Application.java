@@ -5,12 +5,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.sist.web.controller","com.sist.web.rest","com.sist.web.dao",
-		"com.sist.web.manager"})
-public class SpringBootFinalProjectApplication {
+@ComponentScan(basePackages = {"com.sist.web.controller"})
+public class SpringBootFinalProject3Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringBootFinalProjectApplication.class, args);
+		SpringApplication.run(SpringBootFinalProject3Application.class, args);
 	}
 
 }

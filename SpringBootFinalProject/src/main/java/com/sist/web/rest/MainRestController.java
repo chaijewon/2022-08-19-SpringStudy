@@ -20,6 +20,9 @@ public class MainRestController {
   @Autowired
   private FoodDAO fdao;
   
+  @Autowired
+  private GoodsAllDAO gdao;
+  
   @GetMapping("/food/category_react")
   public List<FoodCategoryEntity> foodCategoryListData(int no)
   {
@@ -75,6 +78,34 @@ public class MainRestController {
   {
 	  FoodEntity vo=fdao.findByFno(fno);
 	  return vo;
+  }
+  
+  @GetMapping("/goods/all_react")
+  public List<GoodsEntity> goods_all(int page)
+  {
+	  List<GoodsEntity> list=new ArrayList<GoodsEntity>();
+	  int curpage=page;
+	  int rowSize=12;
+	  int start=(rowSize*curpage)-rowSize; // Limit => 0 , rownum => 1
+	  list=gdao.goodsListData(start);
+	  // [만개특가] 퍼기 프리미엄 실리콘 냥냥치발기 블루/핑크
+	  for(GoodsEntity vo:list)
+	  {
+		  String name=vo.getGoods_name();
+		  if(name.length()>25)
+		  {
+			  name=name.substring(0,25)+"...";
+			  vo.setGoods_name(name);
+		  }
+		  vo.setGoods_name(name);
+	  }
+	  return list;
+  }
+  @GetMapping("/goods/all_totalpage")
+  public int goods_all_totalpage()
+  {
+	  int total=gdao.goodsAllTotalpage();
+	  return total;
   }
 }
 

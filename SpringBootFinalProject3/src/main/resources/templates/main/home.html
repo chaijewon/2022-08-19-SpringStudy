@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+   <div class="container-fluid">
+     <h1 class="text-center">서울 명소</h1>
+     <div class="row">
+      <div class="col-md-3" th:each="vo:${list}">
+	    <div class="thumbnail">
+	      <a th:href="@{/seoul/detail(no=${vo.no})}">
+	        <img th:src="${vo.poster}" alt="Lights" style="width:400px;height: 300px">
+	        <div class="caption">
+	          <p th:text="${vo.title}"></p>
+	        </div>
+	      </a>
+      </div>
+     </div>
+     <div class="row">
+       <div class="text-center">
+        <a th:href="@{/main(page=${curpage>1?curpage-1:curpage})}" class="btn btn-sm btn-info">이전</a>
+         <span th:text="${curpage}"></span> page / <span th:text="${totalpage}"></span> pages
+        <a th:href="@{/main(page=${curpage<totalpage?curpage+1:curpage})}" class="btn btn-sm btn-info">다음</a>
+       </div>
+     </div>
+   </div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<th:block>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/main">3차개인프로젝트</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="/main">Home</a></li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">서울여행
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="../seoul/location">서울 명소</a></li>
+          <li><a href="../seoul/nature">서울 자연</a></li>
+          <li><a href="../seoul/shop">서울 쇼핑</a></li>
+          <li><a href="../seoul/shop">서울 게스트하우스</a></li>
+        </ul>
+      </li>
+      <li><a href="../board/list">자유 게시판</a></li>
+      <li><a href="../food/find">뉴스 검색</a></li>
+    </ul>
+  </div>
+</nav>
+</th:block>
+</body>
+</html>
