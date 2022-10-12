@@ -45,6 +45,7 @@ $(function(){
 
 		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b18319530b6d6d62d5c86a8807893413&libraries=services"></script>
 		<script>
+		
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		    mapOption = {
 		        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -58,7 +59,7 @@ $(function(){
 		var geocoder = new kakao.maps.services.Geocoder();
 		
 		// 주소로 좌표를 검색합니다
-		geocoder.addressSearch('서울 송파구 올림픽로 300', function(result, status) {
+		geocoder.addressSearch('[[${addr}]]', function(result, status) {
 		
 		    // 정상적으로 검색이 완료됐으면 
 		     if (status === kakao.maps.services.Status.OK) {
@@ -73,7 +74,7 @@ $(function(){
 		
 		        // 인포윈도우로 장소에 대한 설명을 표시합니다
 		        var infowindow = new kakao.maps.InfoWindow({
-		            content: '<div style="width:150px;text-align:center;padding:6px 0;" th:text="${vo.title}"></div>'
+		            content: '<div style="width:150px;text-align:center;padding:6px 0;">[[${vo.title}]]</div>'
 		        });
 		        infowindow.open(map, marker);
 		

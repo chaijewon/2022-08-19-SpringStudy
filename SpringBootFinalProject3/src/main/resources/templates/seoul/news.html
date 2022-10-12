@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+.row1{
+  margin: 0px auto;
+  width:800px
+}
+</style>
+</head>
+<body>
+   <div class="container-fluid">
+     <h1 class="text-center">뉴스 검색</h1>
+     <div class="row row1">
+      <form method="post" action="/seoul/news">
+       Search:<input type=text name=ss size=20 class="input-sm">
+       <input type=submit value="검색">
+      </form>
+     </div>
+     <div style="height: 20px"></div>
+     <div class="row row1">
+        <table class="table">
+          <tr>
+           <td>
+             <table class="table" th:each="vo:${list}">
+              <tr>
+                <td><a th:href="@{${vo.link}}"><span style="color:orange" th:text="${vo.title}"></span></a></td>
+              </tr>
+              <tr>
+                <td><span th:text="${vo.description}"></span></td>
+              </tr>
+             </table>
+           </td>
+          </tr>
+        </table>
+     </div>
+   </div>
+</body>
+</html>
+
+
+
+
+
+
