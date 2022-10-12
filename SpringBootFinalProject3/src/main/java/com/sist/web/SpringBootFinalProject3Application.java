@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.sist.web.controller"})
+@ComponentScan(basePackages = {"com.sist.web.controller","com.sist.web.dao"})
 public class SpringBootFinalProject3Application {
 
 	public static void main(String[] args) {
